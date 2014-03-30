@@ -1,0 +1,51 @@
+
+<project name="book" default="deploy">
+  
+	<target name="compile">
+		<javac srcdir="src" destdir="classes">
+			<classpath>
+				<pathelement location="/usr/share/java/servlet.jar"/>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="test_compile" depends="compile">
+		<javac srcdir="test_src" destdir="test_classes">
+			<classpath>
+				<pathelement location="classes"/>
+				<pathelement location="/usr/share/java/junit4.jar"/>
+				<pathelement location="/usr/share/java/servlet.jar"/>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="Test" depends="test_compile">
+		<junit printsummary="on">
+			<classpath>
+				<pathelement location="/usr/share/java/junit4.jar"/>
+				<pathelement location="/usr/share/java/mysql-connector-java.jar"/>
+				<pathelement location="/usr/share/java/servlet.jar"/>
+				<pathelement location="classes"/>
+				<pathelement location="test_classes"/>
+			</classpath>
+			<formatter usefile="false" type="plain"/>
+  			<test name="model.BookTest"/>
+ 			<test name="model.CartTest"/>
+			<test name="model.UserTest"/>
+	 		<test name="model.OrderConfirmationTest"/>
+			<test name="db.BookHelperTest"/>
+			<test name="db.UserHelperTest"/>
+		</junit>
+	</target>
+
+	<target name="deploy" depends="Test">
+		<war webxml="web.xml" destfile="BookExchange.war" basedir="web">
+			<classes dir="classes"/>
+				<lib dir="lib"/>
+		</war>
+		<copy file="BookExchange.war" todir="/var/lib/tomcat6/webapps/"/>	
+	</target>
+  
+  
+
+</project>
