@@ -1,5 +1,9 @@
 package model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * This class is a Data Transfer Object.  It serves as a bundle
  * of data which represents an entire order.
@@ -7,13 +11,29 @@ package model;
  */
 public class OrderConfirmation {
 	/**
+	 * Cart object representing cart.
+	 */
+	Cart cart;
+	
+	/**
+	 * User object representing user.
+	 */
+	User buyer;
+	
+	/**
+	 * Date for the order
+	 */
+	String date;
+	/**
 	 * Constructor for an OrderConfirmation object.
 	 * @param _cart		The cart for this order.
 	 * @param _buyer	The customer making this order.
 	 * @param _date		The date the sale was processed.
 	 */
 	public OrderConfirmation(Cart _cart, User _buyer, String _date){
-		
+		this.cart = _cart;
+		this.buyer = _buyer;
+		this.date = _date;
 	}
 	
 	/**
@@ -21,7 +41,7 @@ public class OrderConfirmation {
 	 * @return	A Cart object associated with this order.
 	 */
 	public Cart getCart(){
-		return null;
+		return this.cart;
 	}
 	
 	/**
@@ -29,7 +49,7 @@ public class OrderConfirmation {
 	 * @return	A User object associated with the person who placed the order.
 	 */
 	public User getBuyer(){
-		return null;
+		return this.buyer;
 	}
 	
 	/**
@@ -37,6 +57,27 @@ public class OrderConfirmation {
 	 * @return	The date (in String format) that this order was placed.
 	 */
 	public String getDate(){
-		return null;
+		return this.date;
 	}
+	
+	/**
+	 * Sets the date to the given parameter
+	 * @param date
+	 */
+	public void setDate(String date)
+	{
+		this.date = date;
+	}
+	
+	/**
+	 * Returns the current date and time
+	 */
+	public static String getCurrentDateAndTime()
+	{
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yy", new Locale("en","US"));
+		Date today = new Date();
+		String output = formatter.format(today);
+		
+		return output;
+	}//getCurrentDateAndTime
 }
