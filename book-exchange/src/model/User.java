@@ -1,5 +1,7 @@
 package model;
 
+import java.security.MessageDigest;
+
 /**
  * User class represents a user for the book-exchange application.
  * @author Pinal
@@ -88,6 +90,17 @@ public class User {
 			String emailAddr, String streetAddr, String city, String state, 
 			int zip, String country)
 	{
+		this.userId = userId;
+		this.userName = userName;
+		this.role = role;
+		this.firstName = fName;
+		this.lastName = lName;
+		this.emailAddress = emailAddr;
+		this.streetAddress = streetAddr;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+		this.country = country;
 		
 	}//User Constructor
 
@@ -105,7 +118,7 @@ public class User {
 	 */
 	public void setUserId(int userId)
 	{
-		
+		this.userId = userId;
 	}
 	
 	/**
@@ -258,6 +271,31 @@ public class User {
 		this.country = country;
 	}//setCountry
 	
-	
+	/**
+	 * Returns the encrypted password given the 'password' in English language
+	 * 
+	 */
+	public static String getHashed_pw(String password) {
+		byte[] plainText = password.getBytes();
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } 
+        catch (Exception e) {
+            System.err.println(e.toString());
+        }
+    	md.reset();
+		md.update(plainText);
+		byte[] encodedPassword = md.digest();
+
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < encodedPassword.length; i++) {
+			if ((encodedPassword[i] & 0xff) < 0x10) {
+				sb.append("0");
+			}
+			sb.append(Long.toString(encodedPassword[i] & 0xff, 16));
+		}
+		return sb.toString();
+	}//getHashed_pw
 	
 }//User class
