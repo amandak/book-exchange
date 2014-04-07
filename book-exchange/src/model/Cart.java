@@ -26,7 +26,8 @@ public class Cart {
 	 */
 	public Cart(ArrayList<Book> bookList)
 	{
-		
+		this.bookList = bookList;
+		this.totalPrice = 0;
 	}//Cart
 	
 	/**
@@ -43,7 +44,7 @@ public class Cart {
 	 */
 	public void setTotalPrice(double price)
 	{
-		
+		this.totalPrice = price;
 	}//setTotalPrice
 	
 	/**
@@ -52,7 +53,12 @@ public class Cart {
 	 */
 	public double computeTotalPrice()
 	{
-		return 0;
+		double sum = 0;
+		for (int i = 0; i < bookList.size(); i++)
+		{
+			sum += bookList.get(0).price;
+		}
+		return sum;
 	}//computeTotalPrice
 	
 	/**
@@ -68,7 +74,7 @@ public class Cart {
 	 */
 	public void addBook(Book book)
 	{
-		
+		this.bookList.add(book);
 	}//addBook
 	
 	/**
@@ -77,6 +83,6 @@ public class Cart {
 	 */
 	public void removeBook(Book book)
 	{
-		
+		this.bookList.remove(book);
 	}//removeBook
 }//Cart class
