@@ -72,7 +72,7 @@ public class OrderConfirmation {
 	/**
 	 * Returns the current date and time
 	 */
-	public static String getCurrentDateAndTime()
+	public static String getCurrentDate()
 	{
 		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yy", new Locale("en","US"));
 		Date today = new Date();
