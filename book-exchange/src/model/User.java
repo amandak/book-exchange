@@ -69,7 +69,17 @@ public class User {
 	 */
 	public User()
 	{
-		
+		this.userId = 0;
+		this.userName = "";
+		this.role = "";
+		this.firstName = "";
+		this.lastName = "";
+		this.emailAddress = "";
+		this.streetAddress = "";
+		this.city = "";
+		this.state = "";
+		this.zip = 0;
+		this.country = "";
 	}//User constructor
 	
 	/**
