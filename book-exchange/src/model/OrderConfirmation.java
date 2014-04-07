@@ -74,7 +74,7 @@ public class OrderConfirmation {
 	 */
 	public static String getCurrentDate()
 	{
-		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yy", new Locale("en","US"));
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", new Locale("en","US"));
 		Date today = new Date();
 		String output = formatter.format(today);
 		
