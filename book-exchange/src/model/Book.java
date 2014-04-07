@@ -6,7 +6,10 @@ package model;
  * @author Team 2 Software, LLC 
  */
 public class Book {
-	
+	/**
+	 * user id
+	 */
+	int uid;
 	/**
 	 * ID of the book.
 	 */
@@ -64,9 +67,19 @@ public class Book {
 	 * @param _condition	The condition of the book (good, fair, bad, etc.)
 	 * @param price			The price of the book.
 	 */
-	public Book(int _bookId, String _bookName, String _isbn, String _desciption, String _author, String _edition, String _status, String _condition, double price){
+	public Book(int _uid, int _bookId, String _bookName, String _isbn, String _description, 
+			String _author, String _edition, String _status, String _condition, double price){
+		this.uid = _uid;
+		this.bookId = _bookId;
+		this.bookName = _bookName;
+		this.isbn = _isbn;
+		this.description = _description;
+		this.author = _author;
+		this.edition = _edition;
+		this.status = _status;
+		this.price = price;
 		
-	}
+	}//Book constructor
 	
 	/**
 	 * @param bookId the bookId to set
@@ -203,6 +216,13 @@ public class Book {
 		return this.price;	
 	}//getPrice
 	
-	
+	/**
+	 * Get method for the user id 
+	 * @return The id of the user
+	 */
+	public int getUId()
+	{
+		return this.uid;
+	}
 	
 }//Book class
