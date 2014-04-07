@@ -22,6 +22,7 @@ public class BookHelperTest extends TestCase {
 		 * Verify that book listing is successfully added to database and data is accurate
 		 */
 		//Create new book object
+		int userId = 23;
 		int bookId = 2;
 		String isbn = "9780123747501";
 		double price = 35;
@@ -33,7 +34,7 @@ public class BookHelperTest extends TestCase {
 		String condition = "GOOD";
 
 		//Should we pass in ID as param? Or should that be automatically set by database?
-		Book newBook1 = new Book(bookId, title, isbn, desc, author, ed, status, condition, price);
+		Book newBook1 = new Book(userId, bookId, title, isbn, desc, author, ed, status, condition, price);
 
 		/**
 		 * Open connection to database by creating object of BookHelper

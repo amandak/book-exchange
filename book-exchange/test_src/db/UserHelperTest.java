@@ -1,10 +1,6 @@
 package db;
-import java.security.MessageDigest;
 import java.util.ArrayList;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
 import junit.framework.TestCase;
 import model.*;
 
