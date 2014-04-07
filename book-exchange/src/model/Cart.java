@@ -35,6 +35,7 @@ public class Cart {
 	 */
 	public double getTotalPrice()
 	{
+		setTotalPrice(this.computeTotalPrice());
 		return this.totalPrice;
 	}//getTotalPrice
 	
@@ -58,6 +59,7 @@ public class Cart {
 		{
 			sum += bookList.get(0).price;
 		}
+		
 		return sum;
 	}//computeTotalPrice
 	
