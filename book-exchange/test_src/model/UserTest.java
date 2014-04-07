@@ -23,7 +23,7 @@ public class UserTest extends TestCase {
 		
 		assertNotNull("User instance is not null", instance);
 		
-		assertEquals("instance user id", "" ,instance.getUserId());
+		assertEquals("instance user id", 0 ,instance.getUserId());
 		assertEquals("instance role", "", instance.getRole());
 		assertEquals("instance first name", "", instance.getFirstName());
 		assertEquals("instacen last name", "", instance.getLastName());

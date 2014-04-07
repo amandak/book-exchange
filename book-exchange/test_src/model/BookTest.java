@@ -17,11 +17,11 @@ public class BookTest extends TestCase {
 	 * the data supplied to the constructor
 	 */
 	public void testConstructor() {
-		Book instance = new Book(123, "Database Systems", "1234567890888",
+		Book instance = new Book(12323, 123, "Database Systems", "1234567890888",
 				"Database book", "Anonymous", "3", "Listed", "Fair", 25.00);
 
 		assertNotNull("Book instance not null", instance);
-		
+		assertEquals("instance user id", 12323, instance.getUId());
 		assertEquals("instance book id", 123, instance.getBookId());
 		assertEquals("instance book name", "Database Systems", instance.getBookName());
 		assertEquals("instance book isbn", "1234567890888", instance.getIsbn());

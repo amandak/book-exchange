@@ -25,7 +25,7 @@ public class CartTest extends TestCase {
 		assertNotNull("Cart instance not null", instance);
 		assertEquals("instance book list size", 0, instance.getBookList().size());
 		
-		Book binstance = new Book(123, "Database Systems", "1234567890888",
+		Book binstance = new Book(12323, 123, "Database Systems", "1234567890888",
 				"Database book", "Anonymous", "3", "Listed", "Fair", 25.00);
 		instance.addBook(binstance);
 		assertEquals("instance book list size", 1, instance.getBookList().size());
@@ -33,6 +33,7 @@ public class CartTest extends TestCase {
 		Book item0 = instance.getBookList().get(0);
 		
 		assertNotNull("item0 not null", item0);
+		assertEquals("item0 uid", 12323, item0.getUId());
 		assertEquals("item0 book id", 123, item0.getBookId());
 		
 		instance.removeBook(binstance);
