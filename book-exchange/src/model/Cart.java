@@ -43,7 +43,7 @@ public class Cart {
 	 * Sets the total price for the order
 	 * @param price
 	 */
-	public void setTotalPrice(double price)
+	private void setTotalPrice(double price)
 	{
 		this.totalPrice = price;
 	}//setTotalPrice
