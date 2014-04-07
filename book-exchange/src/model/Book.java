@@ -76,6 +76,7 @@ public class Book {
 		this.description = _description;
 		this.author = _author;
 		this.edition = _edition;
+		this.condition = _condition;
 		this.status = _status;
 		this.price = price;
 		
