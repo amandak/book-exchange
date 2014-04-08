@@ -22,7 +22,7 @@ public class OrderConfirmationTest extends TestCase {
 		ArrayList<Book> bookList = new ArrayList<Book>();
 		Cart cart = new Cart(bookList);
 		
-		User user = new User(2, "group2", "Buyer", "Amanda", "Paulasky",
+		User user = new User("group2", "Buyer", "Amanda", "Paulasky",
 				"amandapalusky@gmail.com", "Atlanta Hwy", "Athens", "GA", 30601, "USA");
 		
 		OrderConfirmation order = new OrderConfirmation(cart, user, "3/30/2014");

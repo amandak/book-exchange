@@ -59,7 +59,7 @@ public class UserTest extends TestCase {
 	
 		
 		
-		User instance2 = new User(3, "group2", "Buyer", "Amanda", "Paulasky",
+		User instance2 = new User("group2", "Buyer", "Amanda", "Paulasky",
 				"amandapalusky@gmail.com", "Atlanta Hwy", "Athens", "GA", 30601, "USA");
 		
 		assertNotNull("User instance2 is not null", instance2);
