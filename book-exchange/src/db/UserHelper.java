@@ -85,8 +85,10 @@ public class UserHelper {
 				String state = rs.getString("state");
 				int zip = rs.getInt("zip");
 				String country = rs.getString("country");
-				user = new User(uid, userName, role, firstName, lastName, email, 
+				
+				user = new User(userName, role, firstName, lastName, email, 
 						streetAddr, city, state, zip, country);
+				user.setUserId(uid);
 			}
 
 
@@ -155,8 +157,9 @@ public class UserHelper {
 				String state = rs.getString("state");
 				int zip = rs.getInt("zip");
 				String country = rs.getString("country");
-				User user = new User(uid, userName, role, firstName, lastName, email, 
+				User user = new User(userName, role, firstName, lastName, email, 
 						streetAddr, city, state, zip, country);
+				user.setUserId(uid);
 				userList.add(user);
 			}
 
