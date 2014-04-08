@@ -96,7 +96,7 @@ public class User {
 	 * @param zip zip code of the user's street address
 	 * @param country country of the user's address
 	 */
-	public User(int userId, String userName, String role, String fName, String lName, 
+	public User(String userName, String role, String fName, String lName, 
 			String emailAddr, String streetAddr, String city, String state, 
 			int zip, String country)
 	{
