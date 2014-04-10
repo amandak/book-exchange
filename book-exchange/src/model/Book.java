@@ -49,8 +49,19 @@ public class Book {
 	 * Condition of the book
 	 */
 	String condition;
-	
-	/**
+		
+       /**
+        * Name of class where book is used
+        */
+       String classTitle;
+
+        /**
+         * Name of department that includes 
+	 * the class where the book is used
+         */
+       String department;
+
+        /**
 	 * Price of the book
 	 */
 	double price;
@@ -66,9 +77,12 @@ public class Book {
 	 * @param _status		The status of the book (listed, sold, etc.)
 	 * @param _condition	The condition of the book (good, fair, bad, etc.)
 	 * @param price			The price of the book.
-	 */
+	 * @param _classTitle   The name of the class that the book is for
+	 * @param _department  
+	 *///bookId, title, isbn, desc, author, ed, stat, condition, price, department, classTitle
 	public Book(int _uid, int _bookId, String _bookName, String _isbn, String _description, 
-			String _author, String _edition, String _status, String _condition, double price){
+		    String _author, String _edition, String _status, String _condition, double price, 
+		    String _classTitle, String _department){
 		this.uid = _uid;
 		this.bookId = _bookId;
 		this.bookName = _bookName;
@@ -79,6 +93,8 @@ public class Book {
 		this.condition = _condition;
 		this.status = _status;
 		this.price = price;
+		this.classTitle = _classTitle;
+		this.department = _department;
 		
 	}//Book constructor
 	
@@ -145,6 +161,21 @@ public class Book {
 		this.price = price;
 	}
 
+       /**
+        * @param classTitle the name of the class where the book is used
+        */
+       public void setClass(String classTitle){
+     	   this.classTitle = classTitle;
+       }
+
+
+       /**
+        * @param department the name of the department where the book is used
+        */
+       public void setDepartment(String department){
+  	   this.department = department;
+       }
+
 	/**
 	 * Get method for the ID of this book
 	 * @return	The primary-key ID of the book
@@ -208,7 +239,15 @@ public class Book {
 	public String getCondition(){
 		return this.condition;
 	}//getCondition
-	
+
+        public String getClass(){
+    	   return this.classTitle;
+        }//getClass
+
+        public String getDepartment(){
+   	   return this.department;
+        }//getDepartment
+
 	/**
 	 * Get method for the price of the book
 	 * @return	The price of the book
