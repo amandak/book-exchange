@@ -1,177 +1,273 @@
 package db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import model.Book;
 
-/**
- * This class is a Data Access Object.  It's purpose is to handle 
- * querying/updating the application database for anything User
- * related.
- * @author Team 2 Software, LLC 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+/**                                                                                                             
+ * This class is a Data Access Object.  It's purpose is to handle                                               
+ * querying/updating the application database for anything User                                                 
+ * related.                                                                                                     
+ * @author Team 2 Software, LLC                                                                                 
  */
 public class BookHelper {
-	/**
-	 * Constructor for a BookHelper object. Creates a Driver Mananager, 
-	 * opens a connection to the database, and initializes all prepared statements.
-	 */
-	public BookHelper(){
-		
-	}
+	private String JDBC_URL;
+	private String bookID;
+	
+	protected Statement getBookByIdStatement;
+	protected PreparedStatment getBooksBySellerStatement;
+	public Statement getAllBooksStatement;
+	public PreparedStatement getBooksForSaleStatement;
+	public PreparedStatement getBooksByDepartmentStatement;
+	public PreparedStatement updateBookStatusStatement;
+	public PreparedStatement deleteBookStatement;
+	public PreparedStatement addBookStatement;
+	
+	private ResultSet rs;
+	
+	private Connection conn;
 	
 	/**
-	 * Retrieves a Book from the database based on the ID specified
-	 * @param bookId	The primary-key ID of this Book
-	 * @return			The book the with specified ID
+	 * Constructor creates a driver manager and opens connection to database
 	 */
-	public Book getBookById(int bookId){
-		return null;
-	}
+	 public BookHelper(){
+	 	try{
 
-	/**
-	 * Retrieves all books being sold by a particular user.
-	 * @param userName	The username of the seller whose books to retrieve
-	 * @return			A list of books being sold by this user
-	 */
-	public ArrayList<Book> getBooksBySeller(String userName){
-		return null;
-	}
-
-	/**
-	 * Retrieves all books stored in the database
-	 * @return	A list of all books currently stored in the database
-	 */
-	public ArrayList<Book> getAllBooks(){
-		return null;
-	}
-
-	/**
-	 * Retrieves all books currently listed for sale
-	 * @return	A list of all books currently listed for sale
-	 */
-	public ArrayList<Book> getBooksForSale(){
-		return null;
-	}
-
-	/**
-	 * Retrieves all books for a certain department
-	 * @param department	The department whose books we want to return
-	 * @return				A list of all books for sale in the specified department
-	 */
-	public ArrayList<Book> getBooksByDepartment(String department){
-		return null;
-	}
-	
-	/**
-	 * Adds a new book to the database
-	 * @param book	The Book to add
-	 */
-	public int addBook(Book book){
-		return 0;
+			JDBC_URL = "jdbc:mysql://localhost/book-exchange";
+			user     = "";
+			password = "poopdeck";
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			System.out.println("Connecting to database...");
+			conn = DriverManager.getConnection(JDBC_URL, user, password);
+ 			System.out.println("Successfully connected to database.");
+    	}
+    	catch(Exception e){
+    		System.out.println(e.getClass().getName()+" opening database connection: "+e.getMessage());
+    	}
+	 
+	 }//constructor
+	 
+	 
+	 /**
+	  * Retrieves a book listing from the database based on the ID
+	  */
+	 public Book getBookById(int bookId){
+	 	int id;
+	 	Book bookObj;	
+		String query = "select bid, bookName, isbn, description, author, edition,"
+						+ " department, status, bookCondition, price, classTitle"
+						+ " from book-exchange.book"; //Is this the correct database name?
 		
-	}
+		try{
+			/**
+			 * Create MySQL prepared statement and execute
+			 */
+			getBookByIdStatement = conn.createStatement();
+			rs = getBookByIdStatement.executeQuery(query);
+			
+			while(rs.next()){
+				/**
+				 * Check if the bid field in table matches bookId variable
+				 */
+			    id = rs.getInt("bid");
+			    if(id.equals(bookId)){
+				    /**
+				     * create Book object with data from book table
+				     */ 
+				     String title = rs.getString("bookName");
+				     String isbn = rs.getString("isbn");
+				     String desc = rs.getString("description");
+				     String author = rs.getString("author");
+				     String ed = rs.getString("edition");
+				     String stat = rs.getString("status");
+				     String condition = rs.getString("bookCondition");
+				     String department = rs.getString("department");
+				     String classTitle = rs.getString("classTitle");
+				     double price = rs.getDouble("price");
+				     
+				     //double check that this is the correct order of params
+				     bookObj = new Book(bookId, title, isbn, desc, author, ed, stat, condition, price, department, classTitle);
+				    break;
+				}
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	 	
+	 	return bookObj; //Return null if the book is not found
+	 }//getBookById()
+	 
+	 
+	 /**
+	  * Retrieves all books sold by a specified seller
+	  */
+	 public ArrayList<Book> getBooksBySeller(String username){
+	 	
+	 
+	 }//getBooksBySeller()
+	 
+	 
+	 
+	 /**
+	  * Retrieves all books stored in database
+	  */
+	 public ArrayList<Book> getAllBooks(){
+	 	ArrayList<Book> allBooks = new ArrayList<Book>();
+	 	
+		String query = "select bid, bookName, isbn, description, author, edition,"
+						+ " department, status, bookCondition, price, classTitle"
+						+ " from book-exchange.book"; //Is this the correct database name?
+		
+		try{
+			/**
+			 * Create MySQL prepared statement and execute
+			 */
+			getAllBooksStatement = conn.createStatement();
+			rs = getAllBooksStatement.executeQuery(query);
+			
+			while(rs.next()){
+				/**
+			     * Create Book object with data from one row in book table.
+			     * Then add the Book object to an ArrayList.
+			     */ 
+			     String title = rs.getString("bookName");
+				 String isbn = rs.getString("isbn");
+			     String desc = rs.getString("description");
+			     String author = rs.getString("author");
+			     String ed = rs.getString("edition");
+			     String stat = rs.getString("status");
+			     String condition = rs.getString("bookCondition");
+			     String department = rs.getString("department");
+			     String classTitle = rs.getString("classTitle");
+			     double price = rs.getDouble("price");
+			     int id = rs.getInt("bid");
+				     
+			     //double check that this is the correct order of params
+			     Book bookObj = new Book(id, title, isbn, desc, author, ed, stat, condition, price, department, classTitle);
+			     //Add bookObj to ArrayList
+			     allBooks.add(bookObj);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	 	
+	 	return allBooks;
+	 }//getAllBooks()
+	 
+	 
+	 /**
+	  * Retrieves all book currently listed for sale
+	  */	 
+	 public ArrayList<Book> getBooksForSale(){
+	 
+	 }//getBooksForSale()
+
+
+
+	 /**
+	  * Retrieves all books for a certain department
+	  */
+	  public ArrayList<Book> getBooksByDepartment(String department){
+	  
+	  }//getBooksByDepartment()
+	  
+
+
+	 /**
+	  * Takes in Book object and places data in the book table.
+	  * @return int is the id of newly added book
+	  */
+	public int addBook(Book newBook){
+		/**
+		 * Get values from newBook object
+		 */
+		int bookID = newBook.getID();
+       	double price = newBook.getPrice();
+		String isbn = newBook.getISBN();
+       	String title = newBook.getTitle();
+       	String desc = newBook.getDescription();
+       	String author = newBook.getAuthor();
+       	String ed = newBook.getEdition();
+       	String status = newBook.getStatus(); //Does this specify that book is for sale, sold, or traded?
+       	String condition = newBook.getCondition();
+       	//TODO Still need to add the following methods to Book.java; also add "classTitle" field to database
+       	//TODO in Book.java, change "price" from int to double; also in BookHelperTest 
+       	String department = newBook.getDepartment();
+       	String classTitle = newBook.getClassTitle();
+		  
+		 try{
+		  /**
+		   * Create a MySQL insert prepared statement and execute
+		   */
+		String query = " insert into book (bid, bookName, isbn, description, author, edition,
+					+ " department, status, bookCondition, price, classTitle)"
+					+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		addBookStatement = conn.prepareStatement(query);
+			addBookStatement.setInt(1, bookID);
+    		addBookStatement.setString(2, title);
+    		addBookStatement.setString(3, isbn); 
+    		addBookStatement.setString(4, desc);
+    		addBookStatement.setString(5, author);
+    		addBookStatement.setString(6, ed);
+    		addBookStatement.setString(7, department);
+    		addBookStatement.setString(8, status);
+    		addBookStatement.setString(9, condition);
+    		addBookStatement.setDouble(10, price);
+    		addBookStatement.setString(11, classTitle);
+    					
+    		addBookStatement.execute();
+    					
+		}catch (Exception e) {
+	         e.printStackTrace();
+	    }		
+	}//addBook()
+	   
+	
 	
 	/**
 	 * Updates a book's status in the database
-	 * @param bookId		The primary-key ID of the book to update
-	 * @param newStatus		The new status of the book
 	 */
-	public void updateBookStatus(int bookId, String newStatus){
-		
-	}
-	
-	/**
-	 * Deletes a book from the database
-	 * @param bookId	The primary-key ID of the book to delete
-	 */
+	 public void updateBookStatus(int bookId, String newStatus){
+	 
+		try{
+			/**
+		   	 * Create a MySQL insert prepared statement and execute
+		     */
+			String query = "UPDATE book "
+        					+ "SET status=\"" + newStatus + "\" "
+        					+ "WHERE bid=" + bookId;
+					
+			updateBookStatusStatement = conn.prepareStatement(query);
+    		updateBookStatusStatement.execute();
+    					
+		}catch (Exception e) {
+	         e.printStackTrace();
+	    }
+	 }//updateBookStatus()
+	   
+	   
+	   
+	 /**
+	  * Deletes a book from the database
+	  */	  
 	public void deleteBook(int bookId){
+		String query = "DELETE FROM book WHERE bid = '"+ bookId +"' ";
 		
-	}
-
-	/**
-	 * Changes the book name 
-	 * @param bookId book id 
-	 * @param bookName name of the book
-	 */
-	public void setBookName(int bookId, String bookName) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * Changes the ISBN number for a book
-	 * @param bookId id of the book
-	 * @param isbn ISBN of the book 
-	 */
-	public void setISBN(int bookId, String isbn) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * Changes the description for a book
-	 * @param bookId id of the book
-	 * @param description book description
-	 */
-	public void setDesc(int bookId, String description) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	/**
-	 * Changes the author for a book
-	 * @param bookId id of the book
-	 * @param author name of author
-	 */
-	public void setAuthor(int bookId, String author) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * Changes the edition for a book
-	 * @param bookId id of the book
-	 * @param edition edition book
-	 */
-	public void setEdition(int bookId, String edition) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * Changes status for a book
-	 * @param bookId id of the book
-	 * @param status status of the book
-	 */
-	public void setStatus(int newID1, String status) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * Changes the condition for a book
-	 * @param bookId id of the book
-	 * @param condition condition of the book
-	 */
-	public void setCondition(int bookId, String condition) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * Changes the price for a book
-	 * @param bookId id of the book
-	 * @param price price of the book
-	 */
-	public void setPrice(int newID1, int price) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
-	
-	
+		try{
+			deleteBookStatement = conn.prepareStatement(query);
+			deleteBookStatement.execute();
+			//System.out.println("book " + bookId + " removed.");
+		}catch(Exception e){
+			e.printStackTrace();
+		}	
+	}//deleteBook()
+	   
 }
