@@ -38,8 +38,8 @@ public class BookHelper {
 	 public BookHelper(){
 	 	try{
 
-			JDBC_URL = "jdbc:mysql://localhost/book-exchange";
-			user     = "";
+			JDBC_URL = "jdbc:mysql://172.17.152.110:3306/book-exchange";
+			user     = "group2";
 			password = "poopdeck";
 			
 			Class.forName("com.mysql.jdbc.Driver");
@@ -207,7 +207,7 @@ public class BookHelper {
 		  /**
 		   * Create a MySQL insert prepared statement and execute
 		   */
-		String query = " insert into book (bid, bookName, isbn, description, author, edition,
+		String query = " insert into book (bid, bookName, isbn, description, author, edition",
 					+ " department, status, bookCondition, price, classTitle)"
 					+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		addBookStatement = conn.prepareStatement(query);
