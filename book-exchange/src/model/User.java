@@ -100,7 +100,7 @@ public class User {
 			String emailAddr, String streetAddr, String city, String state, 
 			int zip, String country)
 	{
-		this.userId = userId;
+		
 		this.userName = userName;
 		this.role = role;
 		this.firstName = fName;

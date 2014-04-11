@@ -33,10 +33,10 @@ public class BookHelper {
 	/**
 	 * Constructor creates a driver manager and opens connection to database
 	 */
-	public BookHelper(){
+	public BookHelper() throws Exception{
 		try{
 
-			String JDBC_URL = "jdbc:mysql://172.17.152.110:3306/book-exchange";
+			String JDBC_URL = "jdbc:mysql://172.17.152.110:3306/bookExchange";
 			String user     = "group2";
 			String password = "poopdeck";
 
