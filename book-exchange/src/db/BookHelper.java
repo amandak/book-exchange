@@ -20,15 +20,17 @@ public class BookHelper {
 	private String bookID;
 	
 	protected Statement getBookByIdStatement;
-	protected PreparedStatment getBooksBySellerStatement;
+	protected PreparedStatment getBooksBySellers0tatement;
 	public Statement getAllBooksStatement;
-	public PreparedStatement getBooksForSaleStatement;
+	public Statement getBooksByClassStatement;
+	public PreparedStatement getBooksFors0aleStatement;
 	public PreparedStatement getBooksByDepartmentStatement;
 	public PreparedStatement updateBookStatusStatement;
 	public PreparedStatement deleteBookStatement;
 	public PreparedStatement addBookStatement;
 	
-	private ResultSet rs;
+	private ResultSet rs0;
+	private ResultSet rs1;
 	
 	private Connection conn;
 	
@@ -69,27 +71,27 @@ public class BookHelper {
 			 * Create MySQL prepared statement and execute
 			 */
 			getBookByIdStatement = conn.createStatement();
-			rs = getBookByIdStatement.executeQuery(query);
+			rs0 = getBookByIdStatement.executeQuery(query);
 			
-			while(rs.next()){
+			while(rs0.next()){
 				/**
 				 * Check if the bid field in table matches bookId variable
 				 */
-			    id = rs.getInt("bid");
+			    id = rs0.getInt("bid");
 			    if(id.equals(bookId)){
 				    /**
 				     * create Book object with data from book table
 				     */ 
-				     String title = rs.getString("bookName");
-				     String isbn = rs.getString("isbn");
-				     String desc = rs.getString("description");
-				     String author = rs.getString("author");
-				     String ed = rs.getString("edition");
-				     String stat = rs.getString("status");
-				     String condition = rs.getString("bookCondition");
-				     String department = rs.getString("department");
-				     String classTitle = rs.getString("classTitle");
-				     double price = rs.getDouble("price");
+				     String title = rs0.getString("bookName");
+				     String isbn = rs0.getString("isbn");
+				     String desc = rs0.getString("description");
+				     String author = rs0.getString("author");
+				     String ed = rs0.getString("edition");
+				     String stat = rs0.getString("status");
+				     String condition = rs0.getString("bookCondition");
+				     String department = rs0.getString("department");
+				     String classTitle = rs0.getString("classTitle");
+				     double price = rs0.getDouble("price");
 				     
 				     //double check that this is the correct order of params
 				     bookObj = new Book(bookId, title, isbn, desc, author, ed, stat, condition, price, department, classTitle);
@@ -130,24 +132,24 @@ public class BookHelper {
 			 * Create MySQL prepared statement and execute
 			 */
 			getAllBooksStatement = conn.createStatement();
-			rs = getAllBooksStatement.executeQuery(query);
+			rs0 = getAllBooksStatement.executeQuery(query);
 			
-			while(rs.next()){
+			while(rs0.next()){
 				/**
 			     * Create Book object with data from one row in book table.
 			     * Then add the Book object to an ArrayList.
 			     */ 
-			     String title = rs.getString("bookName");
-				 String isbn = rs.getString("isbn");
-			     String desc = rs.getString("description");
-			     String author = rs.getString("author");
-			     String ed = rs.getString("edition");
-			     String stat = rs.getString("status");
-			     String condition = rs.getString("bookCondition");
-			     String department = rs.getString("department");
-			     String classTitle = rs.getString("classTitle");
-			     double price = rs.getDouble("price");
-			     int id = rs.getInt("bid");
+			     String title = rs0.getString("bookName");
+				 String isbn = rs0.getString("isbn");
+			     String desc = rs0.getString("description");
+			     String author = rs0.getString("author");
+			     String ed = rs0.getString("edition");
+			     String stat = rs0.getString("status");
+			     String condition = rs0.getString("bookCondition");
+			     String department = rs0.getString("department");
+			     String classTitle = rs0.getString("classTitle");
+			     double price = rs0.getDouble("price");
+			     int id = rs0.getInt("bid");
 				     
 			     //double check that this is the correct order of params
 			     Book bookObj = new Book(id, title, isbn, desc, author, ed, stat, condition, price, department, classTitle);
@@ -166,9 +168,9 @@ public class BookHelper {
 	 /**
 	  * Retrieves all book currently listed for sale
 	  */	 
-	 public ArrayList<Book> getBooksForSale(){
+	 public ArrayList<Book> getBooksFors0ale(){
 	 	
-	 }//getBooksForSale()
+	 }//getBooksFors0ale()
 
 
 
@@ -176,15 +178,63 @@ public class BookHelper {
 	  * Retrieves all books for a certain department
 	  */
 	  public ArrayList<Book> getBooksByDepartment(String department){
-	  
+	  	
 	  }//getBooksByDepartment()
+	  
+	  
 	  
 	  
 	  /**
 	   * Retrieves all books for a certain class
 	   */
-	  public ArrayList<Book> getBooksByClass(String classTitle){
+	  public ArrayList<Book> getBooksByClass(String className){
+	  	ArrayList<Book> booksList = new ArrayList<Book>();
 	  	
+	  	String query = "select bid, uid, bookName, isbn, description, author, edition,"
+						+ " department, status, bookCondition, price, className"
+						+ " from book-exchange.book"; 
+	  	
+	  	
+	  	try{
+			/**
+			 * Create MySQL prepared statement and execute
+			 */
+			getBooksByClassStatement = conn.createStatement();
+			rs1 = getBooksByClassStatement.executeQuery(query);
+			
+			while(rs1.next()){
+				String classTitle = rs1.getString("className");
+				if(className.equals(classTitle)){
+				   /**
+			     	* Create Book object with data from one row in book table
+			     	* that contains the specified className.
+			     	* Then add the Book object to an ArrayList.
+			     	*/ 
+			     	String userID = rs1.getString("uid");
+			     	String title = rs1.getString("bookName");
+				 	String isbn = rs1.getString("isbn");
+				    String desc = rs1.getString("description");
+				    String author = rs1.getString("author");
+			   		String ed = rs1.getString("edition");
+			    	String stat = rs1.getString("status");
+				    String condition = rs1.getString("bookCondition");
+				    String department = rs1.getString("department");
+			    	double price = rs1.getDouble("price");
+			     	int bookID = rs1.getInt("bid");
+
+				     Book bookObj = new Book(uid, bookID, title, isbn, desc, author, ed, stat, condition, price, classTitle, department);
+				     //Add bookObj to ArrayList
+			    	 booksList.add(bookObj);
+			
+				}
+			
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	  	
+	  	return booksList;
 	  }//getBooksByClass()
 
 
