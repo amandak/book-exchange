@@ -23,14 +23,15 @@ public class BookHelper {
 	protected PreparedStatment getBooksBySellers0tatement;
 	public Statement getAllBooksStatement;
 	public Statement getBooksByClassStatement;
-	public PreparedStatement getBooksFors0aleStatement;
-	public PreparedStatement getBooksByDepartmentStatement;
+	public Statement getBooksByDepartmentStatement;
+	public PreparedStatement getBooksForSaleStatement;
 	public PreparedStatement updateBookStatusStatement;
 	public PreparedStatement deleteBookStatement;
 	public PreparedStatement addBookStatement;
 	
 	private ResultSet rs0;
 	private ResultSet rs1;
+	private ResultSet rs2;
 	
 	private Connection conn;
 	
@@ -178,6 +179,58 @@ public class BookHelper {
 	  * Retrieves all books for a certain department
 	  */
 	  public ArrayList<Book> getBooksByDepartment(String department){
+	  
+	  	ArrayList<Book> booksList = new ArrayList<Book>();
+	  	
+	  	String query = "select bid, uid, bookName, isbn, description, author, edition,"
+						+ " department, status, bookCondition, price, className"
+						+ " from book-exchange.book"; 
+	  	
+	  	
+	  	try{
+			/**
+			 * Create MySQL prepared statement and execute
+			 */
+			getBooksByDepartmentStatement = conn.createStatement();
+			rs2 = getBooksByDepartmentStatement.executeQuery(query);
+			
+			while(rs2.next()){
+			 /**
+			  * Check if book is categorized under the specified department
+			  */
+				String classDepartment = rs2.getString("department");
+				if(department.equals(classDepartment)){
+				   /**
+			     	* Create Book object with data from one row in book table
+			     	* that contains the specified department.
+			     	* Then add the Book object to an ArrayList.
+			     	*/ 
+	 				String classTitle = rs2.getString("className");
+			     	String userID = rs2.getString("uid");
+			     	String title = rs2.getString("bookName");
+				 	String isbn = rs2.getString("isbn");
+				    String desc = rs2.getString("description");
+				    String author = rs2.getString("author");
+			   		String ed = rs2.getString("edition");
+			    	String stat = rs2.getString("status");
+				    String condition = rs2.getString("bookCondition");
+			    	double price = rs2.getDouble("price");
+			     	int bookID = rs2.getInt("bid");
+
+				     Book bookObj = new Book(uid, bookID, title, isbn, desc, author, ed, stat, condition, price, classTitle, classDepartment);
+				     //Add bookObj to ArrayList
+			    	 booksList.add(bookObj);
+			
+				}
+			
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	  	
+	  	return booksList;
+	  	
 	  	
 	  }//getBooksByDepartment()
 	  
@@ -203,6 +256,9 @@ public class BookHelper {
 			rs1 = getBooksByClassStatement.executeQuery(query);
 			
 			while(rs1.next()){
+			    /**
+			     * Check if book is categorized under the specified class
+			     */
 				String classTitle = rs1.getString("className");
 				if(className.equals(classTitle)){
 				   /**
