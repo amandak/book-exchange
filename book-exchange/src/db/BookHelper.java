@@ -167,7 +167,7 @@ public class BookHelper {
 	  * Retrieves all book currently listed for sale
 	  */	 
 	 public ArrayList<Book> getBooksForSale(){
-	 
+	 	
 	 }//getBooksForSale()
 
 
@@ -179,6 +179,13 @@ public class BookHelper {
 	  
 	  }//getBooksByDepartment()
 	  
+	  
+	  /**
+	   * Retrieves all books for a certain class
+	   */
+	  public ArrayList<Book> getBooksByClass(String classTitle){
+	  	
+	  }//getBooksByClass()
 
 
 	 /**
