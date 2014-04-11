@@ -18,7 +18,7 @@ public class BookTest extends TestCase {
 	 */
 	public void testConstructor() {
 		Book instance = new Book(12323, 123, "Database Systems", "1234567890888",
-				"Database book", "Anonymous", "3", "Listed", "Fair", 25.00);
+				"Database book", "Anonymous", "3", "Listed", "Fair", 25.00, "CSCI4300", "CSCI");
 
 		assertNotNull("Book instance not null", instance);
 		assertEquals("instance user id", 12323, instance.getUId());
@@ -31,6 +31,8 @@ public class BookTest extends TestCase {
 		assertEquals("instance book status", "Listed", instance.getStatus());
 		assertEquals("instance book condition", "Fair", instance.getCondition());
 		assertEquals("instance book price", 25.00, instance.getPrice(), 0.001);
+		assertEquals("instance book class title", "CSCI4300", instance.getClassName());
+		assertEquals("instance book department", "CSCI", instance.getDepartment());
 	
 	}//testConstructor
 
