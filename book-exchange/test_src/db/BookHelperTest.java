@@ -2,6 +2,7 @@ package db;
 import java.util.ArrayList;
 
 import model.Book;
+import model.User;
 
 import org.junit.Test;
 
@@ -16,15 +17,21 @@ public class BookHelperTest extends TestCase {
 	@Test
 	public void testConstructor() {
 
-
-		//TODO: Add another book listing to test
-
-
 		/**
 		 * Verify that book listing is successfully added to database and data is accurate
 		 */
 		//Create new book object
-		int userId = 23;
+		UserHelper userHelper = null;
+		try {
+			userHelper = new UserHelper();
+		} catch (Exception e) {
+			System.out.println(e.getClass().getName()+ " Opening connection and creating preparedstatement: " + e.getMessage());
+		}
+		
+		ArrayList<User> userList = userHelper.getAllUsers();
+		userHelper.closeConnection();
+		
+		int userId = userList.get(0).getUserId();
 		int bookId = 2;
 		String isbn = "9780123747501";
 		double price = 35;
@@ -45,10 +52,18 @@ public class BookHelperTest extends TestCase {
 		 * Open connection to database by creating object of BookHelper
 		 * and add new book listing to Book table
 		 */
-		BookHelper bookDAO = new BookHelper();
+		BookHelper bookDAO = null;
+		try {
+			bookDAO = new BookHelper();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//Method returns id
 		//Change this if we want to set id instead of it automatically getting set
 		boolean added = bookDAO.addBook(newBook1); 
+		
+		assertTrue("added a book", added);
 		ArrayList<Book> bookList = bookDAO.getAllBooks();
 		int newID1 = bookList.get(0).getBookId();
 		/**
@@ -62,9 +77,9 @@ public class BookHelperTest extends TestCase {
 		assertEquals("Book description", "Book in good condition. Cover shows minor signs of wear.", bookTest.getDescription());
 		assertEquals("Author", "David A. Patterson", bookTest.getAuthor());
 		assertEquals("Edition", "fourth", bookTest.getEdition());
-		assertEquals("Status", "", bookTest.getStatus()); //Modify the status value
+		assertEquals("Status", "listed", bookTest.getStatus()); //Modify the status value
 		assertEquals("Condition", "GOOD", bookTest.getCondition());
-		assertEquals("Price", 35, bookTest.getPrice());
+		assertEquals("Price", 35.0, bookTest.getPrice());
 
 		/**
 		 * Update a current book listing and verify that modifications made to Book table are accurate
