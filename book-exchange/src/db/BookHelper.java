@@ -5,7 +5,7 @@ import model.Book;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
+import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -16,371 +16,501 @@ import java.util.ArrayList;
  * @author Team 2 Software, LLC                                                                                 
  */
 public class BookHelper {
-	private String JDBC_URL;
-	private String bookID;
-	
-	protected Statement getBookByIdStatement;
-	protected PreparedStatment getBooksBySellers0tatement;
-	public Statement getAllBooksStatement;
-	public Statement getBooksByClassStatement;
-	public Statement getBooksByDepartmentStatement;
-	public PreparedStatement getBooksForSaleStatement;
-	public PreparedStatement updateBookStatusStatement;
-	public PreparedStatement deleteBookStatement;
-	public PreparedStatement addBookStatement;
-	
-	private ResultSet rs0;
-	private ResultSet rs1;
-	private ResultSet rs2;
-	
+
+	protected PreparedStatement getBookByIdStatement;
+	protected PreparedStatement getBooksBySellerStatement;
+	protected PreparedStatement getAllBooksStatement;
+	protected PreparedStatement getBooksByClassStatement;
+	protected PreparedStatement getBooksByDepartmentStatement;
+	protected PreparedStatement getBooksForSellStatement;
+	protected PreparedStatement updateBookStatusStatement;
+	protected PreparedStatement deleteBookStatement;
+	protected PreparedStatement addBookStatement;
+	protected PreparedStatement getBookByBookNameStatement;
+
 	private Connection conn;
-	
+
 	/**
 	 * Constructor creates a driver manager and opens connection to database
 	 */
-	 public BookHelper(){
-	 	try{
+	public BookHelper(){
+		try{
 
-			JDBC_URL = "jdbc:mysql://172.17.152.110:3306/book-exchange";
-			user     = "group2";
-			password = "poopdeck";
-			
+			String JDBC_URL = "jdbc:mysql://172.17.152.110:3306/book-exchange";
+			String user     = "group2";
+			String password = "poopdeck";
+
 			Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("Connecting to database...");
 			conn = DriverManager.getConnection(JDBC_URL, user, password);
- 			System.out.println("Successfully connected to database.");
-    	}
-    	catch(Exception e){
-    		System.out.println(e.getClass().getName()+" opening database connection: "+e.getMessage());
-    	}
-	 
-	 }//constructor
-	 
-	 
-	 /**
-	  * Retrieves a book listing from the database based on the ID
-	  */
-	 public Book getBookById(int bookId){
-	 	int id;
-	 	Book bookObj;	
-		String query = "select bid, bookName, isbn, description, author, edition,"
-						+ " department, status, bookCondition, price, classTitle"
-						+ " from book-exchange.book"; //Is this the correct database name?
-		
+			System.out.println("Successfully connected to database.");
+		}
+		catch(Exception e){
+			System.out.println(e.getClass().getName()+" opening database connection: "+e.getMessage());
+		}
+
+
+		//initializing all prepared statements
+		try {
+			//PreparedStatement that will retrieve a book that matches the id 
+			getBookByIdStatement = conn.prepareStatement("SELECT * FROM book WHERE bid=?");
+
+			//PreparedStatement that will retrieve list of Books by Seller
+			getBooksBySellerStatement = conn.prepareStatement("SELECT * FROM book WHERE uid=?");
+
+			//PreparedStatement that will retrieve list of All Books
+			getAllBooksStatement = conn.prepareStatement("SELECT * FROM book");
+
+			//PreparedStatement that will retrieve list of Books where its status is Sell
+			getBooksForSellStatement = conn.prepareStatement("SELECT * FROM book WHERE status='Sell");
+
+			//PreparedStatement that will retrieve list of Books by department
+			getBooksByDepartmentStatement = conn.prepareStatement("SELECT * FROM book WHERE department=?");
+
+			//PreparedStatement that will retrieve list of Books by Class name
+			getBooksByClassStatement = conn.prepareStatement("SELECT * FROM book WHERE className=?");
+
+			//PreparedStatement that insert a Book into book table.
+			addBookStatement = conn.prepareStatement("INSERT INTO book (uid, bookName, isbn, description, "
+					+ "author, edition, department, className, status, bookCondition, price)"
+					+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+			//PreparedStatement that updates a Book's status
+			updateBookStatusStatement = conn.prepareStatement("UPDATE book SET status=? WHERE bid=?");
+
+			//PreparedStatement that deletes a Book from the book table
+			deleteBookStatement = conn.prepareStatement("DELETE FROM book WHERE bid=?");
+
+			//PreparedStatement that retrieves Books by bookName
+			getBookByBookNameStatement = conn.prepareStatement("SELECT * FROM book WHERE bookName LIKE(?)");
+
+
+		} catch (SQLException e) {
+			System.out.println(e.getClass().getName() + " initalizing all prepared statements: " + e.getMessage());
+		}
+
+
+	}//constructor
+
+
+	/**
+	 * Retrieves a book listing from the database based on the ID
+	 */
+	public Book getBookById(int bookId){
+		ResultSet rs = null;
+		Book bookObj = null;
+
+
+
+		try {
+			/**
+			 * Set parameter in the PreparedStatement and execute
+			 */
+			getBookByIdStatement.setInt(1, bookId);
+			rs = getBookByIdStatement.executeQuery();
+
+			if(rs.next()){
+
+				/**
+				 * create Book object with data from book table
+				 */ 
+				int uid = rs.getInt("uid");
+				int bid = rs.getInt("bid");
+				String title = rs.getString("bookName");
+				String isbn = rs.getString("isbn");
+				String desc = rs.getString("description");
+				String author = rs.getString("author");
+				String ed = rs.getString("edition");
+				String department = rs.getString("department");
+				String className = rs.getString("className");
+				String stat = rs.getString("status");
+				String condition = rs.getString("bookCondition");
+				double price = rs.getDouble("price");
+
+
+				bookObj = new Book(uid, bid, title, isbn, desc, 
+						author, ed, stat, condition, price, className, department);
+
+			}//if
+		} catch (SQLException e) {
+			System.out.println(e.getClass().getName() + " Retrieving a Book by id: " + e.getMessage());
+		}
+
+
+		return bookObj; //Return null if the book is not found
+	}//getBookById()
+
+
+	/**
+	 * Retrieves all books sold by a specified seller
+	 */
+	public ArrayList<Book> getBooksBySeller(int userId){
+		ArrayList<Book> bookList = new ArrayList<Book>();
+		ResultSet rs = null;
+
+
+		try {
+			/**
+			 * Set parameter in the PreparedStatement and execute
+			 */
+			getBooksBySellerStatement.setInt(1, userId);
+			rs = getBooksBySellerStatement.executeQuery();
+
+			while(rs.next())
+				// create Book object with data from book table	
+			{
+				int userid = rs.getInt("uid");
+				int bid = rs.getInt("bid");
+				String title = rs.getString("bookName");
+				String isbn = rs.getString("isbn");
+				String desc = rs.getString("description");
+				String author = rs.getString("author");
+				String ed = rs.getString("edition");
+				String department = rs.getString("department");
+				String className = rs.getString("className");
+				String stat = rs.getString("status");
+				String condition = rs.getString("bookCondition");
+				double price = rs.getDouble("price");
+
+
+				Book bookObj = new Book(userid, bid, title, isbn, desc, 
+						author, ed, stat, condition, price, className, department);
+				bookList.add(bookObj);
+			}
+
+		} catch (SQLException e) {
+			System.out.println(e.getClass().getName() + " Retrieving List of Books by user id: " + e.getMessage());
+		}
+
+		return bookList;
+	}//getBooksBySeller()
+
+
+
+	/**
+	 * Retrieves all books stored in database
+	 */
+	public ArrayList<Book> getAllBooks(){
+		ArrayList<Book> allBooks = new ArrayList<Book>();
+
+		ResultSet rs = null;
+
+		try 
+		{
+			rs = getAllBooksStatement.executeQuery();
+
+			while(rs.next())
+				// create Book object with data from book table	
+			{
+				/**
+				 * Create Book object with data from one row in book table.
+				 * Then add the Book object to an ArrayList.
+				 */ 
+				int userid = rs.getInt("uid");
+				int bid = rs.getInt("bid");
+				String title = rs.getString("bookName");
+				String isbn = rs.getString("isbn");
+				String desc = rs.getString("description");
+				String author = rs.getString("author");
+				String ed = rs.getString("edition");
+				String department = rs.getString("department");
+				String className = rs.getString("className");
+				String stat = rs.getString("status");
+				String condition = rs.getString("bookCondition");
+				double price = rs.getDouble("price");
+
+
+				Book bookObj = new Book(userid, bid, title, isbn, desc, 
+						author, ed, stat, condition, price, className, department);
+				//Add bookObj to ArrayList
+				allBooks.add(bookObj);
+
+
+			}
+		}
+		catch(SQLException e)
+		{
+			System.out.println(e.getClass().getName() + " Retrieving List of All Books: " + e.getMessage());
+		}
+
+		return allBooks;
+	}//getAllBooks()
+
+
+	/**
+	 * Retrieves all book currently listed for sale
+	 */	 
+	public ArrayList<Book> getBooksForSell(){
+		ArrayList<Book> bookList = new ArrayList<Book>();
+		ResultSet rs = null;
+
+		try
+		{
+			rs = getBooksForSellStatement.executeQuery();
+
+			while(rs.next())
+				// create Book object with data from book table	
+			{
+				/**
+				 * Create Book object with data from one row in book table.
+				 * Then add the Book object to an ArrayList.
+				 */ 
+				int userid = rs.getInt("uid");
+				int bid = rs.getInt("bid");
+				String title = rs.getString("bookName");
+				String isbn = rs.getString("isbn");
+				String desc = rs.getString("description");
+				String author = rs.getString("author");
+				String ed = rs.getString("edition");
+				String department = rs.getString("department");
+				String className = rs.getString("className");
+				String stat = rs.getString("status");
+				String condition = rs.getString("bookCondition");
+				double price = rs.getDouble("price");
+
+
+				Book bookObj = new Book(userid, bid, title, isbn, desc, 
+						author, ed, stat, condition, price, className, department);
+				//Add bookObj to ArrayList
+				bookList.add(bookObj);
+
+
+			}//while
+		}
+		catch(SQLException e)
+		{
+			System.out.println(e.getClass().getName() + " Retrieving List of Books that is for Sell : " + e.getMessage());
+		}
+
+
+		return bookList;
+	}//getBooksForSell()
+
+
+
+	/**
+	 * Retrieves all books for a certain department
+	 */
+	public ArrayList<Book> getBooksByDepartment(String department){
+
+		ArrayList<Book> bookList = new ArrayList<Book>();
+		ResultSet rs = null;
+
+		try{
+			/**
+			 * Set parameter in the MySQL prepared statement and execute
+			 */
+			getBooksByDepartmentStatement.setString(1, department);;
+			rs = getBooksByDepartmentStatement.executeQuery();
+
+			while(rs.next())
+				// create Book object with data from book table	
+			{
+				/**
+				 * Create Book object with data from one row in book table.
+				 * Then add the Book object to an ArrayList.
+				 */ 
+				int userid = rs.getInt("uid");
+				int bid = rs.getInt("bid");
+				String title = rs.getString("bookName");
+				String isbn = rs.getString("isbn");
+				String desc = rs.getString("description");
+				String author = rs.getString("author");
+				String ed = rs.getString("edition");
+				String departmentName = rs.getString("department");
+				String className = rs.getString("className");
+				String stat = rs.getString("status");
+				String condition = rs.getString("bookCondition");
+				double price = rs.getDouble("price");
+
+
+				Book bookObj = new Book(userid, bid, title, isbn, desc, 
+						author, ed, stat, condition, price, className, departmentName);
+				//Add bookObj to ArrayList
+				bookList.add(bookObj);
+
+
+			}//while
+		}
+		catch(SQLException e)
+		{
+			System.out.println(e.getClass().getName() + " Retrieving List of Books by department : " + e.getMessage());
+		}
+
+		return bookList;
+	}//getBooksByDepartment()
+
+
+
+
+	/**
+	 * Retrieves all books for a certain class
+	 */
+	public ArrayList<Book> getBooksByClass(String className){
+		ArrayList<Book> booksList = new ArrayList<Book>();
+		ResultSet rs = null;
+
 		try{
 			/**
 			 * Create MySQL prepared statement and execute
 			 */
-			getBookByIdStatement = conn.createStatement();
-			rs0 = getBookByIdStatement.executeQuery(query);
-			
-			while(rs0.next()){
+			getBooksByClassStatement.setString(1, className); 
+			rs = getBooksByClassStatement.executeQuery();
+
+			while(rs.next())
+				// create Book object with data from book table	
+			{
 				/**
-				 * Check if the bid field in table matches bookId variable
-				 */
-			    id = rs0.getInt("bid");
-			    if(id.equals(bookId)){
-				    /**
-				     * create Book object with data from book table
-				     */ 
-				     String title = rs0.getString("bookName");
-				     String isbn = rs0.getString("isbn");
-				     String desc = rs0.getString("description");
-				     String author = rs0.getString("author");
-				     String ed = rs0.getString("edition");
-				     String stat = rs0.getString("status");
-				     String condition = rs0.getString("bookCondition");
-				     String department = rs0.getString("department");
-				     String classTitle = rs0.getString("classTitle");
-				     double price = rs0.getDouble("price");
-				     
-				     //double check that this is the correct order of params
-				     bookObj = new Book(bookId, title, isbn, desc, author, ed, stat, condition, price, department, classTitle);
-				    break;
-				}
-			}
-			
-		}catch(Exception e){
-			e.printStackTrace();
+				 * Create Book object with data from one row in book table.
+				 * Then add the Book object to an ArrayList.
+				 */ 
+				int userid = rs.getInt("uid");
+				int bid = rs.getInt("bid");
+				String title = rs.getString("bookName");
+				String isbn = rs.getString("isbn");
+				String desc = rs.getString("description");
+				String author = rs.getString("author");
+				String ed = rs.getString("edition");
+				String department = rs.getString("department");
+				String classTitle = rs.getString("className");
+				String stat = rs.getString("status");
+				String condition = rs.getString("bookCondition");
+				double price = rs.getDouble("price");
+
+
+				Book bookObj = new Book(userid, bid, title, isbn, desc, 
+						author, ed, stat, condition, price, classTitle, department);
+				//Add bookObj to ArrayList
+				booksList.add(bookObj);
+
+
+			}//while
+
 		}
-	 	
-	 	return bookObj; //Return null if the book is not found
-	 }//getBookById()
-	 
-	 
-	 /**
-	  * Retrieves all books sold by a specified seller
-	  */
-	 public ArrayList<Book> getBooksBySeller(String username){
-	 	
-	 
-	 }//getBooksBySeller()
-	 
-	 
-	 
-	 /**
-	  * Retrieves all books stored in database
-	  */
-	 public ArrayList<Book> getAllBooks(){
-	 	ArrayList<Book> allBooks = new ArrayList<Book>();
-	 	
-		String query = "select bid, bookName, isbn, description, author, edition,"
-						+ " department, status, bookCondition, price, classTitle"
-						+ " from book-exchange.book"; //Is this the correct database name?
+		catch(SQLException e){
+			System.out.println(e.getClass().getName() + " Retrieving List of Books by Class name : " + e.getMessage());
+		}
+
+		return booksList;
+	}//getBooksByClass()
+
+
+	/**
+	 * Takes in Book object and places data in the book table.
+	 * @return int is the id of newly added book
+	 */
+	public boolean addBook(Book newBook){
 		
-		try{
-			/**
-			 * Create MySQL prepared statement and execute
-			 */
-			getAllBooksStatement = conn.createStatement();
-			rs0 = getAllBooksStatement.executeQuery(query);
-			
-			while(rs0.next()){
-				/**
-			     * Create Book object with data from one row in book table.
-			     * Then add the Book object to an ArrayList.
-			     */ 
-			     String title = rs0.getString("bookName");
-				 String isbn = rs0.getString("isbn");
-			     String desc = rs0.getString("description");
-			     String author = rs0.getString("author");
-			     String ed = rs0.getString("edition");
-			     String stat = rs0.getString("status");
-			     String condition = rs0.getString("bookCondition");
-			     String department = rs0.getString("department");
-			     String classTitle = rs0.getString("classTitle");
-			     double price = rs0.getDouble("price");
-			     int id = rs0.getInt("bid");
-				     
-			     //double check that this is the correct order of params
-			     Book bookObj = new Book(id, title, isbn, desc, author, ed, stat, condition, price, department, classTitle);
-			     //Add bookObj to ArrayList
-			     allBooks.add(bookObj);
-			}
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	 	
-	 	return allBooks;
-	 }//getAllBooks()
-	 
-	 
-	 /**
-	  * Retrieves all book currently listed for sale
-	  */	 
-	 public ArrayList<Book> getBooksFors0ale(){
-	 	
-	 }//getBooksFors0ale()
-
-
-
-	 /**
-	  * Retrieves all books for a certain department
-	  */
-	  public ArrayList<Book> getBooksByDepartment(String department){
-	  
-	  	ArrayList<Book> booksList = new ArrayList<Book>();
-	  	
-	  	String query = "select bid, uid, bookName, isbn, description, author, edition,"
-						+ " department, status, bookCondition, price, className"
-						+ " from book-exchange.book"; 
-	  	
-	  	
-	  	try{
-			/**
-			 * Create MySQL prepared statement and execute
-			 */
-			getBooksByDepartmentStatement = conn.createStatement();
-			rs2 = getBooksByDepartmentStatement.executeQuery(query);
-			
-			while(rs2.next()){
-			 /**
-			  * Check if book is categorized under the specified department
-			  */
-				String classDepartment = rs2.getString("department");
-				if(department.equals(classDepartment)){
-				   /**
-			     	* Create Book object with data from one row in book table
-			     	* that contains the specified department.
-			     	* Then add the Book object to an ArrayList.
-			     	*/ 
-	 				String classTitle = rs2.getString("className");
-			     	String userID = rs2.getString("uid");
-			     	String title = rs2.getString("bookName");
-				 	String isbn = rs2.getString("isbn");
-				    String desc = rs2.getString("description");
-				    String author = rs2.getString("author");
-			   		String ed = rs2.getString("edition");
-			    	String stat = rs2.getString("status");
-				    String condition = rs2.getString("bookCondition");
-			    	double price = rs2.getDouble("price");
-			     	int bookID = rs2.getInt("bid");
-
-				     Book bookObj = new Book(uid, bookID, title, isbn, desc, author, ed, stat, condition, price, classTitle, classDepartment);
-				     //Add bookObj to ArrayList
-			    	 booksList.add(bookObj);
-			
-				}
-			
-			}
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	  	
-	  	return booksList;
-	  	
-	  	
-	  }//getBooksByDepartment()
-	  
-	  
-	  
-	  
-	  /**
-	   * Retrieves all books for a certain class
-	   */
-	  public ArrayList<Book> getBooksByClass(String className){
-	  	ArrayList<Book> booksList = new ArrayList<Book>();
-	  	
-	  	String query = "select bid, uid, bookName, isbn, description, author, edition,"
-						+ " department, status, bookCondition, price, className"
-						+ " from book-exchange.book"; 
-	  	
-	  	
-	  	try{
-			/**
-			 * Create MySQL prepared statement and execute
-			 */
-			getBooksByClassStatement = conn.createStatement();
-			rs1 = getBooksByClassStatement.executeQuery(query);
-			
-			while(rs1.next()){
-			    /**
-			     * Check if book is categorized under the specified class
-			     */
-				String classTitle = rs1.getString("className");
-				if(className.equals(classTitle)){
-				   /**
-			     	* Create Book object with data from one row in book table
-			     	* that contains the specified className.
-			     	* Then add the Book object to an ArrayList.
-			     	*/ 
-			     	String userID = rs1.getString("uid");
-			     	String title = rs1.getString("bookName");
-				 	String isbn = rs1.getString("isbn");
-				    String desc = rs1.getString("description");
-				    String author = rs1.getString("author");
-			   		String ed = rs1.getString("edition");
-			    	String stat = rs1.getString("status");
-				    String condition = rs1.getString("bookCondition");
-				    String department = rs1.getString("department");
-			    	double price = rs1.getDouble("price");
-			     	int bookID = rs1.getInt("bid");
-
-				     Book bookObj = new Book(uid, bookID, title, isbn, desc, author, ed, stat, condition, price, classTitle, department);
-				     //Add bookObj to ArrayList
-			    	 booksList.add(bookObj);
-			
-				}
-			
-			}
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	  	
-	  	return booksList;
-	  }//getBooksByClass()
-
-
-	 /**
-	  * Takes in Book object and places data in the book table.
-	  * @return int is the id of newly added book
-	  */
-	public int addBook(Book newBook){
+		boolean isAdded = false;
 		/**
 		 * Get values from newBook object
 		 */
-		int bookID = newBook.getID();
-       	double price = newBook.getPrice();
-		String isbn = newBook.getISBN();
-       	String title = newBook.getTitle();
-       	String desc = newBook.getDescription();
-       	String author = newBook.getAuthor();
-       	String ed = newBook.getEdition();
-       	String status = newBook.getStatus(); //Does this specify that book is for sale, sold, or traded?
-       	String condition = newBook.getCondition();
-       	//TODO Still need to add the following methods to Book.java; also add "classTitle" field to database
-       	//TODO in Book.java, change "price" from int to double; also in BookHelperTest 
-       	String department = newBook.getDepartment();
-       	String classTitle = newBook.getClassTitle();
-		  
-		 try{
-		  /**
-		   * Create a MySQL insert prepared statement and execute
-		   */
-		String query = " insert into book (bid, bookName, isbn, description, author, edition",
-					+ " department, status, bookCondition, price, classTitle)"
-					+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		addBookStatement = conn.prepareStatement(query);
-			addBookStatement.setInt(1, bookID);
-    		addBookStatement.setString(2, title);
-    		addBookStatement.setString(3, isbn); 
-    		addBookStatement.setString(4, desc);
-    		addBookStatement.setString(5, author);
-    		addBookStatement.setString(6, ed);
-    		addBookStatement.setString(7, department);
-    		addBookStatement.setString(8, status);
-    		addBookStatement.setString(9, condition);
-    		addBookStatement.setDouble(10, price);
-    		addBookStatement.setString(11, classTitle);
-    					
-    		addBookStatement.execute();
-    					
-		}catch (Exception e) {
-	         e.printStackTrace();
-	    }		
+		int userId = newBook.getUId();
+		String bookName = newBook.getBookName();
+		String isbn = newBook.getIsbn();
+		String description = newBook.getDescription();
+		String author = newBook.getAuthor();
+		String edition = newBook.getEdition();
+		String department = newBook.getDepartment();
+		String className = newBook.getClassName();
+		String status = newBook.getStatus();
+		String bookCondition = newBook.getCondition();
+		double price = newBook.getPrice();		
+
+		try{
+			/**
+			 * Set parameters in the prepared statement and execute
+			 */
+			addBookStatement.setInt(1, userId);
+			addBookStatement.setString(2, bookName);
+			addBookStatement.setString(3, isbn); 
+			addBookStatement.setString(4, description);
+			addBookStatement.setString(5, author);
+			addBookStatement.setString(6, edition);
+			addBookStatement.setString(7, department);
+			addBookStatement.setString(8, className);
+			addBookStatement.setString(9, status);
+			addBookStatement.setString(10, bookCondition);
+			addBookStatement.setDouble(11, price);
+
+			int added = addBookStatement.executeUpdate();
+			if (added >= 1)
+				isAdded = true;
+
+		}catch (SQLException e) {
+			System.out.println(e.getClass().getName() + " Adding a Book to book table : " + e.getMessage());
+		}	
+		
+		return isAdded;
 	}//addBook()
-	   
-	
-	
+
+
+
 	/**
 	 * Updates a book's status in the database
 	 */
-	 public void updateBookStatus(int bookId, String newStatus){
-	 
+	public boolean updateBookStatus(int bookId, String newStatus){
+		boolean isUpdated = false;
 		try{
 			/**
-		   	 * Create a MySQL insert prepared statement and execute
-		     */
-			String query = "UPDATE book "
-        					+ "SET status=\"" + newStatus + "\" "
-        					+ "WHERE bid=" + bookId;
-					
-			updateBookStatusStatement = conn.prepareStatement(query);
-    		updateBookStatusStatement.execute();
-    					
-		}catch (Exception e) {
-	         e.printStackTrace();
-	    }
-	 }//updateBookStatus()
-	   
-	   
-	   
-	 /**
-	  * Deletes a book from the database
-	  */	  
-	public void deleteBook(int bookId){
-		String query = "DELETE FROM book WHERE bid = '"+ bookId +"' ";
+			 * Sets the parameters in prepared statement and execute
+			 */
+			
+			updateBookStatusStatement.setString(1, newStatus);
+			updateBookStatusStatement.setInt(2, bookId);
+			int updated = updateBookStatusStatement.executeUpdate();
+			if (updated >= 1)
+			{
+				isUpdated = true;
+			}
+
+		}catch (SQLException e) {
+			System.out.println(e.getClass().getName() + " Updating a Book status : " + e.getMessage());
+		}
 		
+		return isUpdated;
+	}//updateBookStatus()
+
+	/**
+	 * Deletes a book from the database
+	 */	  
+	public boolean deleteBook(int bookId){
+		boolean isDeleted = false;
 		try{
-			deleteBookStatement = conn.prepareStatement(query);
-			deleteBookStatement.execute();
-			//System.out.println("book " + bookId + " removed.");
+			deleteBookStatement.setInt(1, bookId);
+			int deleted = deleteBookStatement.executeUpdate();
+			if (deleted >= 1)
+				isDeleted = true;
+			
 		}catch(Exception e){
-			e.printStackTrace();
+			System.out.println(e.getClass().getName() + " Deleting a Book from book table  : " + e.getMessage());
 		}	
+		
+		return isDeleted;
 	}//deleteBook()
-	   
-}
+
+	/**
+	 * Closes all prepared statements and a connection.
+	 */
+	public void closeConnection()
+	{
+		
+		try {
+			getBookByIdStatement.close();
+			getBooksBySellerStatement.close();
+			getAllBooksStatement.close();
+			getBooksByClassStatement.close();
+			getBooksByDepartmentStatement.close();
+			getBooksForSellStatement.close();
+			updateBookStatusStatement.close();
+			deleteBookStatement.close();
+			addBookStatement.close();
+			getBookByBookNameStatement.close();
+			conn.close();
+		} catch (SQLException e) {
+			System.out.println(e.getClass().getName() + " Closing all PreparedStatement and a connection: " + e.getMessage());
+		}
+		
+	}//closeConnection
+	
+}//BookHelper
