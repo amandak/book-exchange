@@ -27,6 +27,7 @@ public class UserHelper {
 	protected PreparedStatement getAllUsersStatement;
 	protected PreparedStatement updateUserPasswordStatement;
 	protected PreparedStatement addNewUserStatement;
+	protected PreparedStatement isUserPresentStatement;
 
 	/**
 	 * Constructor for a UserHelper object. Creates a Driver Mananager, 
@@ -56,6 +57,19 @@ public class UserHelper {
 		addNewUserStatement = conn.prepareStatement("INSERT INTO user"
 				+ "(username, password, role, firstName, lastName, email, streetAddress, city, state, zip, country) "
 				+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		
+		isUserPresentStatement = conn.prepareStatement("SELECT count(*) AS amount FROM user");
+		ResultSet rs = null;
+		rs = isUserPresentStatement.executeQuery();
+		while(rs.next())
+		{
+			int count = rs.getInt("amount");
+			if (count == 0)
+			{
+				User newUser = new User("admin", "admin", "John", "Smith", "johnsmith@uga.edu", "1234 LumpKin Street", "Athens", "GA", 30605, "USA");
+				this.addNewUser(newUser, "group2");
+			}
+		}
 	}
 
 	/**
