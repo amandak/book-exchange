@@ -26,7 +26,7 @@ public class CartTest extends TestCase {
 		assertEquals("instance book list size", 0, instance.getBookList().size());
 		
 		Book binstance = new Book(12323, 123, "Database Systems", "1234567890888",
-				"Database book", "Anonymous", "3", "Listed", "Fair", 25.00);
+				"Database book", "Anonymous", "3", "Listed", "Fair", 25.00, "CSCI4300", "CSCI");
 		instance.addBook(binstance);
 		assertEquals("instance book list size", 1, instance.getBookList().size());
 		assertEquals("instance total price", 25.00, instance.getTotalPrice(), 0.001);
