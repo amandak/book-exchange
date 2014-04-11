@@ -1,4 +1,6 @@
 package db;
+import java.util.ArrayList;
+
 import model.Book;
 
 import org.junit.Test;
@@ -32,9 +34,12 @@ public class BookHelperTest extends TestCase {
 		String ed = "fourth";
 		String status = "listed"; //Does this specify that book is for sale, sold, or traded?
 		String condition = "GOOD";
+		String department = "CSCI";
+		String className = "CSCI4720";
 
 		//Should we pass in ID as param? Or should that be automatically set by database?
-		Book newBook1 = new Book(userId, bookId, title, isbn, desc, author, ed, status, condition, price);
+		Book newBook1 = new Book(userId, bookId, title, isbn, desc, author, ed,
+				status, condition, price, className, department);
 
 		/**
 		 * Open connection to database by creating object of BookHelper
@@ -43,8 +48,9 @@ public class BookHelperTest extends TestCase {
 		BookHelper bookDAO = new BookHelper();
 		//Method returns id
 		//Change this if we want to set id instead of it automatically getting set
-		int newID1 = bookDAO.addBook(newBook1); 
-
+		boolean added = bookDAO.addBook(newBook1); 
+		ArrayList<Book> bookList = bookDAO.getAllBooks();
+		int newID1 = bookList.get(0).getBookId();
 		/**
 		 * Verify that new book data was accurately entered into database
 		 */
@@ -63,6 +69,7 @@ public class BookHelperTest extends TestCase {
 		/**
 		 * Update a current book listing and verify that modifications made to Book table are accurate
 		 */
+		/**
 		//update title bookDAO.setTitle(newID1)
 		bookDAO.setBookName(newID1, "Organizacion de la Computadora");
 		bookDAO.setISBN(newID1, "9780123747503");
@@ -72,7 +79,6 @@ public class BookHelperTest extends TestCase {
 		bookDAO.setStatus(newID1, ""); //Change this
 		bookDAO.setCondition(newID1, "acceptable");
 		bookDAO.setPrice(newID1, 4);
-
 		//Update bookTest object with the modifications
 		bookTest = bookDAO.getBookById(newID1);
 
@@ -84,7 +90,7 @@ public class BookHelperTest extends TestCase {
 		assertEquals("Status modified", "", bookTest.getStatus());
 		assertEquals("Condition modified", "acceptable", bookTest.getCondition());
 		assertEquals("Price modified", 4, bookTest.getPrice());
-
+**/
 		//Should we have more getters in BookHelper as well? I'm not sure if we would need them.
 
 
@@ -96,7 +102,7 @@ public class BookHelperTest extends TestCase {
 		assertNull("Removed book listing is not null as expected", nullBook);
 
 
-		
+		bookDAO.closeConnection();
 
 	}
 }
