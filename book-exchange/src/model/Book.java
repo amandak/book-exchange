@@ -14,58 +14,58 @@ public class Book {
 	 * ID of the book.
 	 */
 	int bookId;
-	
+
 	/**
 	 * Name of the book.
 	 */
 	String bookName;
-	
+
 	/**
 	 * ISBN number of the book
 	 */
 	String isbn;
-	
+
 	/**
 	 * Description of the book
 	 */
 	String description;
-	
+
 	/**
 	 * Author of the book
 	 */
 	String author;
-	
+
 	/**
 	 * Edition of the book
 	 */
 	String edition;
-	
+
 	/**
 	 * Status of the book
 	 */
 	String status;
-	
+
 	/**
 	 * Condition of the book
 	 */
 	String condition;
-		
-       /**
-        * Name of class where book is used
-        */
-       String classTitle;
 
-        /**
-         * Name of department that includes 
+	/**
+	 * Name of class where book is used
+	 */
+	String classTitle;
+
+	/**
+	 * Name of department that includes 
 	 * the class where the book is used
-         */
-       String department;
+	 */
+	String department;
 
-        /**
+	/**
 	 * Price of the book
 	 */
 	double price;
-	
+
 	/**
 	 * Constructor for a book object.  
 	 * @param _bookId		The primary-key ID of the book.
@@ -81,8 +81,8 @@ public class Book {
 	 * @param _department  
 	 *///bookId, title, isbn, desc, author, ed, stat, condition, price, department, classTitle
 	public Book(int _uid, int _bookId, String _bookName, String _isbn, String _description, 
-		    String _author, String _edition, String _status, String _condition, double price, 
-		    String _classTitle, String _department){
+			String _author, String _edition, String _status, String _condition, double price, 
+			String _classTitle, String _department){
 		this.uid = _uid;
 		this.bookId = _bookId;
 		this.bookName = _bookName;
@@ -95,9 +95,9 @@ public class Book {
 		this.price = price;
 		this.classTitle = _classTitle;
 		this.department = _department;
-		
+
 	}//Book constructor
-	
+
 	/**
 	 * @param bookId the bookId to set
 	 */
@@ -161,20 +161,20 @@ public class Book {
 		this.price = price;
 	}
 
-       /**
-        * @param classTitle the name of the class where the book is used
-        */
-       public void setClass(String classTitle){
-     	   this.classTitle = classTitle;
-       }
+	/**
+	 * @param classTitle the name of the class where the book is used
+	 */
+	public void setClassName(String classTitle){
+		this.classTitle = classTitle;
+	}
 
 
-       /**
-        * @param department the name of the department where the book is used
-        */
-       public void setDepartment(String department){
-  	   this.department = department;
-       }
+	/**
+	 * @param department the name of the department where the book is used
+	 */
+	public void setDepartment(String department){
+		this.department = department;
+	}
 
 	/**
 	 * Get method for the ID of this book
@@ -183,7 +183,7 @@ public class Book {
 	public int getBookId(){
 		return this.bookId;
 	}//getBookId
-	
+
 	/**
 	 * Get method for the name of the book
 	 * @return	The name of the book
@@ -191,7 +191,7 @@ public class Book {
 	public String getBookName(){
 		return this.bookName;
 	}//getBookName
-	
+
 	/**
 	 * Get method for the ISBN of the book
 	 * @return	The ISBN of the book
@@ -199,7 +199,7 @@ public class Book {
 	public String getIsbn(){
 		return this.isbn;
 	}//getIsbn
-	
+
 	/**
 	 * Get method for the description of the book
 	 * @return	The description of the book
@@ -207,7 +207,7 @@ public class Book {
 	public String getDescription(){
 		return this.description;
 	}//getDescription
-	
+
 	/**
 	 * Get method for the author of the book
 	 * @return	The author of the book
@@ -215,7 +215,7 @@ public class Book {
 	public String getAuthor(){
 		return this.author;
 	}//getAuthor
-	
+
 	/**
 	 * Get method for the edition of the book
 	 * @return	The edition of the book
@@ -223,7 +223,7 @@ public class Book {
 	public String getEdition(){
 		return this.edition;
 	}//getEdition
-	
+
 	/**
 	 * Get method for the status of the book
 	 * @return	The status of the book
@@ -231,7 +231,7 @@ public class Book {
 	public String getStatus(){
 		return this.status;
 	}//getStatus
-	
+
 	/**
 	 * Get method for the condition of the book
 	 * @return	The condition of the book
@@ -240,13 +240,13 @@ public class Book {
 		return this.condition;
 	}//getCondition
 
-        public String getClass(){
-    	   return this.classTitle;
-        }//getClass
+	public String getClassName(){
+		return this.classTitle;
+	}//getClass
 
-        public String getDepartment(){
-   	   return this.department;
-        }//getDepartment
+	public String getDepartment(){
+		return this.department;
+	}//getDepartment
 
 	/**
 	 * Get method for the price of the book
@@ -255,7 +255,7 @@ public class Book {
 	public double getPrice(){
 		return this.price;	
 	}//getPrice
-	
+
 	/**
 	 * Get method for the user id 
 	 * @return The id of the user
@@ -264,5 +264,5 @@ public class Book {
 	{
 		return this.uid;
 	}
-	
+
 }//Book class
