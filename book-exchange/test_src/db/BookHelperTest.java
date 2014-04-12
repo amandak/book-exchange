@@ -64,6 +64,22 @@ public class BookHelperTest extends TestCase {
 		boolean added = bookDAO.addBook(newBook1); 
 		
 		assertTrue("added a book", added);
+		ArrayList<Book> books = bookDAO.getBookbyBookName("CSCI", "CSCI4720", "Computer Organization");
+		Book book = books.get(0);
+		
+		assertNotNull("book not null", book);
+		assertEquals("book name", title, book.getBookName());
+		assertEquals("book desc", desc, book.getDescription());
+		assertEquals("book price", price, book.getPrice());
+		assertEquals("book isbn", isbn, book.getIsbn());
+		assertEquals("book author", author, book.getAuthor());
+		assertEquals("book edition", ed, book.getEdition());
+		assertEquals("book condition", condition, book.getCondition());
+		assertEquals("book status", status, book.getStatus());
+		assertEquals("book department", department, book.getDepartment());
+		assertEquals("book classname", className, book.getClassName());
+		assertEquals("book author", author, book.getAuthor());
+		
 		ArrayList<Book> bookList = bookDAO.getAllBooks();
 		int newID1 = bookList.get(0).getBookId();
 		/**
