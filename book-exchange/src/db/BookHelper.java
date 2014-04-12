@@ -82,7 +82,7 @@ public class BookHelper {
 			deleteBookStatement = conn.prepareStatement("DELETE FROM book WHERE bid=?");
 
 			//PreparedStatement that retrieves Books by bookName
-			getBookByBookNameStatement = conn.prepareStatement("SELECT * FROM book WHERE bookName LIKE(?)");
+			getBookByBookNameStatement = conn.prepareStatement("SELECT * FROM book WHERE department=? AND className=? AND bookName LIKE(?)");
 
 
 		} catch (SQLException e) {
@@ -489,6 +489,63 @@ public class BookHelper {
 		return isDeleted;
 	}//deleteBook()
 
+	/**
+	 * Retrieves list of Books which matches bookName provided from given department and class
+	 * @param departmentName name of the department
+	 * @param className name of the class within department
+	 * @param bookName name of the book
+	 */
+	public ArrayList<Book> getBookbyBookName(String departmentName, String className, String bookName)
+	{
+		ArrayList<Book> bookList = new ArrayList<Book>();
+		String conBookName = "%"+bookName+"%";
+		
+		ResultSet rs = null;
+		
+		try {
+			getBookByBookNameStatement.setString(1, departmentName);
+			getBookByBookNameStatement.setString(2, className);
+			getBookByBookNameStatement.setString(3, conBookName);
+			
+			rs = getBookByBookNameStatement.executeQuery();
+			
+			while(rs.next())
+				// create Book object with data from book table	
+			{
+				/**
+				 * Create Book object with data from one row in book table.
+				 * Then add the Book object to an ArrayList.
+				 */ 
+				int userid = rs.getInt("uid");
+				int bid = rs.getInt("bid");
+				String title = rs.getString("bookName");
+				String isbn = rs.getString("isbn");
+				String desc = rs.getString("description");
+				String author = rs.getString("author");
+				String ed = rs.getString("edition");
+				String department = rs.getString("department");
+				String classTitle = rs.getString("className");
+				String stat = rs.getString("status");
+				String condition = rs.getString("bookCondition");
+				double price = rs.getDouble("price");
+
+
+				Book bookObj = new Book(userid, bid, title, isbn, desc, 
+						author, ed, stat, condition, price, classTitle, department);
+				//Add bookObj to ArrayList
+				bookList.add(bookObj);
+			}//while
+		} catch (SQLException e) {
+			System.out.println(e.getClass().getName() + " Retrieving list of Book objects from book table given bookName : " + e.getMessage());
+		}
+	
+		
+		
+		
+		return bookList;
+	}//getBookbyBookName
+	
+	
 	/**
 	 * Closes all prepared statements and a connection.
 	 */
