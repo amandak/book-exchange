@@ -6,6 +6,22 @@ package model;
  * @author Team 2 Software, LLC 
  */
 public class Book {
+	
+	public static final String STATUS_SELL = "Sell";
+	
+	public static final String STATUS_EXCHANGE = "Exchange";
+	
+	public static final String STATUS_PURCHASED = "Purchased";
+	
+	public static final String CONDITION_NEW = "New";
+	
+	public static final String CONDITION_LIKE_NEW = "Like New";
+	
+	public static final String CONDITION_VERY_GOOD = "Very Good";
+	
+	public static final String CONDITION_GOOD = "Good";
+	
+	public static final String CONDITION_ACCEPTABLE = "Acceptable";
 	/**
 	 * user id
 	 */
