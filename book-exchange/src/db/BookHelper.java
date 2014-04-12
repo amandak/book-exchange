@@ -62,7 +62,7 @@ public class BookHelper {
 			getAllBooksStatement = conn.prepareStatement("SELECT * FROM book");
 
 			//PreparedStatement that will retrieve list of Books where its status is Sell
-			getBooksForSellStatement = conn.prepareStatement("SELECT * FROM book WHERE status='Sell");
+			getBooksForSellStatement = conn.prepareStatement("SELECT * FROM book WHERE status='" + Book.STATUS_SELL + "'");
 
 			//PreparedStatement that will retrieve list of Books by department
 			getBooksByDepartmentStatement = conn.prepareStatement("SELECT * FROM book WHERE department=?");
