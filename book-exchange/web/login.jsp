@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -14,5 +14,8 @@
             <input type="submit" value="submit" />
         </form>
 		<a href="index.jsp">home</a>
+		
+		
+		<p style="color:red">${loginError}</p>
 	</body>
 </html>
