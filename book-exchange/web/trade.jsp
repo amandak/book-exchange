@@ -20,13 +20,13 @@
             Class*:<input type="text" name="class" /><br>
             Edition:<input type="text" name="class" /><br>
             Condition:<input type="text" name="class" /><br>
-			Description:</br>
+			Description:<br>
 			<textarea name="description" rows="3" cols="50"></textarea>
             <input type="submit" value="submit" />
         </form>
-		</br>
+		<br>
 		* denotes a required field
-		</br>
+		<br>
 		<a href="index.html">home</a>
 	</body>
 </html>
