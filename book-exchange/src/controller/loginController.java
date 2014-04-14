@@ -39,14 +39,15 @@ public class loginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		
+		session.setAttribute("loginError", "");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		System.out.println("username: " + username);
 		System.out.println("password: " + password);
-		session.setAttribute("loginError", "");
-		if((username != null || !username.isEmpty()) && (password != null || !password.isEmpty()))
+		
+		if((!username.isEmpty()) && (!password.isEmpty()))
 		{
+			System.out.println("entered first if");
 			UserHelper helper = null;
 			
 			try {
@@ -59,6 +60,7 @@ public class loginController extends HttpServlet {
 			
 			if (isLoginVerified)
 			{
+				
 				User user = helper.getUser(username);
 				session.setAttribute("userId", user.getUserId());
 				session.setAttribute("role", user.getRole());
@@ -76,7 +78,8 @@ public class loginController extends HttpServlet {
 		}
 		else
 		{
-			if ((username != null || !username.isEmpty()) || (password != null || !password.isEmpty()))
+			System.out.println("entered second else");
+			if (username.isEmpty() || password.isEmpty())
 			{
 				session.setAttribute("loginError", "Either username or password is not provided");
 				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
