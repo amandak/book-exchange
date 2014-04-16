@@ -28,7 +28,7 @@ public class UserHelper {
 	protected PreparedStatement updateUserPasswordStatement;
 	protected PreparedStatement addNewUserStatement;
 	protected PreparedStatement isUserPresentStatement;
-
+	protected PreparedStatement removeUserStatement;
 	/**
 	 * Constructor for a UserHelper object. Creates a Driver Mananager, 
 	 * opens a connection to the database, and initializes all prepared statements.
@@ -59,6 +59,9 @@ public class UserHelper {
 				+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		
 		isUserPresentStatement = conn.prepareStatement("SELECT count(*) AS amount FROM user");
+		removeUserStatement = conn.prepareStatement("DELETE FROM user WHERE uid=?");
+		
+		
 		ResultSet rs = null;
 		rs = isUserPresentStatement.executeQuery();
 		while(rs.next())
@@ -263,6 +266,31 @@ public class UserHelper {
 		}
 		return addedNewUser;
 	}
+	
+	/**
+	 * Removes the user 
+	 * @param userId id of the user
+	 * @return
+	 */
+	public boolean removeUser(int userId)
+	{
+		boolean removed = false;
+		
+		try {
+			removeUserStatement.setInt(1, userId);
+			int remove = removeUserStatement.executeUpdate();
+			if(remove >= 1)
+			{
+				removed = true;
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getClass().getName() + " removing user: " + e.getMessage());
+		}
+		
+		
+		
+		return removed;
+	}
 
 	/**
 	 * Closes connection and all prepared statements
@@ -274,7 +302,9 @@ public class UserHelper {
 			verifyUserStatement.close();;
 			getAllUsersStatement.close();
 			updateUserPasswordStatement.close();;
-			addNewUserStatement.close();;
+			addNewUserStatement.close();
+			isUserPresentStatement.close();
+			removeUserStatement.close();
 			conn.close();
 
 		} catch (SQLException e) {
