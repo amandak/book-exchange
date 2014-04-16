@@ -84,6 +84,9 @@ public class UserHelperTest extends TestCase {
 		boolean verified = helper.verifyLogin("ronmcdon", "newpassword");
 		assertTrue("Password changed successfully", verified);
 		
+		boolean removed = helper.removeUser(userFromDatabase.getUserId());
+		assertTrue("User removed", removed);
+		
 		helper.closeConnection();
 	}
 }
