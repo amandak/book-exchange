@@ -1,6 +1,6 @@
 <%@ page language="java"
-    contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
+    contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"
     isELIgnored="false"
 %>
 
@@ -8,8 +8,8 @@
 
 <html>
     <head>
-        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
-		<title>Sell a book</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Trade a book</title>
 	</head>
 
 	<body>
@@ -27,6 +27,6 @@
 		<br>
 		* denotes a required field
 		<br>
-		<a href="index.html">home</a>
+		<a href="index.jsp">home</a>
 	</body>
 </html>
