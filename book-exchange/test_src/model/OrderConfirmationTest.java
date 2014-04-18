@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 
 /**
  * Verifies the OrderConfirmation object correctly contains the data
- * @author Pinal
+ * @author Pinal Patel
  *
  */
 public class OrderConfirmationTest extends TestCase {
