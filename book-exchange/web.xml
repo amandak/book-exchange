@@ -14,4 +14,14 @@
     <servlet-name>loginController</servlet-name>
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>coursePicker</display-name>
+    <servlet-name>coursePicker</servlet-name>
+    <servlet-class>controller.coursePicker</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>coursePicker</servlet-name>
+    <url-pattern>/coursePicker</url-pattern>
+  </servlet-mapping>
 </web-app>

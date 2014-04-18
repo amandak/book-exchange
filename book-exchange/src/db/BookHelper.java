@@ -28,7 +28,8 @@ public class BookHelper {
 	protected PreparedStatement deleteBookStatement;
 	protected PreparedStatement addBookStatement;
 	protected PreparedStatement getBookByBookNameStatement;
-        protected PreparedStatement searchByBookNameStatement;
+	protected PreparedStatement searchByBookNameStatement;
+	protected PreparedStatement getClassByDepartment;
 	private Connection conn;
 
 	/**
@@ -84,9 +85,11 @@ public class BookHelper {
 
 			//PreparedStatement that retrieves Books by bookName
 			getBookByBookNameStatement = conn.prepareStatement("SELECT * FROM book WHERE department=? AND className=? AND bookName LIKE(?)");
-			
+
 			//PreparedStatement that retrieves list of Books given only book name
 			searchByBookNameStatement = conn.prepareStatement("SELECT * FROM book WHERE bookName LIKE(?)");
+
+			getClassByDepartment = conn.prepareStatement("SELECT className FROM book WHERE department=?");
 
 		} catch (SQLException e) {
 			System.out.println(e.getClass().getName() + " initalizing all prepared statements: " + e.getMessage());
@@ -403,7 +406,7 @@ public class BookHelper {
 	 * @return int is the id of newly added book
 	 */
 	public boolean addBook(Book newBook){
-		
+
 		boolean isAdded = false;
 		/**
 		 * Get values from newBook object
@@ -443,7 +446,7 @@ public class BookHelper {
 		}catch (SQLException e) {
 			System.out.println(e.getClass().getName() + " Adding a Book to book table : " + e.getMessage());
 		}	
-		
+
 		return isAdded;
 	}//addBook()
 
@@ -458,7 +461,7 @@ public class BookHelper {
 			/**
 			 * Sets the parameters in prepared statement and execute
 			 */
-			
+
 			updateBookStatusStatement.setString(1, newStatus);
 			updateBookStatusStatement.setInt(2, bookId);
 			int updated = updateBookStatusStatement.executeUpdate();
@@ -470,7 +473,7 @@ public class BookHelper {
 		}catch (SQLException e) {
 			System.out.println(e.getClass().getName() + " Updating a Book status : " + e.getMessage());
 		}
-		
+
 		return isUpdated;
 	}//updateBookStatus()
 
@@ -484,11 +487,11 @@ public class BookHelper {
 			int deleted = deleteBookStatement.executeUpdate();
 			if (deleted >= 1)
 				isDeleted = true;
-			
+
 		}catch(Exception e){
 			System.out.println(e.getClass().getName() + " Deleting a Book from book table  : " + e.getMessage());
 		}	
-		
+
 		return isDeleted;
 	}//deleteBook()
 
@@ -502,16 +505,16 @@ public class BookHelper {
 	{
 		ArrayList<Book> bookList = new ArrayList<Book>();
 		String conBookName = "%"+bookName+"%";
-		
+
 		ResultSet rs = null;
-		
+
 		try {
 			getBookByBookNameStatement.setString(1, departmentName);
 			getBookByBookNameStatement.setString(2, className);
 			getBookByBookNameStatement.setString(3, conBookName);
-			
+
 			rs = getBookByBookNameStatement.executeQuery();
-			
+
 			while(rs.next())
 				// create Book object with data from book table	
 			{
@@ -541,30 +544,30 @@ public class BookHelper {
 		} catch (SQLException e) {
 			System.out.println(e.getClass().getName() + " Retrieving list of Book objects from book table given bookName : " + e.getMessage());
 		}
-	
-		
-		
-		
+
+
+
+
 		return bookList;
 	}//getBookbyBookName
-	
-        /**
-         * Retrieves all books that matches provided bookName
-         *
-         */
-        public ArrayList<Book> searchByBookName(String bookName)
-        {
 
-	        ArrayList<Book> bookList = new ArrayList<Book>();
+	/**
+	 * Retrieves all books that matches provided bookName
+	 *
+	 */
+	public ArrayList<Book> searchByBookName(String bookName)
+	{
+
+		ArrayList<Book> bookList = new ArrayList<Book>();
 		String conBookName = "%"+bookName+"%";
-		
+
 		ResultSet rs = null;
-		
+
 		try {
 			searchByBookNameStatement.setString(1, conBookName);
-					
+
 			rs = searchByBookNameStatement.executeQuery();
-			
+
 			while(rs.next())
 				// create Book object with data from book table	
 			{
@@ -594,21 +597,46 @@ public class BookHelper {
 		} catch (SQLException e) {
 			System.out.println(e.getClass().getName() + " Retrieving list of Book objects given bookName only : " + e.getMessage());
 		}
-	
-		
-		
-		
+
+
+
+
 		return bookList;
 
 
-        }//searchByBookName
-	
+	}//searchByBookName
+
+	/**
+	 * Retrieves class names by department
+	 * @param department
+	 * @return
+	 */
+	public ArrayList<String> getClassByDepartment(String department)
+	{
+		ArrayList<String> classList = new ArrayList<String>();
+		ResultSet rs = null;
+		try {
+			getClassByDepartment.setString(1, department);
+			rs = getClassByDepartment.executeQuery();
+			while(rs.next())
+			//adds a class name to the class list
+			{
+				classList.add(rs.getString("className"));
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getClass().getName() + " Retrieving list of Book objects given bookName only : " + e.getMessage());
+		}
+
+
+		return classList;
+
+	}
 	/**
 	 * Closes all prepared statements and a connection.
 	 */
 	public void closeConnection()
 	{
-		
+
 		try {
 			getBookByIdStatement.close();
 			getBooksBySellerStatement.close();
@@ -621,11 +649,12 @@ public class BookHelper {
 			addBookStatement.close();
 			getBookByBookNameStatement.close();
 			searchByBookNameStatement.close();
+			getClassByDepartment.close();
 			conn.close();
 		} catch (SQLException e) {
 			System.out.println(e.getClass().getName() + " Closing all PreparedStatement and a connection: " + e.getMessage());
 		}
-		
+
 	}//closeConnection
-	
+
 }//BookHelper
