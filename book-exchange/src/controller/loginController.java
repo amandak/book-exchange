@@ -14,6 +14,7 @@ import db.UserHelper;
 
 /**
  * Servlet implementation class loginController
+ * @author Pinal Patel(20% Work Done), Vince Caparell(80% Work Done)
  */
 public class loginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
