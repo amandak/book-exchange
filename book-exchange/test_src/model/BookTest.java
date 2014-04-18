@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 /**
  * 
  * Tests that Book object correctly contains the data
- *
+ * @author Pinal Patel
  */
 public class BookTest extends TestCase {
 
