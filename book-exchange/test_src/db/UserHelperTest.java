@@ -5,7 +5,9 @@ import junit.framework.TestCase;
 import model.*;
 
 /**
- * Test class verifies that UserHelper methods accurately modify Users table in database
+ * Test class verifies that UserHelper methods accurately modify U
+sers table in database
+ * @author Amanda Palusky
  */
 public class UserHelperTest extends TestCase {
 
