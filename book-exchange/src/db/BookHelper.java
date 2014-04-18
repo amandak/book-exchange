@@ -563,7 +563,7 @@ public class BookHelper {
 		try {
 			searchByBookNameStatement.setString(1, conBookName);
 					
-			rs = searchByBookName.executeQuery();
+			rs = searchByBookNameStatement.executeQuery();
 			
 			while(rs.next())
 				// create Book object with data from book table	
