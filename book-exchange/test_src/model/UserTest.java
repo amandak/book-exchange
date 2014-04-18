@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 
 /**
  * Tests that User object correctly contains the data
- * 
+ * @author Pinal Patel 
  *
  */
 public class UserTest extends TestCase {
