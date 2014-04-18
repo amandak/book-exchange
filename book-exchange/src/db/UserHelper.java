@@ -14,6 +14,7 @@ import model.User;
  * querying/updating the application database for anything User
  * related.
  * @author Team 2 Software, LLC 
+ * @author Vince Capparell(20% Work Done), Pinal Patel (80% Work Done)  
  */
 public class UserHelper {
 
