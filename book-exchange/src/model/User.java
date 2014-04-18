@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 
 /**
  * User class represents a user for the book-exchange application.
- * @author Pinal
+ * @author Pinal Patel (100% Work Done)
  *
  */
 public class User {
