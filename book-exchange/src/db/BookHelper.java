@@ -27,7 +27,7 @@ public class BookHelper {
 	protected PreparedStatement deleteBookStatement;
 	protected PreparedStatement addBookStatement;
 	protected PreparedStatement getBookByBookNameStatement;
-
+        protected PreparedStatement searchByBookNameStatement;
 	private Connection conn;
 
 	/**
@@ -83,7 +83,9 @@ public class BookHelper {
 
 			//PreparedStatement that retrieves Books by bookName
 			getBookByBookNameStatement = conn.prepareStatement("SELECT * FROM book WHERE department=? AND className=? AND bookName LIKE(?)");
-
+			
+			//PreparedStatement that retrieves list of Books given only book name
+			searchByBookNameStatement = conn.prepareStatement("SELECT * FROM book WHERE bookName LIKE(?)");
 
 		} catch (SQLException e) {
 			System.out.println(e.getClass().getName() + " initalizing all prepared statements: " + e.getMessage());
@@ -545,6 +547,60 @@ public class BookHelper {
 		return bookList;
 	}//getBookbyBookName
 	
+        /**
+         * Retrieves all books that matches provided bookName
+         *
+         */
+        public ArrayList<Book> searchByBookName(String bookName)
+        {
+
+	        ArrayList<Book> bookList = new ArrayList<Book>();
+		String conBookName = "%"+bookName+"%";
+		
+		ResultSet rs = null;
+		
+		try {
+			searchByBookNameStatement.setString(1, conBookName);
+					
+			rs = searchByBookName.executeQuery();
+			
+			while(rs.next())
+				// create Book object with data from book table	
+			{
+				/**
+				 * Create Book object with data from one row in book table.
+				 * Then add the Book object to an ArrayList.
+				 */ 
+				int userid = rs.getInt("uid");
+				int bid = rs.getInt("bid");
+				String title = rs.getString("bookName");
+				String isbn = rs.getString("isbn");
+				String desc = rs.getString("description");
+				String author = rs.getString("author");
+				String ed = rs.getString("edition");
+				String department = rs.getString("department");
+				String classTitle = rs.getString("className");
+				String stat = rs.getString("status");
+				String condition = rs.getString("bookCondition");
+				double price = rs.getDouble("price");
+
+
+				Book bookObj = new Book(userid, bid, title, isbn, desc, 
+						author, ed, stat, condition, price, classTitle, department);
+				//Add bookObj to ArrayList
+				bookList.add(bookObj);
+			}//while
+		} catch (SQLException e) {
+			System.out.println(e.getClass().getName() + " Retrieving list of Book objects given bookName only : " + e.getMessage());
+		}
+	
+		
+		
+		
+		return bookList;
+
+
+        }//searchByBookName
 	
 	/**
 	 * Closes all prepared statements and a connection.
@@ -563,6 +619,7 @@ public class BookHelper {
 			deleteBookStatement.close();
 			addBookStatement.close();
 			getBookByBookNameStatement.close();
+			searchByBookNameStatement.close();
 			conn.close();
 		} catch (SQLException e) {
 			System.out.println(e.getClass().getName() + " Closing all PreparedStatement and a connection: " + e.getMessage());
