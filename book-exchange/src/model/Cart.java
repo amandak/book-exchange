@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Cart class represents the Book items 
  * @author Team 2 Software, LLC
- *
+ * @author Pinal Patel (100% Work Done)
  */
 public class Cart {
 
