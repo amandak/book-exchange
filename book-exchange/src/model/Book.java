@@ -4,6 +4,7 @@ package model;
  * This class is a Data Transfer Object.  It serves as a bundle
  * of data which represents a Book.
  * @author Team 2 Software, LLC 
+ * @author Pinal Patel (50% Work Done), Vince Caparell(50% Work Done)
  */
 public class Book {
 	
