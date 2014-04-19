@@ -52,7 +52,7 @@
 	
 		<div id="searchDiv">
 			<form style="text-align:center";>
-				<input id="searchBox" type="text" placeholder="Seach for a book" />
+				<input id="searchBox" type="text" placeholder="Search for a book" />
 				<input class="searchButton" type="submit" value="Search" /> 
 			</form>
 			</br>
