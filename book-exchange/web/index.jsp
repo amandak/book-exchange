@@ -57,7 +57,7 @@
 			</form>
 			</br>
 			<form>
-				<select class="dropdownMenu" name="department" onchange="showCourse(this.value)>
+				<select class="dropdownMenu" name="department" onchange="showCourse(this.value)">
 					<option selected="selected" value="-1">Browse by department</option>
 							
 					<option value="AAEC">AAEC - Agricultural and Applied Economics</option>
