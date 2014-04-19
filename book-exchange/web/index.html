@@ -1,46 +1,50 @@
-<!DOCTYPE html>
 
+
+<!DOCTYPE html>
 <html>
+	<link rel="stylesheet" href="css/main.css" type="text/css" />
 	<head>
 		<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 		<title>UGA Book Exchange</title>
 	</head>
-	<style>
-	table
-	{
-	margin-left:40%;
-	}
-	</style>
+
 	<body>
-		<h1 style="text-align:center";>UGA Book Exchange</h1></br>
-		<p style="text-align:right";>
-			<a href="login.html">login</a>
-			<a href="signup.html">signup</a>
-		</p>
 	
-		<p style="text-align:center";>
+		<div id="loginPanel">
+			<a class="links" href="login.html">Login&nbsp</a>
+			<a class="links" href="signup.html">Signup</a>
+		</div>
+		
+		<div id="titleDiv">
+		<p id="siteTitle">The UGA</br>Book Exchange</p>
+		<p id="slogan">trade a book, save a tree</p>
+		</div>
+		
+		<div id="searchDiv">
 			<form style="text-align:center";>
-				<input type="text" placeholder="Seach for a book" />
-				<input type="submit" value="Search" /> 
+				<input id="searchBox" type="text" placeholder="Seach for a book" />
+				<input class="searchButton" type="submit" value="Search" /> 
 			</form>
 			</br>
-			<form style="text-align:center";>
-				<select name="department">
+			<form>
+				<select class="dropdownMenu" name="department">
 					<option selected="selected">Browse by department</option>
 					<option value="CSCI">CSCI</option>
 					<option value="ANTH">ANTH</option>
 				</select>
-				<input type="submit" value="Search" />
+				<input class="searchButton" type="submit" value="Search" />
 			</form>
-		</p>
-		<table> 
-			<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td><a href="sell.html">sell a book</a></td>
-			<td><a href="trade.html">trade a book</a></td>
-			</tr>
-		</table>	
+		</div>
+		
+		<!--<div id="moveSellTrade">
+			<a class="sellTradeButtons" id="leftSellTrade" href="sell.html">sell a book</a>
+			<a class="sellTradeButtons" id="rightSellTrade" href="trade.html">trade a book</a>	
+		</div>-->
+	
+		
+		<div id="treeImg">
+		<img src="css/tree.png">
+		</div>
+		
 	</body>
 </html>

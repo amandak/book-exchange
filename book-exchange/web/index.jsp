@@ -2,10 +2,10 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+	<link rel="stylesheet" href="css/main.css" type="text/css" />
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>UGA Book Exchange</title>
-		<script>
+	
+	<script>
 			function showCourse(str)
 			{
 			var xmlhttp;    
@@ -33,29 +33,31 @@
 			xmlhttp.send();
 			}
 		</script>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>UGA Book Exchange</title>
 	</head>
-	<style>
-	table
-	{
-	margin-left:40%;
-	}
-	</style>
 	
 	<body>
-		<h1 style="text-align:center">UGA Book Exchange</h1><br>
-		<p style="text-align:right">
-			<a href="login.jsp">login</a>
-			<a href="signup.jsp">signup</a>
-		</p>
+		
+		<div id="loginPanel">
+			<a class="links" href="login.jsp">Login&nbsp</a>
+			<a class="links" href="signup.jsp">Signup</a>
+		</div>
+		
+		<div id="titleDiv">
+		<p id="siteTitle">The UGA</br>Book Exchange</p>
+		<p id="slogan">trade a book, save a tree</p>
+		</div>		
 	
-		<p style="text-align:center">
-			<form style="text-align:center">
-				<input type="text" placeholder="Seach for a book" />
-				<input type="submit" value="Search" /> 
+		<div id="searchDiv">
+			<form style="text-align:center";>
+				<input id="searchBox" type="text" placeholder="Seach for a book" />
+				<input class="searchButton" type="submit" value="Search" /> 
 			</form>
-			<br>
-			<form style="text-align:center">
-				<select name="department" onchange="showCourse(this.value)">
+			</br>
+			<form>
+				<select class="dropdownMenu" name="department" onchange="showCourse(this.value)>
 					<option selected="selected" value="-1">Browse by department</option>
 							
 					<option value="AAEC">AAEC - Agricultural and Applied Economics</option>
@@ -292,19 +294,20 @@
 					<option value="ZULU">ZULU - Zulu</option>
 
 				</select>
-				<div id="txtHint"><select name="className"><option value="">Select a Class</option></select></div>
-				<input type="submit" value="Search" />
+				<!--<div id="txtHint"><select name="className"><option value="">Select a Class</option></select></div>-->
+				<input class="searchButton" type="submit" value="Search" />
 			</form>
-		</p>
-		<table> 
-			<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td><a href="sell.jsp">sell a book</a></td>
-			<td><a href="trade.jsp">trade a book</a></td>
-			</tr>
-		</table>	
+		</div>
+		
+		<!--<div id="moveSellTrade">
+			<a class="sellTradeButtons" id="leftSellTrade" href="sell.jsp">sell a book</a>
+			<a class="sellTradeButtons" id="rightSellTrade" href="trade.jsp">trade a book</a>	
+		</div>-->	
+	
+		
+		<div id="treeImg">
+		<img src="css/tree.png">
+		</div>
 	
 	</body>
 </html>
