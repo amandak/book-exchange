@@ -46,6 +46,7 @@ public class coursePicker extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.write("<select name=\"className\">");
 		out.write("<option value=\"\">Select a Class</option>");
+		out.write("<option value=\"all\">All Classes</option>");
 		for(String a : stringList)
 		{
 
