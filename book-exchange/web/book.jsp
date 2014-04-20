@@ -8,6 +8,8 @@
 	</head>
 	<body>
 	
+	<!-- TODO: Add dynamic functionality to this JSP page -->
+	
 		<p>Title: Java Servlets and JSP<br>
 		Author: Murach<br>
 		Edition: 3rd<br>

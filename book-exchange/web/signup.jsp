@@ -17,6 +17,8 @@
             <input type="submit" value="submit" />
         </form>
 		<br>
+		<p style="color:red">${signupError}</p>
+		
 		<a href="index.jsp">home</a>
 	</body>
 </html>

@@ -40,12 +40,15 @@ public class loginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
+		String url = "";
 		session.setAttribute("loginError", "");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		String logout = request.getParameter("logout"); // This is just a variable that will be set in the request from "user.jsp" if they click the logout button
 		System.out.println("username: " + username);
 		System.out.println("password: " + password);
 		
+		// User is logging in from login.jsp
 		if((!username.isEmpty()) && (!password.isEmpty()))
 		{
 			System.out.println("entered first if");
@@ -66,16 +69,29 @@ public class loginController extends HttpServlet {
 				session.setAttribute("userId", user.getUserId());
 				session.setAttribute("role", user.getRole());
 				helper.closeConnection();
-				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/listings.jsp");
-				dispatcher.forward(request, response);
+				
+				url = "/user.jsp";
+				//url = "/listings.jsp";
+				//RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/listings.jsp");
+				//dispatcher.forward(request, response);
 			}
 			else
 			{
 				helper.closeConnection();
 				session.setAttribute("loginError", "You are not an authorized user.");
-				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
-				dispatcher.forward(request, response);
+				
+				url = "/login.jsp";
+				//RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
+				//dispatcher.forward(request, response);
 			}
+		} 
+		// User logging out (from user.jsp?)
+		else if (logout != null){
+			session.setAttribute("userId", null);
+			session.setAttribute("role", null);
+			
+			// Redirect back to home page
+			url = "/index.jsp";
 		}
 		else
 		{
@@ -83,10 +99,15 @@ public class loginController extends HttpServlet {
 			if (username.isEmpty() || password.isEmpty())
 			{
 				session.setAttribute("loginError", "Either username or password is not provided");
-				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
-				dispatcher.forward(request, response);
+				
+				url = "/login.jsp";
+				//RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
+				//dispatcher.forward(request, response);
 			}
 		}
+		
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(url);
+		dispatcher.forward(request, response);
 		
 	}//doPost
 

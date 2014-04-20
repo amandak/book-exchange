@@ -8,10 +8,13 @@
 	</head>
 	<body>
 		
+		<!--  TODO - Add dynamic functionality to this JSP page -->
+		
+		<!--  c:foreach -->
 		<table>
 			<tr><th>Title</th><th>Author</th><th>Department</th><th>Class</th><th>Price</th><th>Condition</th></tr>
 			<tr>
-				<td><a href="book.jsp">Java Servlets and JSP</a></td>
+				<td><a href="bookQuery?bookId=${book.bookId}">Java Servlets and JSP</a></td>
 				<td>Murach</td>
 				<td>CSCI</td>
 				<td>3030</td>

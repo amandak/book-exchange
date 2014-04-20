@@ -24,4 +24,24 @@
     <servlet-name>coursePicker</servlet-name>
     <url-pattern>/coursePicker</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>signupController</display-name>
+    <servlet-name>signupController</servlet-name>
+    <servlet-class>controller.signupController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>signupController</servlet-name>
+    <url-pattern>/signup</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>bookQueryController</display-name>
+    <servlet-name>bookQueryController</servlet-name>
+    <servlet-class>controller.bookQueryController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>bookQueryController</servlet-name>
+    <url-pattern>/bookQuery</url-pattern>
+  </servlet-mapping>
 </web-app>
