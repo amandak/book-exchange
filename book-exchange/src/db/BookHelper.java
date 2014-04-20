@@ -89,7 +89,7 @@ public class BookHelper {
 			//PreparedStatement that retrieves list of Books given only book name
 			searchByBookNameStatement = conn.prepareStatement("SELECT * FROM book WHERE bookName LIKE(?)");
 
-			getClassByDepartment = conn.prepareStatement("SELECT className FROM book WHERE department=?");
+			getClassByDepartment = conn.prepareStatement("SELECT DISTINCT className FROM book WHERE department=?");
 
 		} catch (SQLException e) {
 			System.out.println(e.getClass().getName() + " initalizing all prepared statements: " + e.getMessage());
