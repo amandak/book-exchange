@@ -19,14 +19,14 @@ import model.Book;
  */
 public class bookQueryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public bookQueryController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public bookQueryController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,20 +35,24 @@ public class bookQueryController extends HttpServlet {
 		HttpSession session = request.getSession();
 		BookHelper bookHelper = null;
 		String url = "";
-		
+
 		// Instantiate BookHelper
 		try{
 			bookHelper = new BookHelper();
 		}catch (Exception e){
 			System.out.println("Error instantiating a BookHelper in BookQueryController: " + e.getMessage());
 		}
-		
+
+		String userRole = (String) request.getAttribute("role");
+		String userId = (String) request.getAttribute("userId");
 		String bookIdentifier = request.getParameter("bookId");
 		String bookname = request.getParameter("bookname");
 		String department = request.getParameter("department");
 		String className = request.getParameter("className");
-		
+
 		String searchError = "";
+		String errorFind = "";
+		String loginError = "";
 		// User is trying to view a single book listing, from listings.jsp
 		if(bookIdentifier != null){
 			int bookId = -1;
@@ -57,18 +61,25 @@ public class bookQueryController extends HttpServlet {
 			}catch(NumberFormatException e){
 				System.out.println("Error parsing bookId in BookQueryController: " + e.getMessage());
 			}
-			
-			Book book = bookHelper.getBookById(bookId);
-			
-			if(book != null){
-				// Store book in request and redirect to single book view for this book
-				request.setAttribute("book", book);
-				
-				url = "/book.jsp";
-				
-			}else{
-				// Book was not found. Error on our part, since the user got here from the BookListings page
-				//TODO - Figure out what to do if we run into this error. Just redirect back to book listings?
+
+			if ((userRole == null || userRole.isEmpty()) && (userId == null || userId.isEmpty()))
+			{
+				loginError = "To view this listing, please login first.";
+				url = "/login.jsp";
+			}
+			else{
+				Book book = bookHelper.getBookById(bookId);
+
+				if(book != null){
+					// Store book in request and redirect to single book view for this book
+					request.setAttribute("book", book);
+
+					url = "/book.jsp";
+
+				}else{
+					errorFind = "Could find this book. Please select another book.";
+					url = "/listings.jsp";
+				}
 			}
 		}
 		if(bookname != null || !bookname.isEmpty())
@@ -85,29 +96,33 @@ public class bookQueryController extends HttpServlet {
 			{
 				departmentName = "";
 				searchError = "Please select a department.";
-				
+
 				url = "/index.jsp";		
 			}
-			else if (className.equals("-1") || className.equals("all"))
+			else if (className.equals("-1") || className.equals("all") || !className.isEmpty())
 			{
-				classname = "";
+				if (className.equals("-1") || className.equals("all"))
+					classname = "";
+
 				ArrayList<Book> bookList = bookHelper.getBookbyBookName(departmentName, classname, "");
 				session.setAttribute("bookList", bookList);
 				url="/listings.jsp";
 			}
-			
+
 		}
 		bookHelper.closeConnection();
+		session.setAttribute("errorFind", errorFind);
 		session.setAttribute("searchError", searchError);
+		session.setAttribute("loginError", loginError);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-	    dispatcher.forward(request, response);
+		dispatcher.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		//add a book or request to remove a book
 	}
 
 }
