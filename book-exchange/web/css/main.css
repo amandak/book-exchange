@@ -84,7 +84,7 @@ background-image: linear-gradient(to top, #44CDF0 0%, #47C7EA 50%, #5AB2D6 100%)
 	padding: 0;
 }
 
-#header{
+.header{
 	height: 35px;
     background: #F0F0F0;
     /*border:1px solid #CCC;*/
@@ -99,11 +99,23 @@ background-image: linear-gradient(to top, #44CDF0 0%, #47C7EA 50%, #5AB2D6 100%)
 	clear: both;
 }
 
-p{
-    margin:0;
-    padding:0; /*Add a padding reset just to be safe*/
+.homeButton{
+	text-decoration: none;
+	font-weight: bold;
+	color: #696969;
+	padding-left: 40px;
+	vertical-align: middle; 
 }
 
+p{
+    margin: 0;
+    padding: 0; /*padding reset*/
+}
+
+.errorMsg{
+	color:#B22222; 
+	padding-top:15px;
+}
 
 #siteTitle{
 	width: 100%;
@@ -242,21 +254,6 @@ p{
 	height: 50px;
 	position: absolute;
 }
-	
-#loginPanel{
-	/* Position Text Div*/
-	position: fixed;
-	right: 0;
-	margin-top: 10px;
-	font-family: Georgia, san-serif;
-	width: 200px;
-	height: 15px;
-	
-	/* Format Text */
-	color: #41819C;
-	font-size: 20px;
-	text-decoration: none;
-}
 
 .links{
 	color: #41819C;
@@ -281,9 +278,95 @@ p{
 	color: #48372F;     
 }
 
-
-
 #treeImg{
 	position: absolute;
 	bottom: 0;
 }
+
+
+
+
+
+/** CSS for login page **/
+
+#loginCenterDiv{
+	width: 350px;
+	height: 350px;
+	background: #F0F0F0;
+	/*Round edges of box*/
+	border-radius:25px;	
+	
+	/* Shadow generated from http://css3gen.com/box-shadow/*/
+	-webkit-box-shadow: 3px 5px 12px 0px rgba(50, 50, 50, 0.52);
+	-moz-box-shadow:    3px 5px 12px 0px rgba(50, 50, 50, 0.52);
+	box-shadow:         3px 5px 12px 0px rgba(50, 50, 50, 0.52);
+	
+	/*Center Div*/
+	margin: 0 auto;
+	margin-top: 10%;
+}
+
+
+#loginPanel{	
+	padding-top: 10px;
+	font-family: Georgia, Arial;
+	margin-left: 50px;
+}
+
+#loginBox{
+	width: 230px;
+	height: 25px;
+	font-size: 16px;
+	
+}
+
+#signUpButton{
+	text-decoration: none;
+	color: #41819C;
+}
+
+#createAccount{
+	text-align: center;
+	padding-top: 45px;
+}
+
+.submitButton{
+	/* Button styling adapted from tutorial: http://cssdemos.tupence.co.uk/button-styling.htm*/
+	width: 100px;
+	background: #D3D3D3;
+	
+	/*padding: 8px 14px 10px; /*apply some padding inside the button*/
+	border:1px solid #41819C; /*required or the default border for the browser will appear*/
+	cursor:pointer; /*forces the cursor to change to a hand when the button is hovered*/
+	
+	/*style the text*/
+	font-size:1.5em;
+	font-family:Georgia; /*Oswald is available from http://www.google.com/webfonts/specimen/Oswald*/
+	letter-spacing:.1em;
+	text-shadow: 0 -1px 0px rgba(0, 0, 0, 0.3); /*give the text a shadow - doesn't appear in Opera 12.02 or earlier*/
+	color: #696969;
+	text-align:center;
+	
+	/*use box-shadow to give the button some depth - see cssdemos.tupence.co.uk/box-shadow.htm#demo7 for more info on this technique*/
+	-webkit-box-shadow: inset 0px 1px 0px #3e9cbf, 0px 5px 0px 0px #696969, 0px 8px 5px #DCDCDC;
+	-moz-box-shadow: inset 0px 1px 0px #3e9cbf, 0px 5px 0px 0px #696969, 0px 8px 5px #DCDCDC;
+	box-shadow: inset 0px 1px 0px #3e9cbf, 0px 5px 0px 0px #696969, 0px 8px 5px #DCDCDC;
+	
+	/*give the corners a small curve */
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+
+
+/***SET THE BUTTON'S HOVER AND FOCUS STATES***/
+.submitButton:hover, .searchButton:focus {
+	/* Button styling adapted from tutorial: http://cssdemos.tupence.co.uk/button-styling.htm*/
+	color:#696969;
+	/*reduce the size of the shadow to give a pushed effect*/
+	-webkit-box-shadow: inset 0px 1px 0px #3e9cbf, 0px 2px 0px 0px #205c73, 0px 2px 5px #999;
+	-moz-box-shadow: inset 0px 1px 0px #3e9cbf, 0px 2px 0px 0px #205c73, 0px 2px 5px #999;
+	box-shadow: inset 0px 1px 0px #3e9cbf, 0px 2px 0px 0px #205c73, 0px 2px 5px #999;
+}
+
+
