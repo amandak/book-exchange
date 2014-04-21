@@ -2,11 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -46,7 +41,13 @@ public class coursePicker extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.write("<select name=\"className\">");
 		out.write("<option value=\"-1\">Select a Class</option>");
-		out.write("<option value=\"all\">All Classes</option>");
+		if (stringList.size() == 0)
+		{
+			out.write("<option value=\"-1\"No Class Available</option>");
+		}
+		else {
+			out.write("<option value=\"all\">All Classes</option>");
+		}
 		for(String a : stringList)
 		{
 

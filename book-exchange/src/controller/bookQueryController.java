@@ -43,13 +43,15 @@ public class bookQueryController extends HttpServlet {
 			System.out.println("Error instantiating a BookHelper in BookQueryController: " + e.getMessage());
 		}
 
-		String userRole = (String) request.getAttribute("role");
-		String userId = (String) request.getAttribute("userId");
+		String userRole = (String) session.getAttribute("role");
+		Integer userId = (Integer)session.getAttribute("userId");
 		String bookIdentifier = request.getParameter("bookId");
 		String bookname = request.getParameter("bookname");
 		String department = request.getParameter("department");
 		String className = request.getParameter("className");
-
+		
+	
+		String requestUrI = "";
 		System.out.println("userRole: "+ userRole);
 		System.out.println("userid: "+ userId);
 		System.out.println("bookIdentifier: "+ bookIdentifier);
@@ -68,10 +70,17 @@ public class bookQueryController extends HttpServlet {
 				System.out.println("Error parsing bookId in BookQueryController: " + e.getMessage());
 			}
 
-			if ((userRole == null || userRole.isEmpty()) && (userId == null || userId.isEmpty()))
+			if ((userRole == null || userRole.isEmpty()) && (userId == null))
 			{
 				loginError = "To view this listing, please login first.";
 				url = "/login.jsp";
+				
+				requestUrI = request.getRequestURI().toString();
+				String[] splitUrl = requestUrI.split("/");
+				requestUrI = splitUrl[2];
+				String queryUrl = request.getQueryString();
+				if (queryUrl != null)
+					requestUrI += "?" + queryUrl;
 			}
 			else{
 				Book book = bookHelper.getBookById(bookId);
@@ -117,6 +126,9 @@ public class bookQueryController extends HttpServlet {
 
 		}//third if
 		bookHelper.closeConnection();
+		System.out.println("requestUrI: "+ requestUrI);
+	
+		session.setAttribute("requestUrI", requestUrI);
 		session.setAttribute("errorFind", errorFind);
 		session.setAttribute("searchError", searchError);
 		session.setAttribute("loginError", loginError);
@@ -129,6 +141,10 @@ public class bookQueryController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//add a book or request to remove a book
+		if (request.getParameter("bookId") != null)
+		{
+			doGet(request, response);
+		}
 	}
 
 }

@@ -49,7 +49,7 @@ public class loginController extends HttpServlet {
 		System.out.println("password: " + password);
 		
 		// User is logging in from login.jsp
-		if((!username.isEmpty()) && (!password.isEmpty()))
+		if((username != null) && (password != null))
 		{
 			System.out.println("entered first if");
 			UserHelper helper = null;
@@ -70,7 +70,19 @@ public class loginController extends HttpServlet {
 				session.setAttribute("role", user.getRole());
 				helper.closeConnection();
 				
-				url = "/user.jsp";
+				String requestURL = (String) session.getAttribute("requestUrI").toString();
+				System.out.println("requestURL: "+ requestURL);
+				if (requestURL.isEmpty())
+				{
+	
+					url = "/user.jsp";
+				}
+				else
+				{
+					
+					url = "/"+requestURL;
+				}
+				
 				//url = "/listings.jsp";
 				//RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/listings.jsp");
 				//dispatcher.forward(request, response);

@@ -36,7 +36,7 @@ public class UserHelper {
 	 */
 	public UserHelper() throws Exception
 	{
-		String JDBC_URL="jdbc:mysql://172.17.152.109:3306/bookExchange";
+		String JDBC_URL="jdbc:mysql://172.17.152.110:3306/bookExchange";
 		String DB_USER = "group2";
 		String DB_PASS="poopdeck";
 		conn = null;

@@ -39,7 +39,7 @@ public class BookHelper {
 	public BookHelper() throws Exception{
 		try{
 
-			String JDBC_URL="jdbc:mysql://172.17.152.109:3306/bookExchange";
+			String JDBC_URL="jdbc:mysql://172.17.152.110:3306/bookExchange";
 			String user = "group2";
 			String password="poopdeck";
 
@@ -142,8 +142,9 @@ public class BookHelper {
 				rs1 = getUserInfoForBookStatement.executeQuery();
 				if (rs1.next())
 				{
-					bookObj.setUser(rs.getString("firstName") + " " + rs.getString("lastName"));
-					bookObj.setEmail(rs.getString("email"));
+					
+					bookObj.setUser(rs1.getString("firstName") + " " + rs1.getString("lastName"));
+					bookObj.setEmail(rs1.getString("email"));
 				}
 					
 		
