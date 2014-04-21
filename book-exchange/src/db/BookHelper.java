@@ -38,9 +38,9 @@ public class BookHelper {
 	public BookHelper() throws Exception{
 		try{
 
-			String JDBC_URL = "jdbc:mysql://172.17.152.110:3306/bookExchange";
-			String user     = "group2";
-			String password = "poopdeck";
+			String JDBC_URL="jdbc:mysql://172.17.152.110:3306/bookExchange";
+			String user = "group2";
+			String password="poopdeck";
 
 			Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("Connecting to database...");
@@ -84,12 +84,12 @@ public class BookHelper {
 			deleteBookStatement = conn.prepareStatement("DELETE FROM book WHERE bid=?");
 
 			//PreparedStatement that retrieves Books by bookName
-			getBookByBookNameStatement = conn.prepareStatement("SELECT * FROM book WHERE department=? AND className=? AND bookName LIKE(?)");
+			getBookByBookNameStatement = conn.prepareStatement("SELECT * FROM book WHERE department=? AND className LIKE(?) AND bookName LIKE(?)");
 
 			//PreparedStatement that retrieves list of Books given only book name
 			searchByBookNameStatement = conn.prepareStatement("SELECT * FROM book WHERE bookName LIKE(?)");
 
-			getClassByDepartment = conn.prepareStatement("SELECT className FROM book WHERE department=?");
+			getClassByDepartment = conn.prepareStatement("SELECT DISTINCT className FROM book WHERE department=?");
 
 		} catch (SQLException e) {
 			System.out.println(e.getClass().getName() + " initalizing all prepared statements: " + e.getMessage());
@@ -505,12 +505,13 @@ public class BookHelper {
 	{
 		ArrayList<Book> bookList = new ArrayList<Book>();
 		String conBookName = "%"+bookName+"%";
+		String conClassName = "%"+className+"%";
 
 		ResultSet rs = null;
 
 		try {
 			getBookByBookNameStatement.setString(1, departmentName);
-			getBookByBookNameStatement.setString(2, className);
+			getBookByBookNameStatement.setString(2, conClassName);
 			getBookByBookNameStatement.setString(3, conBookName);
 
 			rs = getBookByBookNameStatement.executeQuery();
@@ -631,6 +632,7 @@ public class BookHelper {
 		return classList;
 
 	}
+	
 	/**
 	 * Closes all prepared statements and a connection.
 	 */
