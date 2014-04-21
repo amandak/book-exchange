@@ -8,7 +8,7 @@
 		<title>Login</title>
 	</head>
 	<body>
-		<div class="header"> <a class="homeButton" href="index.html">Home</a></div>		
+		<div class="header"> <a class="homeButton" href="index.jsp">Home</a></div>		
 		
 		<div id="loginCenterDiv">
 			<div id="loginPanel">

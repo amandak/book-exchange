@@ -10,7 +10,13 @@
 		<title>Results</title>
 	</head>
 	<body>
-		
+		<div align="right">
+			<c:if test="${userId != null}">
+				<form action="login" method="post">
+					<input type="submit" name="logout" value="Log Out">
+				</form>
+			</c:if>
+		</div>
 		<!--  TODO - Add dynamic functionality to this JSP page -->
 		<p style="color:red">${errorFind}</p>
 		<c:forEach items="${bookList}" var="book">
