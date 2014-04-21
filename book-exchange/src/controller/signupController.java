@@ -86,6 +86,7 @@ public class signupController extends HttpServlet {
 					session.setAttribute("userId", username);
 					session.setAttribute("role", "user");
 					
+					
 					// Redirect to main user page
 					url = "/user.jsp";
 				}

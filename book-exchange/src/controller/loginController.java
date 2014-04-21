@@ -68,8 +68,6 @@ public class loginController extends HttpServlet {
 				User user = helper.getUser(username);
 				session.setAttribute("userId", user.getUserId());
 				session.setAttribute("role", user.getRole());
-				session.setAttribute("userEmail", user.getEmailAddress());
-				session.setAttribute("userName", user.getFirstName() + " " + user.getLastName());
 				helper.closeConnection();
 				
 				url = "/user.jsp";

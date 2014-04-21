@@ -30,6 +30,7 @@ public class BookHelper {
 	protected PreparedStatement getBookByBookNameStatement;
 	protected PreparedStatement searchByBookNameStatement;
 	protected PreparedStatement getClassByDepartment;
+	protected PreparedStatement getUserInfoForBookStatement;
 	private Connection conn;
 
 	/**
@@ -91,6 +92,7 @@ public class BookHelper {
 
 			getClassByDepartment = conn.prepareStatement("SELECT DISTINCT className FROM book WHERE department=?");
 
+			getUserInfoForBookStatement = conn.prepareStatement("SELECT firstName, lastName, email FROM user WHERE uid=?");
 		} catch (SQLException e) {
 			System.out.println(e.getClass().getName() + " initalizing all prepared statements: " + e.getMessage());
 		}
@@ -105,7 +107,7 @@ public class BookHelper {
 	public Book getBookById(int bookId){
 		ResultSet rs = null;
 		Book bookObj = null;
-
+		ResultSet rs1 = null;
 
 
 		try {
@@ -132,10 +134,19 @@ public class BookHelper {
 				String stat = rs.getString("status");
 				String condition = rs.getString("bookCondition");
 				double price = rs.getDouble("price");
-
-
+				
 				bookObj = new Book(uid, bid, title, isbn, desc, 
 						author, ed, stat, condition, price, className, department);
+				
+				getUserInfoForBookStatement.setInt(1, uid);
+				rs1 = getUserInfoForBookStatement.executeQuery();
+				if (rs1.next())
+				{
+					bookObj.setUser(rs.getString("firstName") + " " + rs.getString("lastName"));
+					bookObj.setEmail(rs.getString("email"));
+				}
+					
+		
 
 			}//if
 		} catch (SQLException e) {
@@ -652,6 +663,7 @@ public class BookHelper {
 			getBookByBookNameStatement.close();
 			searchByBookNameStatement.close();
 			getClassByDepartment.close();
+			getUserInfoForBookStatement.close();
 			conn.close();
 		} catch (SQLException e) {
 			System.out.println(e.getClass().getName() + " Closing all PreparedStatement and a connection: " + e.getMessage());

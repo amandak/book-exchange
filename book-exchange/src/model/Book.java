@@ -82,6 +82,10 @@ public class Book {
 	 * Price of the book
 	 */
 	double price;
+	
+	String user;
+	
+	String email;
 
 	/**
 	 * Constructor for a book object.  
@@ -186,6 +190,44 @@ public class Book {
 	}
 
 
+	/**
+	 * User's first and last name
+	 * @param user
+	 */
+	public void setUser(String user)
+	{
+		this.user = user;
+		
+	}
+	
+	/**
+	 * Returns user's first and last name
+	 * @return
+	 */
+	public String getUser()
+	{
+		return this.user;
+		
+	}
+	
+	/**
+	 * Sets user's email address with this book
+	 * @param email
+	 */
+	public void setEmail(String email)
+	{
+		this.email = email;
+		
+	}
+	
+	/**
+	 * Returns user's email address with this book
+	 * @return
+	 */
+	public String getEmail()
+	{
+		return this.email;
+	}
 	/**
 	 * @param department the name of the department where the book is used
 	 */
