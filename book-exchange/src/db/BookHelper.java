@@ -164,7 +164,7 @@ public class BookHelper {
 	public ArrayList<Book> getBooksBySeller(int userId){
 		ArrayList<Book> bookList = new ArrayList<Book>();
 		ResultSet rs = null;
-
+		ResultSet rs1 = null;
 
 		try {
 			/**
@@ -192,6 +192,14 @@ public class BookHelper {
 
 				Book bookObj = new Book(userid, bid, title, isbn, desc, 
 						author, ed, stat, condition, price, className, department);
+				
+				getUserInfoForBookStatement.setInt(1, userid);
+				rs1 = getUserInfoForBookStatement.executeQuery();
+				if (rs1.next())
+				{
+					bookObj.setUser(rs.getString("firstName") + " " + rs.getString("lastName"));
+					bookObj.setEmail(rs.getString("email"));
+				}
 				bookList.add(bookObj);
 			}
 
@@ -211,6 +219,7 @@ public class BookHelper {
 		ArrayList<Book> allBooks = new ArrayList<Book>();
 
 		ResultSet rs = null;
+		ResultSet rs1 = null;
 
 		try 
 		{
@@ -239,6 +248,15 @@ public class BookHelper {
 
 				Book bookObj = new Book(userid, bid, title, isbn, desc, 
 						author, ed, stat, condition, price, className, department);
+				
+				getUserInfoForBookStatement.setInt(1, userid);
+				rs1 = getUserInfoForBookStatement.executeQuery();
+				if (rs1.next())
+				{
+					bookObj.setUser(rs.getString("firstName") + " " + rs.getString("lastName"));
+					bookObj.setEmail(rs.getString("email"));
+				}
+				
 				//Add bookObj to ArrayList
 				allBooks.add(bookObj);
 
@@ -260,6 +278,7 @@ public class BookHelper {
 	public ArrayList<Book> getBooksForSell(){
 		ArrayList<Book> bookList = new ArrayList<Book>();
 		ResultSet rs = null;
+		ResultSet rs1 = null;
 
 		try
 		{
@@ -288,6 +307,13 @@ public class BookHelper {
 
 				Book bookObj = new Book(userid, bid, title, isbn, desc, 
 						author, ed, stat, condition, price, className, department);
+				getUserInfoForBookStatement.setInt(1, userid);
+				rs1 = getUserInfoForBookStatement.executeQuery();
+				if (rs1.next())
+				{
+					bookObj.setUser(rs.getString("firstName") + " " + rs.getString("lastName"));
+					bookObj.setEmail(rs.getString("email"));
+				}
 				//Add bookObj to ArrayList
 				bookList.add(bookObj);
 
@@ -312,6 +338,7 @@ public class BookHelper {
 
 		ArrayList<Book> bookList = new ArrayList<Book>();
 		ResultSet rs = null;
+		ResultSet rs1 = null;
 
 		try{
 			/**
@@ -343,6 +370,13 @@ public class BookHelper {
 
 				Book bookObj = new Book(userid, bid, title, isbn, desc, 
 						author, ed, stat, condition, price, className, departmentName);
+				getUserInfoForBookStatement.setInt(1, userid);
+				rs1 = getUserInfoForBookStatement.executeQuery();
+				if (rs1.next())
+				{
+					bookObj.setUser(rs.getString("firstName") + " " + rs.getString("lastName"));
+					bookObj.setEmail(rs.getString("email"));
+				}
 				//Add bookObj to ArrayList
 				bookList.add(bookObj);
 
@@ -366,6 +400,7 @@ public class BookHelper {
 	public ArrayList<Book> getBooksByClass(String className){
 		ArrayList<Book> booksList = new ArrayList<Book>();
 		ResultSet rs = null;
+		ResultSet rs1 = null;
 
 		try{
 			/**
@@ -397,6 +432,13 @@ public class BookHelper {
 
 				Book bookObj = new Book(userid, bid, title, isbn, desc, 
 						author, ed, stat, condition, price, classTitle, department);
+				getUserInfoForBookStatement.setInt(1, userid);
+				rs1 = getUserInfoForBookStatement.executeQuery();
+				if (rs1.next())
+				{
+					bookObj.setUser(rs.getString("firstName") + " " + rs.getString("lastName"));
+					bookObj.setEmail(rs.getString("email"));
+				}
 				//Add bookObj to ArrayList
 				booksList.add(bookObj);
 
@@ -519,6 +561,7 @@ public class BookHelper {
 		String conClassName = "%"+className+"%";
 
 		ResultSet rs = null;
+		ResultSet rs1 = null;
 
 		try {
 			getBookByBookNameStatement.setString(1, departmentName);
@@ -550,6 +593,13 @@ public class BookHelper {
 
 				Book bookObj = new Book(userid, bid, title, isbn, desc, 
 						author, ed, stat, condition, price, classTitle, department);
+				getUserInfoForBookStatement.setInt(1, userid);
+				rs1 = getUserInfoForBookStatement.executeQuery();
+				if (rs1.next())
+				{
+					bookObj.setUser(rs.getString("firstName") + " " + rs.getString("lastName"));
+					bookObj.setEmail(rs.getString("email"));
+				}
 				//Add bookObj to ArrayList
 				bookList.add(bookObj);
 			}//while
@@ -574,6 +624,7 @@ public class BookHelper {
 		String conBookName = "%"+bookName+"%";
 
 		ResultSet rs = null;
+		ResultSet rs1 = null;
 
 		try {
 			searchByBookNameStatement.setString(1, conBookName);
@@ -603,6 +654,13 @@ public class BookHelper {
 
 				Book bookObj = new Book(userid, bid, title, isbn, desc, 
 						author, ed, stat, condition, price, classTitle, department);
+				getUserInfoForBookStatement.setInt(1, userid);
+				rs1 = getUserInfoForBookStatement.executeQuery();
+				if (rs1.next())
+				{
+					bookObj.setUser(rs.getString("firstName") + " " + rs.getString("lastName"));
+					bookObj.setEmail(rs.getString("email"));
+				}
 				//Add bookObj to ArrayList
 				bookList.add(bookObj);
 			}//while
