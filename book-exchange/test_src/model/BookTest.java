@@ -31,7 +31,7 @@ public class BookTest extends TestCase {
 		assertEquals("instance book status", "Listed", instance.getStatus());
 		assertEquals("instance book condition", "Fair", instance.getCondition());
 		assertEquals("instance book price", 25.00, instance.getPrice(), 0.001);
-		assertEquals("instance book class title", "CSCI4300", instance.getClassName());
+		assertEquals("instance book class title", "CSCI4300", instance.getClassTitle());
 		assertEquals("instance book department", "CSCI", instance.getDepartment());
 	
 	}//testConstructor

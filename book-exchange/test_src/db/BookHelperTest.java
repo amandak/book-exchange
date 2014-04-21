@@ -78,7 +78,7 @@ public class BookHelperTest extends TestCase {
 		assertEquals("book condition", condition, book.getCondition());
 		assertEquals("book status", status, book.getStatus());
 		assertEquals("book department", department, book.getDepartment());
-		assertEquals("book classname", className, book.getClassName());
+		assertEquals("book classname", className, book.getClassTitle());
 		assertEquals("book author", author, book.getAuthor());
 		
 		ArrayList<Book> bookList = bookDAO.getAllBooks();
