@@ -40,7 +40,7 @@ public class BookHelperTest extends TestCase {
 		String desc = "Book in good condition. Cover shows minor signs of wear.";
 		String author = "David A. Patterson";
 		String ed = "fourth";
-		String status = "listed";
+		String status = Book.STATUS_SELL;
 		String condition = "GOOD";
 		String department = "CSCI";
 		String className = "CSCI4720";
@@ -66,6 +66,7 @@ public class BookHelperTest extends TestCase {
 		
 		assertTrue("added a book", added);
 		ArrayList<Book> books = bookDAO.getBookbyBookName("CSCI", "CSCI4720", "Computer Organization");
+		System.out.println("books size: "+ books.size());
 		Book book = books.get(0);
 		
 		assertNotNull("book not null", book);
