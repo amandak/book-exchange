@@ -50,6 +50,12 @@ public class bookQueryController extends HttpServlet {
 		String department = request.getParameter("department");
 		String className = request.getParameter("className");
 
+		System.out.println("userRole: "+ userRole);
+		System.out.println("userid: "+ userId);
+		System.out.println("bookIdentifier: "+ bookIdentifier);
+		System.out.println("bookname: " + bookname);
+		System.out.println("deparment:  "+ department);
+		System.out.println("className: " + className);
 		String searchError = "";
 		String errorFind = "";
 		String loginError = "";
@@ -82,13 +88,13 @@ public class bookQueryController extends HttpServlet {
 				}
 			}
 		}//first if
-		if(bookname != null || !bookname.isEmpty())
+		else if(bookname != null)
 		{
 			ArrayList<Book> bookList = bookHelper.searchByBookName(bookname);
 			session.setAttribute("bookList", bookList);
 			url = "/listings.jsp";
 		}//second if
-		if(department != null && className != null)
+		else if(department != null && className != null)
 		{
 			String departmentName = department;
 			String classname = className;

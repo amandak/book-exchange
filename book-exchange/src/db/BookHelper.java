@@ -39,7 +39,7 @@ public class BookHelper {
 	public BookHelper() throws Exception{
 		try{
 
-			String JDBC_URL="jdbc:mysql://172.17.152.110:3306/bookExchange";
+			String JDBC_URL="jdbc:mysql://172.17.152.109:3306/bookExchange";
 			String user = "group2";
 			String password="poopdeck";
 
@@ -92,7 +92,7 @@ public class BookHelper {
 
 			getClassByDepartment = conn.prepareStatement("SELECT DISTINCT className FROM book WHERE department=?");
 
-			getUserInfoForBookStatement = conn.prepareStatement("SELECT firstName, lastName, email FROM user WHERE uid=?");
+			getUserInfoForBookStatement = conn.prepareStatement("SELECT * FROM user WHERE uid=?");
 		} catch (SQLException e) {
 			System.out.println(e.getClass().getName() + " initalizing all prepared statements: " + e.getMessage());
 		}
@@ -164,7 +164,6 @@ public class BookHelper {
 	public ArrayList<Book> getBooksBySeller(int userId){
 		ArrayList<Book> bookList = new ArrayList<Book>();
 		ResultSet rs = null;
-		ResultSet rs1 = null;
 
 		try {
 			/**
@@ -193,13 +192,7 @@ public class BookHelper {
 				Book bookObj = new Book(userid, bid, title, isbn, desc, 
 						author, ed, stat, condition, price, className, department);
 				
-				getUserInfoForBookStatement.setInt(1, userid);
-				rs1 = getUserInfoForBookStatement.executeQuery();
-				if (rs1.next())
-				{
-					bookObj.setUser(rs.getString("firstName") + " " + rs.getString("lastName"));
-					bookObj.setEmail(rs.getString("email"));
-				}
+				
 				bookList.add(bookObj);
 			}
 
@@ -219,7 +212,6 @@ public class BookHelper {
 		ArrayList<Book> allBooks = new ArrayList<Book>();
 
 		ResultSet rs = null;
-		ResultSet rs1 = null;
 
 		try 
 		{
@@ -249,13 +241,7 @@ public class BookHelper {
 				Book bookObj = new Book(userid, bid, title, isbn, desc, 
 						author, ed, stat, condition, price, className, department);
 				
-				getUserInfoForBookStatement.setInt(1, userid);
-				rs1 = getUserInfoForBookStatement.executeQuery();
-				if (rs1.next())
-				{
-					bookObj.setUser(rs.getString("firstName") + " " + rs.getString("lastName"));
-					bookObj.setEmail(rs.getString("email"));
-				}
+				
 				
 				//Add bookObj to ArrayList
 				allBooks.add(bookObj);
@@ -278,7 +264,6 @@ public class BookHelper {
 	public ArrayList<Book> getBooksForSell(){
 		ArrayList<Book> bookList = new ArrayList<Book>();
 		ResultSet rs = null;
-		ResultSet rs1 = null;
 
 		try
 		{
@@ -307,13 +292,7 @@ public class BookHelper {
 
 				Book bookObj = new Book(userid, bid, title, isbn, desc, 
 						author, ed, stat, condition, price, className, department);
-				getUserInfoForBookStatement.setInt(1, userid);
-				rs1 = getUserInfoForBookStatement.executeQuery();
-				if (rs1.next())
-				{
-					bookObj.setUser(rs.getString("firstName") + " " + rs.getString("lastName"));
-					bookObj.setEmail(rs.getString("email"));
-				}
+				
 				//Add bookObj to ArrayList
 				bookList.add(bookObj);
 
@@ -338,7 +317,6 @@ public class BookHelper {
 
 		ArrayList<Book> bookList = new ArrayList<Book>();
 		ResultSet rs = null;
-		ResultSet rs1 = null;
 
 		try{
 			/**
@@ -370,13 +348,7 @@ public class BookHelper {
 
 				Book bookObj = new Book(userid, bid, title, isbn, desc, 
 						author, ed, stat, condition, price, className, departmentName);
-				getUserInfoForBookStatement.setInt(1, userid);
-				rs1 = getUserInfoForBookStatement.executeQuery();
-				if (rs1.next())
-				{
-					bookObj.setUser(rs.getString("firstName") + " " + rs.getString("lastName"));
-					bookObj.setEmail(rs.getString("email"));
-				}
+				
 				//Add bookObj to ArrayList
 				bookList.add(bookObj);
 
@@ -400,7 +372,6 @@ public class BookHelper {
 	public ArrayList<Book> getBooksByClass(String className){
 		ArrayList<Book> booksList = new ArrayList<Book>();
 		ResultSet rs = null;
-		ResultSet rs1 = null;
 
 		try{
 			/**
@@ -432,13 +403,7 @@ public class BookHelper {
 
 				Book bookObj = new Book(userid, bid, title, isbn, desc, 
 						author, ed, stat, condition, price, classTitle, department);
-				getUserInfoForBookStatement.setInt(1, userid);
-				rs1 = getUserInfoForBookStatement.executeQuery();
-				if (rs1.next())
-				{
-					bookObj.setUser(rs.getString("firstName") + " " + rs.getString("lastName"));
-					bookObj.setEmail(rs.getString("email"));
-				}
+				
 				//Add bookObj to ArrayList
 				booksList.add(bookObj);
 
@@ -471,7 +436,7 @@ public class BookHelper {
 		String author = newBook.getAuthor();
 		String edition = newBook.getEdition();
 		String department = newBook.getDepartment();
-		String className = newBook.getClassName();
+		String className = newBook.getClassTitle();
 		String status = newBook.getStatus();
 		String bookCondition = newBook.getCondition();
 		double price = newBook.getPrice();		
@@ -561,8 +526,6 @@ public class BookHelper {
 		String conClassName = "%"+className+"%";
 
 		ResultSet rs = null;
-		ResultSet rs1 = null;
-
 		try {
 			getBookByBookNameStatement.setString(1, departmentName);
 			getBookByBookNameStatement.setString(2, conClassName);
@@ -593,13 +556,7 @@ public class BookHelper {
 
 				Book bookObj = new Book(userid, bid, title, isbn, desc, 
 						author, ed, stat, condition, price, classTitle, department);
-				getUserInfoForBookStatement.setInt(1, userid);
-				rs1 = getUserInfoForBookStatement.executeQuery();
-				if (rs1.next())
-				{
-					bookObj.setUser(rs.getString("firstName") + " " + rs.getString("lastName"));
-					bookObj.setEmail(rs.getString("email"));
-				}
+				
 				//Add bookObj to ArrayList
 				bookList.add(bookObj);
 			}//while
@@ -624,7 +581,6 @@ public class BookHelper {
 		String conBookName = "%"+bookName+"%";
 
 		ResultSet rs = null;
-		ResultSet rs1 = null;
 
 		try {
 			searchByBookNameStatement.setString(1, conBookName);
@@ -654,13 +610,7 @@ public class BookHelper {
 
 				Book bookObj = new Book(userid, bid, title, isbn, desc, 
 						author, ed, stat, condition, price, classTitle, department);
-				getUserInfoForBookStatement.setInt(1, userid);
-				rs1 = getUserInfoForBookStatement.executeQuery();
-				if (rs1.next())
-				{
-					bookObj.setUser(rs.getString("firstName") + " " + rs.getString("lastName"));
-					bookObj.setEmail(rs.getString("email"));
-				}
+				
 				//Add bookObj to ArrayList
 				bookList.add(bookObj);
 			}//while

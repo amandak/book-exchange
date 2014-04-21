@@ -185,7 +185,7 @@ public class Book {
 	/**
 	 * @param classTitle the name of the class where the book is used
 	 */
-	public void setClassName(String classTitle){
+	public void setClassTitle(String classTitle){
 		this.classTitle = classTitle;
 	}
 
@@ -299,7 +299,7 @@ public class Book {
 		return this.condition;
 	}//getCondition
 
-	public String getClassName(){
+	public String getClassTitle(){
 		return this.classTitle;
 	}//getClass
 
