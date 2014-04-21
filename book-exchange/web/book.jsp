@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"  isELIgnored="false"%>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,21 +9,20 @@
 	</head>
 	<body>
 	
-	<!-- TODO: Add dynamic functionality to this JSP page -->
-	
-		<p>Title: Java Servlets and JSP<br>
-		Author: Murach<br>
-		Edition: 3rd<br>
-		ISBN: 3189792385jsr<br>
-		Class: CSCI 3030<br>
-		Condition: acceptable. Stickers from the used book store and some highlighting<br>
-		Price: $20.00<br>
-		Description: This book teaches you about servlets and things. You can contact me via email
-		</p>
+		<table>
+		<tr><td>Title:</td><td>${book.bookName}</td></tr>
+		<tr><td>Author:</td><td>${book.author}</td></tr>
+		<tr><td>Edition:</td><td>${book.edition}</td></tr>
+		<tr><td>ISBN:</td><td>${book.isbn}</td></tr>
+		<tr><td>Class:</td><td>${book.classTitle}</td></tr>
+		<tr><td>Condition:</td><td>${book.condition}</td></tr>
+		<tr><td>Price:</td><td>$${book.price}</td></tr>
+		<tr><td>Description:</td><td>${book.description}</td></tr>
+		</table>
 
 		<p>Poster contact details:<br>
-		Email: student123@uga.edu
-		Name: Student
+		Email: <a href="mailto:${userEmail}?subject=${book.bookName}" target="_top"></a>
+		Name: ${userName}
 		</p>
 	</body>
 </html>
