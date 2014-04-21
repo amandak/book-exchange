@@ -12,7 +12,7 @@
 	<body>
 		
 		<!--  TODO - Add dynamic functionality to this JSP page -->
-		
+		<p style="color:red">${errorFind}</p>
 		<c:forEach items="${bookList}" var="book">
 		<table>
 			<tr><th>Title</th><th>Author</th><th>Department</th><th>Class</th><th>Price</th><th>Condition</th></tr>
