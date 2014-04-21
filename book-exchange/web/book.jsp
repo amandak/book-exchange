@@ -21,8 +21,8 @@
 		</table>
 
 		<p>Poster contact details:<br>
-		Email: <a href="mailto:${userEmail}?subject=${book.bookName}" target="_top"></a>
-		Name: ${userName}
+		Email: <a href="mailto:${book.email}?subject=${book.bookName}" target="_top"></a>
+		Name: ${book.user}
 		</p>
 	</body>
 </html>
