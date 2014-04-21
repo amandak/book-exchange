@@ -10,7 +10,7 @@
 		<p>Signup:</p>
         <form method="post" action = "login">
         	First Name: <input type="text" name="fName"/><br>
-        	Last Name: <input type="text" name="lanme"/><br>
+        	Last Name: <input type="text" name="lname"/><br>
             Username:<input type="text" name="newusername" /><br>
             E-mail:<input type="text" name="email" /><br>
             Repeat e-mail:<input type="text" name="email2" /><br>
