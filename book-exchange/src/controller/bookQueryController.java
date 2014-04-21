@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.Book;
 import db.BookHelper;
+import model.Book;
 
 /**
  * Servlet implementation class bookQueryController
@@ -43,7 +44,11 @@ public class bookQueryController extends HttpServlet {
 		}
 		
 		String bookIdentifier = request.getParameter("bookId");
+		String bookname = request.getParameter("bookname");
+		String department = request.getParameter("department");
+		String className = request.getParameter("className");
 		
+		String searchError = "";
 		// User is trying to view a single book listing, from listings.jsp
 		if(bookIdentifier != null){
 			int bookId = -1;
@@ -66,10 +71,37 @@ public class bookQueryController extends HttpServlet {
 				//TODO - Figure out what to do if we run into this error. Just redirect back to book listings?
 			}
 		}
-		
+		if(bookname != null || !bookname.isEmpty())
+		{
+			ArrayList<Book> bookList = bookHelper.searchByBookName(bookname);
+			session.setAttribute("bookList", bookList);
+			url = "/listings.jsp";
+		}
+		if(department != null && className != null)
+		{
+			String departmentName = department;
+			String classname = className;
+			if (department.equals("-1"))
+			{
+				departmentName = "";
+				searchError = "Please select a department.";
+				
+				url = "/index.jsp";		
+			}
+			else if (className.equals("-1") || className.equals("all"))
+			{
+				classname = "";
+				ArrayList<Book> bookList = bookHelper.getBookbyBookName(departmentName, classname, "");
+				session.setAttribute("bookList", bookList);
+				url="/listings.jsp";
+			}
+			
+		}
+		bookHelper.closeConnection();
+		session.setAttribute("searchError", searchError);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 	    dispatcher.forward(request, response);
-	}//doGet
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

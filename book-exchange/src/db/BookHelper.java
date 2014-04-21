@@ -67,10 +67,10 @@ public class BookHelper {
 			getBooksForSellStatement = conn.prepareStatement("SELECT * FROM book WHERE status='" + Book.STATUS_SELL + "'");
 
 			//PreparedStatement that will retrieve list of Books by department
-			getBooksByDepartmentStatement = conn.prepareStatement("SELECT * FROM book WHERE department=?");
+			getBooksByDepartmentStatement = conn.prepareStatement("SELECT * FROM book WHERE department=? AND status='" + Book.STATUS_SELL + "'");
 
 			//PreparedStatement that will retrieve list of Books by Class name
-			getBooksByClassStatement = conn.prepareStatement("SELECT * FROM book WHERE className=?");
+			getBooksByClassStatement = conn.prepareStatement("SELECT * FROM book WHERE className=? AND status='" + Book.STATUS_SELL + "'");
 
 			//PreparedStatement that insert a Book into book table.
 			addBookStatement = conn.prepareStatement("INSERT INTO book (uid, bookName, isbn, description, "
@@ -84,10 +84,10 @@ public class BookHelper {
 			deleteBookStatement = conn.prepareStatement("DELETE FROM book WHERE bid=?");
 
 			//PreparedStatement that retrieves Books by bookName
-			getBookByBookNameStatement = conn.prepareStatement("SELECT * FROM book WHERE department=? AND className LIKE(?) AND bookName LIKE(?)");
+			getBookByBookNameStatement = conn.prepareStatement("SELECT * FROM book WHERE department=? AND className LIKE(?) AND bookName LIKE(?) AND status='" + Book.STATUS_SELL + "'");
 
 			//PreparedStatement that retrieves list of Books given only book name
-			searchByBookNameStatement = conn.prepareStatement("SELECT * FROM book WHERE bookName LIKE(?)");
+			searchByBookNameStatement = conn.prepareStatement("SELECT * FROM book WHERE bookName LIKE(?) AND status='" + Book.STATUS_SELL + "'");
 
 			getClassByDepartment = conn.prepareStatement("SELECT DISTINCT className FROM book WHERE department=?");
 

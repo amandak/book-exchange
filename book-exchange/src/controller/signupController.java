@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import db.UserHelper;
 import model.User;
+import db.UserHelper;
 
 /**
  * Servlet implementation class signupController
@@ -96,6 +96,6 @@ public class signupController extends HttpServlet {
 		session.setAttribute("signupError", signupErrorMessage);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 	    dispatcher.forward(request, response);
-		
 	}
+
 }
