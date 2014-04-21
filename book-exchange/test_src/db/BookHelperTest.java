@@ -95,7 +95,7 @@ public class BookHelperTest extends TestCase {
 		assertEquals("Book description", "Book in good condition. Cover shows minor signs of wear.", bookTest.getDescription());
 		assertEquals("Author", "David A. Patterson", bookTest.getAuthor());
 		assertEquals("Edition", "fourth", bookTest.getEdition());
-		assertEquals("Status", "listed", bookTest.getStatus()); //Modify the status value
+		assertEquals("Status", Book.STATUS_SELL, bookTest.getStatus()); //Modify the status value
 		assertEquals("Condition", "GOOD", bookTest.getCondition());
 		assertEquals("Price", 35.0, bookTest.getPrice());
 
