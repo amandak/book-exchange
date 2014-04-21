@@ -81,13 +81,13 @@ public class bookQueryController extends HttpServlet {
 					url = "/listings.jsp";
 				}
 			}
-		}
+		}//first if
 		if(bookname != null || !bookname.isEmpty())
 		{
 			ArrayList<Book> bookList = bookHelper.searchByBookName(bookname);
 			session.setAttribute("bookList", bookList);
 			url = "/listings.jsp";
-		}
+		}//second if
 		if(department != null && className != null)
 		{
 			String departmentName = department;
@@ -109,7 +109,7 @@ public class bookQueryController extends HttpServlet {
 				url="/listings.jsp";
 			}
 
-		}
+		}//third if
 		bookHelper.closeConnection();
 		session.setAttribute("errorFind", errorFind);
 		session.setAttribute("searchError", searchError);

@@ -55,11 +55,13 @@ public class signupController extends HttpServlet {
 		String secondEmail = request.getParameter("email2");
 		String password = request.getParameter("newpassword");
 		String secondPassword = request.getParameter("newpassword2");
-		
+		String fname = request.getParameter("fName");
+		String lname = request.getParameter("lName");
 		// User is trying to sign up from signup.jsp
 		if(username != null){
 			// Make sure all required fields were entered
-			if(username.isEmpty() || email.isEmpty() || secondEmail.isEmpty() || password.isEmpty() || secondPassword.isEmpty()){
+			if(username.isEmpty() && email.isEmpty() && secondEmail.isEmpty() 
+					&& password.isEmpty() && secondPassword.isEmpty() && lname.isEmpty() && fname.isEmpty()){
 				signupErrorMessage = "Not all required information was specified. Please try again.";
 				url = "/signup.jsp";
 			}
@@ -77,7 +79,7 @@ public class signupController extends HttpServlet {
 					url = "/signup.jsp";
 				}else{
 					// Signup was valid. Add new user to database and store user in session. Redirect back to index page
-					User newUser = new User(username, "user", "", "", email, "", "", "", -1, "");
+					User newUser = new User(username, "user", fname, lname, email, "", "", "", -1, "");
 					
 					// Add new user to database
 					userHelper.addNewUser(newUser, password);
