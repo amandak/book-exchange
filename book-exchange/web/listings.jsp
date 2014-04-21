@@ -22,7 +22,7 @@
 				<td>${book.department }</td>
 				<td>${book.classTitle}</td>
 				<td>$${book.price}</td>
-				<td>$${book.condition}</td>
+				<td>${book.condition}</td>
 			</tr>
 		</table>
 		</c:forEach>
