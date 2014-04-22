@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="css/main.css" type="text/css" />
@@ -33,11 +35,24 @@
 
 <body>
 
-	<div id="loginPanel">
-		<a class="links" href="login.jsp">Login&nbsp</a> <a class="links"
-			href="signup.jsp">Signup</a>
-	</div>
-
+	<c:if test="${userId == null}">
+		<div id="loginPanel">
+			<a class="links" href="login.jsp">Login&nbsp</a> <a class="links"
+				href="signup.jsp">Signup</a>
+		</div>
+	</c:if>
+	<c:if test="${userId != null}">
+		<div id="loginPanel">
+			<form action="login" method="post">
+				<input type="submit" name="logout" value="Log Out">
+			</form>
+			<form action="login" method="post">
+				<input type="hidden" name="userid" value="${userId}"> <input
+					type="hidden" name="userView" value="userView"> <input
+					type="submit" name="account" value="My Account">
+			</form>
+		</div>
+	</c:if>
 	<div id="titleDiv">
 		<p id="siteTitle">
 			The UGA</br>Book Exchange
@@ -47,8 +62,9 @@
 
 	<div id="searchDiv">
 		<form style="text-align: center" action="bookQuery" method="get">
-			<input id="searchBox" type="text" placeholder="Search for a book" name="bookname"/>
-			<input class="searchButton" type="submit" value="Search" />
+			<input id="searchBox" type="text" placeholder="Search for a book"
+				name="bookname" /> <input class="searchButton" type="submit"
+				value="Search" />
 		</form>
 		</br>
 		<form action="bookQuery" method="get">
@@ -329,11 +345,16 @@
 				<option value="ZULU">ZULU - Zulu</option>
 
 			</select>
-			<div id="txtHint"><select name="className"><option value="">Select a Class</option></select></div>
+			<div id="txtHint">
+				<select name="className"><option value="">Select a
+						Class</option></select>
+			</div>
 			<input class="searchButton" type="submit" value="Search" />
 		</form>
 	</div>
-	<p style="color:red"><b>${searchError}</b></p>
+	<p style="color: red">
+		<b>${searchError}</b>
+	</p>
 
 	<!--<div id="moveSellTrade">
 <a class="sellTradeButtons" id="leftSellTrade" href="sell.jsp">sell a book</a>
