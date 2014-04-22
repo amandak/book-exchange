@@ -112,6 +112,11 @@ p{
     padding: 0; /*padding reset*/
 }
 
+
+.centerText{
+	text-align: center;
+}
+
 .errorMsg{
 	color:#B22222; 
 	padding-top:15px;
@@ -128,6 +133,43 @@ p{
 	font-family: 'FFFTusj', Georgia, sans-serif;
 	padding-bottom: 0px;
 	margin-bottom: 0px;	
+}
+
+
+.siteTitlePage{
+	width: 100%;
+	color: #41819C;
+	font-size: 65px;
+	padding-top: 30px;
+	font-family: 'FFFTusj', Georgia, sans-serif;
+	text-align: center;
+}
+
+
+/** The semi-transparent background for the regular pages**/
+.backPanel{
+	width: 800px;
+	min-height:500px;
+    /*changes based on content printed on page*/
+    height:100%;
+    	
+	background-color: #F0F0F0;
+	margin: 0 auto;
+	margin-top: 30px;
+	/*Make panel semi-transparent*/
+	/*background-color:rgba(220,220,220,0.9);*/
+	
+		/* Shadow generated from http://css3gen.com/box-shadow/*/
+	-webkit-box-shadow: 3px 5px 12px 0px rgba(50, 50, 50, 0.25);
+	-moz-box-shadow:    3px 5px 12px 0px rgba(50, 50, 50, 0.25);
+	box-shadow:         3px 5px 12px 0px rgba(50, 50, 50, 0.25);
+}
+
+.panelContent{
+	color: #404040;
+	width: 740px;
+	margin: 0 auto;
+	padding-top: 15px;
 }
 
 #slogan{
@@ -330,6 +372,44 @@ p{
 	padding-top: 45px;
 }
 
+
+
+/** CSS for create user page **/
+
+#newAccountCenterDiv{
+	width: 325px;
+	height: 475px;
+	background: #F0F0F0;
+	/*Round edges of box*/
+	border-radius:25px;	
+	
+	/* Shadow generated from http://css3gen.com/box-shadow/*/
+	-webkit-box-shadow: 3px 5px 12px 0px rgba(50, 50, 50, 0.52);
+	-moz-box-shadow:    3px 5px 12px 0px rgba(50, 50, 50, 0.52);
+	box-shadow:         3px 5px 12px 0px rgba(50, 50, 50, 0.52);
+	
+	/*Center Div*/
+	margin: 0 auto;
+	margin-top: 5%;
+}
+
+#newAccountPanel{
+	color: #404040;
+	padding-top: 0.5px;
+	font-family: Georgia, Arial;
+	margin-left: 37px;
+}
+
+.newAccountBox{
+	width: 240px;
+	height: 25px;
+	font-size: 16px;
+}	
+
+
+
+/** Submit button styling used site-wide **/
+
 .submitButton{
 	/* Button styling adapted from tutorial: http://cssdemos.tupence.co.uk/button-styling.htm*/
 	width: 100px;
@@ -368,5 +448,26 @@ p{
 	-moz-box-shadow: inset 0px 1px 0px #3e9cbf, 0px 2px 0px 0px #205c73, 0px 2px 5px #999;
 	box-shadow: inset 0px 1px 0px #3e9cbf, 0px 2px 0px 0px #205c73, 0px 2px 5px #999;
 }
+
+
+/** Styles all table on the site **/
+
+th{
+	/*color: ; */
+	text-align: left;
+	padding-right: 30px;
+	color: #41819C;
+}
+
+td{
+	padding-top: 20px;
+}
+
+.bookTableLink{
+	width: 250px;
+	color: #2E8B57;
+	padding-right: 30px;
+}
+
 
 

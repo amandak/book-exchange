@@ -1,29 +1,39 @@
-<%@ page language="java"
+<!-- <%@ page language="java"
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     isELIgnored="false"
 %>
+-->
 
 <!DOCTYPE html>
-
 <html>
+	<link rel="stylesheet" href="css/main.css" type="text/css" />
     <head>
         <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
-		<title>Results</title>
+		<title>Search Results</title>
 	</head>
 
 	<body>
-		<table>
-			<th>Title</th><th>Author</th><th>Department</th><th>Class</th><th>Price</th><th>Condition</th>
-			<tr>
-				<td><a href="book.html">Java Servlets and JSP</a></td>
-				<td>Murach</td>
-				<td>CSCI</td>
-				<td>3030</td>
-				<td>$20.00</td>
-				<td>acceptable</td>
-			</tr>
-		</table></br>
-		<a href="index.html">home</a>
+		<div class="header"><a class="homeButton" href="index.html">Home</a></div>
+		
+		<div class="siteTitlePage">The UGA Book Exchange</div>
+		
+		<div class="backPanel">
+			<div class="panelContent">
+			<h2>Search Results:</h2>
+			<table>
+				<th>Title</th><th>Author</th><th>Department</th><th>Class</th><th>Price</th><th>Condition</th>
+				<tr>
+					<td><a class="bookTableLink" href="book.html">Java Servlets and JSP</a></td>
+					<td>Murach</td>
+					<td>CSCI</td>
+					<td>3030</td>
+					<td>$20.00</td>
+					<td>acceptable</td>
+				</tr>
+			</table>
+			</div>
+		</div>
+
 	</body>
 </html>

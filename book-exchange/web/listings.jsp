@@ -5,35 +5,37 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <!DOCTYPE html>
 <html>
+	<link rel="stylesheet" href="css/main.css" type="text/css" />
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Results</title>
+		<title>Search Results</title>
 	</head>
 	<body>
-		<div align="right">
-			<c:if test="${userId != null}">
-				<form action="login" method="post">
-					<input type="submit" name="logout" value="Log Out">
-				</form>
-			</c:if>
-		</div>
-		<!--  TODO - Add dynamic functionality to this JSP page -->
-		<p style="color:red">${errorFind}</p>
-		<c:forEach items="${bookList}" var="book">
-		<table>
+		<div class="header"><a class="homeButton" href="index.jsp">Home</a></div>
+	
+		<div class="siteTitlePage">The UGA Book Exchange</div>
+			
+		
+		<div class="backPanel">
+			<div class="panelContent">
+			<h2>Search Results:</h2>
+		
+			<c:forEach items="${bookList}" var="book">
+			<table>
 			<tr><th>Title</th><th>Author</th><th>Department</th><th>Class</th><th>Price</th><th>Condition</th></tr>
-			<tr>
-				<td><a href="bookQuery?bookId=${book.bookId}">${book.bookName}</a></td>
-				<td>${book.author}</td>
-				<td>${book.department }</td>
-				<td>${book.classTitle}</td>
-				<td>$${book.price}</td>
-				<td>${book.condition}</td>
-			</tr>
-		</table>
-		</c:forEach>
-		<br>
-		<a href="index.jsp">home</a>
+				<tr>
+					<td><a class="bookTableLink" href="bookQuery?bookId=${book.bookId}">${book.bookName}</a></td>
+					<td>${book.author}</td>
+					<td>${book.department }</td>
+					<td>${book.classTitle}</td>
+					<td>$${book.price}</td>
+					<td>$${book.condition}</td>
+				</tr>
+			</table>
+			</c:forEach>
+
+			</div>
+		</div>
 	
 	</body>
 </html>
