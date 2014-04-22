@@ -21,7 +21,7 @@ public class BookTest extends TestCase {
 				"Database book", "Anonymous", "3", "Listed", "Fair", 25.00, "CSCI4300", "CSCI");
 
 		assertNotNull("Book instance not null", instance);
-		assertEquals("instance user id", 12323, instance.getUId());
+		assertEquals("instance user id", 12323, instance.getUid());
 		assertEquals("instance book id", 123, instance.getBookId());
 		assertEquals("instance book name", "Database Systems", instance.getBookName());
 		assertEquals("instance book isbn", "1234567890888", instance.getIsbn());

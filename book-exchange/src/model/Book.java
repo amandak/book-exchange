@@ -7,21 +7,21 @@ package model;
  * @author Pinal Patel (50% Work Done), Vince Caparell(50% Work Done)
  */
 public class Book {
-	
+
 	public static final String STATUS_SELL = "Sell";
-	
+
 	public static final String STATUS_EXCHANGE = "Exchange";
-	
+
 	public static final String STATUS_PURCHASED = "Purchased";
-	
+
 	public static final String CONDITION_NEW = "New";
-	
+
 	public static final String CONDITION_LIKE_NEW = "Like New";
-	
+
 	public static final String CONDITION_VERY_GOOD = "Very Good";
-	
+
 	public static final String CONDITION_GOOD = "Good";
-	
+
 	public static final String CONDITION_ACCEPTABLE = "Acceptable";
 	/**
 	 * user id
@@ -82,9 +82,9 @@ public class Book {
 	 * Price of the book
 	 */
 	double price;
-	
+
 	String user;
-	
+
 	String email;
 
 	/**
@@ -118,6 +118,23 @@ public class Book {
 		this.department = _department;
 
 	}//Book constructor
+
+	
+	/**
+	 * @return the uid
+	 */
+	public int getUid() {
+		return uid;
+	}
+
+
+	/**
+	 * @param uid the uid to set
+	 */
+	public void setUid(int uid) {
+		this.uid = uid;
+	}
+
 
 	/**
 	 * @param bookId the bookId to set
@@ -197,9 +214,9 @@ public class Book {
 	public void setUser(String user)
 	{
 		this.user = user;
-		
+
 	}
-	
+
 	/**
 	 * Returns user's first and last name
 	 * @return
@@ -207,9 +224,9 @@ public class Book {
 	public String getUser()
 	{
 		return this.user;
-		
+
 	}
-	
+
 	/**
 	 * Sets user's email address with this book
 	 * @param email
@@ -217,9 +234,9 @@ public class Book {
 	public void setEmail(String email)
 	{
 		this.email = email;
-		
+
 	}
-	
+
 	/**
 	 * Returns user's email address with this book
 	 * @return
@@ -315,20 +332,5 @@ public class Book {
 		return this.price;	
 	}//getPrice
 
-	/**
-	 * Get method for the user id 
-	 * @return The id of the user
-	 */
-	public int getUId()
-	{
-		return this.uid;
-	}
-    
-    /**
-     *Sets the user id for this book
-     */
-    public void setUId(int userid)
-    {
-	this.uid = userid;
-    }
+	
 }//Book class

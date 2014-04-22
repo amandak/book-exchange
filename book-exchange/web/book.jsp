@@ -51,16 +51,16 @@
 			<td>${book.description}</td>
 		</tr>
 	</table>
-
+	
 	<c:if test="${userId == book.uid}">
 		<form action="bookQuery" method="post">
-			<input type="hidden" name="bid" value="${book.bid}"> <input
+			<input type="hidden" name="bid" value="${book.bookId}"> <input
 				type="submit" name="removeBook" value="Remove Book">
 		</form>
 	</c:if>
 	<p>
-		Poster contact details:<br> Email: <a
-			href="mailto:${book.email}?Subject=Inquiry%20About%20Book:%20${book.bookName}">${book.email}</a>
+		Poster contact details:<br> Email: 
+		<a href="mailto:${book.email}?Subject=Inquiry%20About%20Book:%20${book.bookName}">${book.email}</a>
 		Name: ${book.user}
 	</p>
 </body>

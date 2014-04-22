@@ -33,7 +33,7 @@ public class CartTest extends TestCase {
 		Book item0 = instance.getBookList().get(0);
 		
 		assertNotNull("item0 not null", item0);
-		assertEquals("item0 uid", 12323, item0.getUId());
+		assertEquals("item0 uid", 12323, item0.getUid());
 		assertEquals("item0 book id", 123, item0.getBookId());
 		
 		instance.removeBook(binstance);

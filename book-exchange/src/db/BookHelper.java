@@ -138,6 +138,7 @@ public class BookHelper {
 				bookObj = new Book(uid, bid, title, isbn, desc, 
 						author, ed, stat, condition, price, className, department);
 				
+				System.out.println("book uid:" +bookObj.getUid());
 				getUserInfoForBookStatement.setInt(1, uid);
 				rs1 = getUserInfoForBookStatement.executeQuery();
 				if (rs1.next())
@@ -430,7 +431,7 @@ public class BookHelper {
 		/**
 		 * Get values from newBook object
 		 */
-		int userId = newBook.getUId();
+		int userId = newBook.getUid();
 		String bookName = newBook.getBookName();
 		String isbn = newBook.getIsbn();
 		String description = newBook.getDescription();
