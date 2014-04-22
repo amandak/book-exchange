@@ -52,7 +52,7 @@
 		</tr>
 	</table>
 
-	<c:if test="${userId eq book.uid}">
+	<c:if test="${userId == book.uid}">
 		<form action="bookQuery" method="post">
 			<input type="hidden" name="bid" value="${book.bid}"> <input
 				type="submit" name="removeBook" value="Remove Book">
