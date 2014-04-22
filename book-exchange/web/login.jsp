@@ -21,7 +21,7 @@
 	      		<p class="errorMsg">${loginError}</p>
 			</div>
 			
-			<div id="createAccount"> Don't have an account? <a href="" id="signUpButton">Create New Account</a>
+			<div id="createAccount"> Don't have an account? <a href="signup.jsp" id="signUpButton">Create New Account</a>
 			</div>
 		</div>
 	</body>
