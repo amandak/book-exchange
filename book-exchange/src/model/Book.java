@@ -323,5 +323,12 @@ public class Book {
 	{
 		return this.uid;
 	}
-
+    
+    /**
+     *Sets the user id for this book
+     */
+    public void setUId(int userid)
+    {
+	this.uid = userid;
+    }
 }//Book class
