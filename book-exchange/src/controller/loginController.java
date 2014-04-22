@@ -64,13 +64,17 @@ public class loginController extends HttpServlet {
 			
 			if (isLoginVerified)
 			{
-				
-				User user = helper.getUser(username);
+			    
+			    System.out.println("login is verified");
+			        User user = helper.getUser(username);
 				session.setAttribute("userId", user.getUserId());
 				session.setAttribute("role", user.getRole());
 				helper.closeConnection();
+				System.out.println("before request url");
+				String requestURL = "";
 				
-				String requestURL = (String) session.getAttribute("requestUrI").toString();
+				if (session.getAttribute("requestUrI") != null)
+				    requestURL = session.getAttribute("requestUrI").toString();
 				System.out.println("requestURL: "+ requestURL);
 				if (requestURL.isEmpty())
 				{
@@ -117,7 +121,7 @@ public class loginController extends HttpServlet {
 				//dispatcher.forward(request, response);
 			}
 		}
-		
+		System.out.println("url: " + url);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);
 		

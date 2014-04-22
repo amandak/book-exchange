@@ -41,7 +41,7 @@
 
 	<div id="content"
 		style="float: left;">
-		Content goes here</div>
+		</div>
 
 	
 
