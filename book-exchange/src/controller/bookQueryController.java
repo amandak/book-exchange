@@ -49,6 +49,8 @@ public class bookQueryController extends HttpServlet {
 		String bookname = request.getParameter("bookname");
 		String department = request.getParameter("department");
 		String className = request.getParameter("className");
+		String listBooks = request.getParameter("listBooks");
+		String requestUserId = request.getParameter("userId");
 		
 	
 		String requestUrI = "";
@@ -126,13 +128,26 @@ public class bookQueryController extends HttpServlet {
 			}
 
 		}//third if
+		// User has clicked "My Books" or "Remove a Book" from user.jsp
+		else if((listBooks != null) && (requestUserId != null)){
+			// Retrieve list of books this user has for sale and save it in session
+			ArrayList<Book> bookList = bookHelper.getBooksBySeller(userId);
+			session.setAttribute("bookList", bookList);
+								
+			// Set redirect URL
+			url = "/listings.jsp";
+		}
+		
 		bookHelper.closeConnection();
 		System.out.println("requestUrI: "+ requestUrI);
 	
+		// Set session attributes
 		session.setAttribute("requestUrI", requestUrI);
 		session.setAttribute("errorFind", errorFind);
 		session.setAttribute("searchError", searchError);
 		session.setAttribute("loginError", loginError);
+		
+		// Redirect user and forward request/response
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);
 	}
@@ -160,6 +175,8 @@ public class bookQueryController extends HttpServlet {
 		
 
 		String bookIdToRemove = request.getParameter("bid");
+		String listBooks = request.getParameter("listBooks");
+		String requestUserId = request.getParameter("userId");
 		String url = "";
 		
 		// User is trying to remove a book
@@ -176,7 +193,14 @@ public class bookQueryController extends HttpServlet {
 			
 			// Set redirect URL
 			url = "/listings.jsp";
+		} 
+		// User has clicked on "My Books" or "Remove a Book" from user.jsp
+		else if ((listBooks != null) && (requestUserId != null)){
+			// Forward to doGet method
+			doGet(request, response);
 		}
+		
+		bookHelper.closeConnection();
 		
 		// Redirect user and forward request/response
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
