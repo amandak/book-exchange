@@ -15,7 +15,7 @@
         <div id="newAccountCenterDiv">
 			<div id="newAccountPanel">
 			<h2>Create New Account</h2>
-        	<form method="post" action = "login">
+        	<form method="post" action = "signup">
             Username:<br><input class="newAccountBox" type="text" name="newusername" /><br>
             <br>UGA email:<br><input class="newAccountBox" type="text" name="email" /><br>
             <br>Re-enter e-mail:<br><input class="newAccountBox" type="text" name="email2" /><br>
