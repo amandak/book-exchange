@@ -196,8 +196,12 @@ public class bookQueryController extends HttpServlet {
 		} 
 		// User has clicked on "My Books" or "Remove a Book" from user.jsp
 		else if ((listBooks != null) && (requestUserId != null)){
-			// Forward to doGet method
-			doGet(request, response);
+			// Retrieve list of books this user has for sale and save it in session
+			ArrayList<Book> bookList = bookHelper.getBooksBySeller(userId);
+			session.setAttribute("bookList", bookList);
+											
+			// Set redirect URL
+			url = "/listings.jsp";
 		}
 		
 		bookHelper.closeConnection();
