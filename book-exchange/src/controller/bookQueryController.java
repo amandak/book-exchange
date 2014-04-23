@@ -147,6 +147,9 @@ public class bookQueryController extends HttpServlet {
 			doGet(request, response);
 		}
 		
+		HttpSession session = request.getSession();
+		Integer userId = (Integer)session.getAttribute("userId");
+		
 		// Create a bookHelper object for accessing the book database
 		BookHelper bookHelper = null;
 		try{
@@ -167,8 +170,12 @@ public class bookQueryController extends HttpServlet {
 			// Delete book from the database
 			bookHelper.deleteBook(bookId);
 			
+			// Retrieve list of books this user has for sale and save it in session
+			ArrayList<Book> bookList = bookHelper.getBooksBySeller(userId);
+			session.setAttribute("bookList", bookList);
+			
 			// Set redirect URL
-			url = "/book.jsp";
+			url = "/listings.jsp";
 		}
 		
 		// Redirect user and forward request/response
