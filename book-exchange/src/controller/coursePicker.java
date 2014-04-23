@@ -37,7 +37,7 @@ public class coursePicker extends HttpServlet {
 			System.out.println(e.getClass().getName() + " Initializing BookHelper object: " + e.getMessage());
 		}
 		ArrayList<String> stringList = helper.getClassByDepartment(request.getParameter("department"));
-
+		helper.closeConnection();
 		PrintWriter out = response.getWriter();
 		out.write("<select name=\"className\">");
 		out.write("<option value=\"-1\">Select a Class</option>");
