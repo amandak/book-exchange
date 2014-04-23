@@ -61,6 +61,7 @@ public class bookQueryController extends HttpServlet {
 		String searchError = "";
 		String errorFind = "";
 		String loginError = "";
+		
 		// User is trying to view a single book listing, from listings.jsp
 		if(bookIdentifier != null){
 			int bookId = -1;
@@ -140,11 +141,39 @@ public class bookQueryController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//add a book or request to remove a book
+		//add a book
 		if (request.getParameter("bookId") != null)
 		{
 			doGet(request, response);
 		}
+		
+		// Create a bookHelper object for accessing the book database
+		BookHelper bookHelper = null;
+		try{
+			bookHelper = new BookHelper();
+		}catch(Exception e){
+			System.out.println("Error creating bookHelper in BookQuery doPost method: " + e.getMessage());
+		}
+		
+
+		String bookIdToRemove = request.getParameter("bid");
+		String url = "";
+		
+		// User is trying to remove a book
+		if((bookIdToRemove != null) && (request.getParameter("removeBook") != null)){
+			// delete book from the database with the bookid given
+			int bookId = Integer.parseInt(bookIdToRemove);
+			
+			// Delete book from the database
+			bookHelper.deleteBook(bookId);
+			
+			// Set redirect URL
+			url = "/book.jsp";
+		}
+		
+		// Redirect user and forward request/response
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+		dispatcher.forward(request, response);
 	}
 
 }
