@@ -84,9 +84,10 @@ public class signupController extends HttpServlet {
 					// Add new user to database
 					userHelper.addNewUser(newUser, password);
 					
+					User newUserInfo = userHelper.getUser(username);
 					// Save user in session
-					session.setAttribute("userId", username);
-					session.setAttribute("role", "user");
+					session.setAttribute("userId", newUserInfo.getUserId());
+					session.setAttribute("role", newUserInfo.getRole());
 					
 					
 					// Redirect to main user page
