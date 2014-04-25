@@ -113,6 +113,11 @@ p{
 }
 
 
+h3{
+	margin: 0;
+    padding: 0; /*padding reset*/	
+}
+
 .centerText{
 	text-align: center;
 }
@@ -149,13 +154,14 @@ p{
 /** The semi-transparent background for the regular pages**/
 .backPanel{
 	width: 800px;
-	min-height:500px;
+	min-height:470px;
     /*changes based on content printed on page*/
     height:100%;
     	
 	background-color: #F0F0F0;
 	margin: 0 auto;
 	margin-top: 30px;
+	padding-bottom: 30px;
 	/*Make panel semi-transparent*/
 	/*background-color:rgba(220,220,220,0.9);*/
 	
@@ -461,6 +467,7 @@ th{
 
 td{
 	padding-top: 20px;
+	padding-right: 30px;
 }
 
 .bookTableLink{
