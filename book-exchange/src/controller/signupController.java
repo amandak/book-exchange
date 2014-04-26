@@ -55,8 +55,19 @@ public class signupController extends HttpServlet {
 		String secondEmail = request.getParameter("email2");
 		String password = request.getParameter("newpassword");
 		String secondPassword = request.getParameter("newpassword2");
-		String fname = request.getParameter("fName");
-		String lname = request.getParameter("lName");
+		String fname = request.getParameter("fname");
+		String lname = request.getParameter("lname");
+		
+		
+		
+		System.out.println("username: " + username);
+		System.out.println("email: "+ email);
+		System.out.println("secondEmail: "+ secondEmail);
+		System.out.println("password: "+ password);
+		System.out.println("secondPassword: "+ secondPassword);
+		System.out.println("first name: "+ fname);
+		System.out.println("last name: "+ lname);
+		
 		// User is trying to sign up from signup.jsp
 		if(username != null){
 			// Make sure all required fields were entered
