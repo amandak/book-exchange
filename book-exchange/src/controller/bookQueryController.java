@@ -43,6 +43,8 @@ public class bookQueryController extends HttpServlet {
 			System.out.println("Error instantiating a BookHelper in BookQueryController: " + e.getMessage());
 		}
 
+		System.out.println("Entered doGet method of bookQueryController");
+
 		String userRole = (String) session.getAttribute("role");
 		Integer userId = (Integer)session.getAttribute("userId");
 		String bookIdentifier = request.getParameter("bookId");
@@ -66,7 +68,8 @@ public class bookQueryController extends HttpServlet {
 		
 		// User is trying to view a single book listing, from listings.jsp
 		if(bookIdentifier != null){
-			int bookId = -1;
+		    System.out.println("Entered bookIdentifier if condition");
+		        int bookId = -1;
 			try{
 				bookId = Integer.parseInt(bookIdentifier);
 			}catch(NumberFormatException e){
@@ -75,6 +78,7 @@ public class bookQueryController extends HttpServlet {
 
 			if ((userRole == null || userRole.isEmpty()) && (userId == null))
 			{
+			    System.out.println("Entered user not logged in condition within bookIdentifier");
 				loginError = "To view this listing, please login first.";
 				url = "/login.jsp";
 				
@@ -86,6 +90,7 @@ public class bookQueryController extends HttpServlet {
 					requestUrI += "?" + queryUrl;
 			}
 			else{
+			    System.out.println("Entered user logged in condition within bookIdentifier");
 				Book book = bookHelper.getBookById(bookId);
 
 				if(book != null){
@@ -102,12 +107,14 @@ public class bookQueryController extends HttpServlet {
 		}//first if
 		else if(bookname != null)
 		{
+		    System.out.println("Entered bookname search condition");
 			ArrayList<Book> bookList = bookHelper.searchByBookName(bookname);
 			session.setAttribute("bookList", bookList);
 			url = "/listings.jsp";
 		}//second if
 		else if(department != null && className != null)
 		{
+		    System.out.println("Entered department and classname condition");
 			String departmentName = department;
 			String classname = className;
 			if (department.equals("-1"))
@@ -130,6 +137,7 @@ public class bookQueryController extends HttpServlet {
 		}//third if
 		// User has clicked "My Books" or "Remove a Book" from user.jsp
 		else if((listBooks != null) && (requestUserId != null)){
+		    System.out.println("Listing books for My Books or Remove a Book");
 			// Retrieve list of books this user has for sale and save it in session
 			ArrayList<Book> bookList = bookHelper.getBooksBySeller(userId);
 			session.setAttribute("bookList", bookList);
@@ -140,7 +148,7 @@ public class bookQueryController extends HttpServlet {
 		
 		bookHelper.closeConnection();
 		System.out.println("requestUrI: "+ requestUrI);
-	
+		System.out.println("url: " +url);
 		// Set session attributes
 		session.setAttribute("requestUrI", requestUrI);
 		session.setAttribute("errorFind", errorFind);
@@ -156,15 +164,16 @@ public class bookQueryController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//add a book
+	    System.out.println("Entered doPost of bookQueryController");
+	        //transfer to doGet if asking for viewing a book
 		if (request.getParameter("bookId") != null)
 		{
 			doGet(request, response);
 		}
-		
+		else {
 		HttpSession session = request.getSession();
 		Integer userId = (Integer)session.getAttribute("userId");
-		
+		System.out.println("Entered doPost of bookQuery");
 		// Create a bookHelper object for accessing the book database
 		BookHelper bookHelper = null;
 		try{
@@ -209,6 +218,7 @@ public class bookQueryController extends HttpServlet {
 		// Redirect user and forward request/response
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);
+	
+		}
 	}
-
 }

@@ -40,6 +40,8 @@ public class loginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.setAttribute("loginError", "");
+		
+		System.out.println("Entered doPost of loginController");
 
 		String url = "";
 		String username = request.getParameter("username");
