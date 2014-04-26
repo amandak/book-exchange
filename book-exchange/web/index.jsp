@@ -37,8 +37,8 @@
 
 	<c:if test="${userId == null}">
 		<div id="loginPanel" align="right">
-			<a class="links" href="login.jsp">Login&nbsp</a> <a class="links"
-				href="signup.jsp">Signup</a>
+			<a class="links" href="login.jsp" style="font-size:150%;"><b>Login&nbsp</b></a> <a class="links"
+				href="signup.jsp" style="font-size:150%;"><b>Signup</b></a>
 		</div>
 	</c:if>
 	<c:if test="${userId != null}">
