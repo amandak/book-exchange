@@ -383,8 +383,8 @@ h3{
 /** CSS for create user page **/
 
 #newAccountCenterDiv{
-	width: 325px;
-	height: 475px;
+	width: 400px;
+	height: 600px;
 	background: #F0F0F0;
 	/*Round edges of box*/
 	border-radius:25px;	
