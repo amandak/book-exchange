@@ -71,8 +71,8 @@ public class signupController extends HttpServlet {
 		// User is trying to sign up from signup.jsp
 		if(username != null){
 			// Make sure all required fields were entered
-			if(username.isEmpty() && email.isEmpty() && secondEmail.isEmpty() 
-					&& password.isEmpty() && secondPassword.isEmpty() && lname.isEmpty() && fname.isEmpty()){
+			if(username.isEmpty() || email.isEmpty() || secondEmail.isEmpty() 
+					|| password.isEmpty() || secondPassword.isEmpty() || lname.isEmpty() || fname.isEmpty()){
 				signupErrorMessage = "Not all required information was specified. Please try again.";
 				url = "/signup.jsp";
 			}

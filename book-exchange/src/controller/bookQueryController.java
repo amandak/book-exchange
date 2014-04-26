@@ -53,8 +53,8 @@ public class bookQueryController extends HttpServlet {
 		String className = request.getParameter("className");
 		String listBooks = request.getParameter("listBooks");
 		String requestUserId = request.getParameter("userId");
-		
-	
+
+
 		String requestUrI = "";
 		System.out.println("userRole: "+ userRole);
 		System.out.println("userid: "+ userId);
@@ -65,11 +65,11 @@ public class bookQueryController extends HttpServlet {
 		String searchError = "";
 		String errorFind = "";
 		String loginError = "";
-		
+
 		// User is trying to view a single book listing, from listings.jsp
 		if(bookIdentifier != null){
-		    System.out.println("Entered bookIdentifier if condition");
-		        int bookId = -1;
+			System.out.println("Entered bookIdentifier if condition");
+			int bookId = -1;
 			try{
 				bookId = Integer.parseInt(bookIdentifier);
 			}catch(NumberFormatException e){
@@ -78,10 +78,10 @@ public class bookQueryController extends HttpServlet {
 
 			if ((userRole == null || userRole.isEmpty()) && (userId == null))
 			{
-			    System.out.println("Entered user not logged in condition within bookIdentifier");
+				System.out.println("Entered user not logged in condition within bookIdentifier");
 				loginError = "To view this listing, please login first.";
 				url = "/login.jsp";
-				
+
 				requestUrI = request.getRequestURI().toString();
 				String[] splitUrl = requestUrI.split("/");
 				requestUrI = splitUrl[2];
@@ -90,7 +90,7 @@ public class bookQueryController extends HttpServlet {
 					requestUrI += "?" + queryUrl;
 			}
 			else{
-			    System.out.println("Entered user logged in condition within bookIdentifier");
+				System.out.println("Entered user logged in condition within bookIdentifier");
 				Book book = bookHelper.getBookById(bookId);
 
 				if(book != null){
@@ -107,14 +107,14 @@ public class bookQueryController extends HttpServlet {
 		}//first if
 		else if(bookname != null)
 		{
-		    System.out.println("Entered bookname search condition");
+			System.out.println("Entered bookname search condition");
 			ArrayList<Book> bookList = bookHelper.searchByBookName(bookname);
 			session.setAttribute("bookList", bookList);
 			url = "/listings.jsp";
 		}//second if
 		else if(department != null && className != null)
 		{
-		    System.out.println("Entered department and classname condition");
+			System.out.println("Entered department and classname condition");
 			String departmentName = department;
 			String classname = className;
 			if (department.equals("-1"))
@@ -137,15 +137,15 @@ public class bookQueryController extends HttpServlet {
 		}//third if
 		// User has clicked "My Books" or "Remove a Book" from user.jsp
 		else if((listBooks != null) && (requestUserId != null)){
-		    System.out.println("Listing books for My Books or Remove a Book");
+			System.out.println("Listing books for My Books or Remove a Book");
 			// Retrieve list of books this user has for sale and save it in session
 			ArrayList<Book> bookList = bookHelper.getBooksBySeller(userId);
 			session.setAttribute("bookList", bookList);
-								
+
 			// Set redirect URL
 			url = "/listings.jsp";
 		}
-		
+
 		bookHelper.closeConnection();
 		System.out.println("requestUrI: "+ requestUrI);
 		System.out.println("url: " +url);
@@ -154,7 +154,7 @@ public class bookQueryController extends HttpServlet {
 		session.setAttribute("errorFind", errorFind);
 		session.setAttribute("searchError", searchError);
 		session.setAttribute("loginError", loginError);
-		
+
 		// Redirect user and forward request/response
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);
@@ -164,61 +164,61 @@ public class bookQueryController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    System.out.println("Entered doPost of bookQueryController");
-	        //transfer to doGet if asking for viewing a book
+		System.out.println("Entered doPost of bookQueryController");
+		//transfer to doGet if asking for viewing a book
 		if (request.getParameter("bookId") != null)
 		{
 			doGet(request, response);
 		}
 		else {
-		HttpSession session = request.getSession();
-		Integer userId = (Integer)session.getAttribute("userId");
-		System.out.println("Entered doPost of bookQuery");
-		// Create a bookHelper object for accessing the book database
-		BookHelper bookHelper = null;
-		try{
-			bookHelper = new BookHelper();
-		}catch(Exception e){
-			System.out.println("Error creating bookHelper in BookQuery doPost method: " + e.getMessage());
-		}
-		
+			HttpSession session = request.getSession();
+			Integer userId = (Integer)session.getAttribute("userId");
+			System.out.println("Entered doPost of bookQuery");
+			// Create a bookHelper object for accessing the book database
+			BookHelper bookHelper = null;
+			try{
+				bookHelper = new BookHelper();
+			}catch(Exception e){
+				System.out.println("Error creating bookHelper in BookQuery doPost method: " + e.getMessage());
+			}
 
-		String bookIdToRemove = request.getParameter("bid");
-		String listBooks = request.getParameter("listBooks");
-		String requestUserId = request.getParameter("userId");
-		String url = "";
-		
-		// User is trying to remove a book
-		if((bookIdToRemove != null) && (request.getParameter("removeBook") != null)){
-			// delete book from the database with the bookid given
-			int bookId = Integer.parseInt(bookIdToRemove);
+
+			String bookIdToRemove = request.getParameter("bid");
+			String listBooks = request.getParameter("listBooks");
+			String requestUserId = request.getParameter("userId");
+			String url = "";
 			
-			// Delete book from the database
-			bookHelper.deleteBook(bookId);
-			
-			// Retrieve list of books this user has for sale and save it in session
-			ArrayList<Book> bookList = bookHelper.getBooksBySeller(userId);
-			session.setAttribute("bookList", bookList);
-			
-			// Set redirect URL
-			url = "/listings.jsp";
-		} 
-		// User has clicked on "My Books" or "Remove a Book" from user.jsp
-		else if ((listBooks != null) && (requestUserId != null)){
-			// Retrieve list of books this user has for sale and save it in session
-			ArrayList<Book> bookList = bookHelper.getBooksBySeller(userId);
-			session.setAttribute("bookList", bookList);
-											
-			// Set redirect URL
-			url = "/listings.jsp";
-		}
-		
-		bookHelper.closeConnection();
-		
-		// Redirect user and forward request/response
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-		dispatcher.forward(request, response);
-	
+			// User is trying to remove a book
+			if((bookIdToRemove != null) && (request.getParameter("removeBook") != null)){
+				// delete book from the database with the bookid given
+				int bookId = Integer.parseInt(bookIdToRemove);
+
+				// Delete book from the database
+				bookHelper.deleteBook(bookId);
+
+				// Retrieve list of books this user has for sale and save it in session
+				ArrayList<Book> bookList = bookHelper.getBooksBySeller(userId);
+				session.setAttribute("bookList", bookList);
+
+				// Set redirect URL
+				url = "/listings.jsp";
+			} 
+			// User has clicked on "My Books" or "Remove a Book" from user.jsp
+			else if ((listBooks != null) && (requestUserId != null)){
+				// Retrieve list of books this user has for sale and save it in session
+				ArrayList<Book> bookList = bookHelper.getBooksBySeller(userId);
+				session.setAttribute("bookList", bookList);
+
+				// Set redirect URL
+				url = "/listings.jsp";
+			}
+
+			bookHelper.closeConnection();
+
+			// Redirect user and forward request/response
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+			dispatcher.forward(request, response);
+
 		}
 	}
 }

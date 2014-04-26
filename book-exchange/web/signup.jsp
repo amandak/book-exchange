@@ -25,7 +25,7 @@
             <br>Re-enter password:<br><input class="newAccountBox" type="password" name="newpassword2" /><br>
             <br><input class="submitButton" type="submit" value="submit" />
         </form>
-        		<!--<p class="errorMsg">${createUserError}</p>-->
+        		<p class="errorMsg">${signupError}</p>
 			</div>
 	
 			</div>

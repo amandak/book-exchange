@@ -20,7 +20,7 @@
 				<input type="submit" name="account" value="My Account">
 			</form>
 		</c:if>
-	<form method="post">
+	<form method="post" action="bookQuery">
 		<table>
 			<tr><td>Title*:</td>
 			<td><input type="text" name="bookTitle" /></td></tr>
