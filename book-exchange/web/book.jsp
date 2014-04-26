@@ -21,11 +21,11 @@
 					
 				<c:if test="${userId != null}">
 					<div class="homeButton" align="right">
-						<form action="login" method="post">
+						<form action="login" method="post" class="logoutPos">
 						<input type="submit" name="logout" value="Log Out">
 						</form>
 		
-						<form action="login" method="post">
+						<form action="login" method="post" class="myAccountPos">
 						<input type="hidden" name="userid" value="${userId}">
 						<input type="hidden" name="userView" value="userView">
 						<input type="submit" name="account" value="My Account">
