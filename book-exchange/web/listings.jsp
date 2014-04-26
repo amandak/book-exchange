@@ -14,15 +14,15 @@
 	<div class="header">
 		<a class="homeButton" href="index.jsp">Home</a>
 
-
+		<div align="right">
 		<c:if test="${userId == null}">
 			<a class="textAlignRight" href="login.jsp">Login&nbsp</a>
 			<a class="textAlignRight" href="signup.jsp">Signup</a>
 		</c:if>
-
+</div>
 
 		<c:if test="${userId != null}">
-			<div class="textAlignRight">
+			<div class="textAlignRight" align="right">
 				<form action="login" method="post">
 					<input type="submit" name="logout" value="Log Out">
 				</form>
