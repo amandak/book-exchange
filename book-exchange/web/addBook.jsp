@@ -310,12 +310,21 @@
 			<tr><td>Edition:</td>
 			<td><input type="text" name="edition" /></td></tr>
 			<tr><td>Condition:</td>
-			<td><input type="text" name="condition" /></td></tr>
+			<td><select class="dropdownMenu" name="condition">
+				<option selected="selected" value="-1">Select a Book Condition</option>
+				<option value="New">New</option>
+				<option value="Like New">Like New</option>
+				<option value="Very Good">Very Good</option>
+				<option value="Good">Good</option>
+				<option value="Acceptable">Acceptable</option>
+				</select>
+			</td></tr>
 			<tr><td>Price:</td>
 			<td><input type="text" name="price" /></td></tr>
 			<tr><td>Description:</td>
 			<td><textarea name="description" rows="3" cols="50"></textarea></td></tr>
-			<tr><td></td><td><input type="submit" value="submit" /></td></tr>
+			<tr><td></td><td><input type="hidden" name="userId" value="${userId}">
+			<input type="submit" value="submit" /></td></tr>
 		</table>
 	</form>
 	<br> * denotes a required field
