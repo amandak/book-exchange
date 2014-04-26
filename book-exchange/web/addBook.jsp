@@ -330,5 +330,6 @@
 	<br> * denotes a required field
 	<br>
 	<a href="index.jsp">home</a>
+	<p class="errorMsg">${signupError}</p>
 </body>
 </html>
