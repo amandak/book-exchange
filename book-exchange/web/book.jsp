@@ -13,14 +13,14 @@
 
 			<div class="header"><a class="homeButton" href="index.jsp">Home</a>
 				<c:if test="${userId == null}">
-					<div class="textAlignRight">
+					<div class="homeButton">
 						<a class="links" href="login.jsp">Login&nbsp</a> 
 						<a class="links" href="signup.jsp">Signup</a>
 					</div>
 				</c:if>
 					
 				<c:if test="${userId != null}">
-					<div class="textAlignRight">
+					<div class="homeButton" align="right">
 						<form action="login" method="post">
 						<input type="submit" name="logout" value="Log Out">
 						</form>
