@@ -186,8 +186,23 @@ public class bookQueryController extends HttpServlet {
 			String bookIdToRemove = request.getParameter("bid");
 			String listBooks = request.getParameter("listBooks");
 			String requestUserId = request.getParameter("userId");
-			String url = "";
 			
+			
+			String bookTitle = request.getParameter("bookTitle");
+			String author = request.getParameter("author");
+			String isbn = request.getParameter("isbn");
+			String department = request.getParameter("department");
+			String className = request.getParameter("className");
+			String edition = request.getParameter("edition");
+			String condition = request.getParameter("condition");
+			String price = request.getParameter("price");
+			String description = request.getParameter("description");
+			String url = "";
+			String addBookError = "";
+			
+			
+			System.out.println("bookTitle: "+ bookTitle);
+			System.out.println("rquestUserId: "+ requestUserId);
 			// User is trying to remove a book
 			if((bookIdToRemove != null) && (request.getParameter("removeBook") != null)){
 				// delete book from the database with the bookid given
@@ -212,9 +227,49 @@ public class bookQueryController extends HttpServlet {
 				// Set redirect URL
 				url = "/listings.jsp";
 			}
+			//User requests to add a Book
+			else if ((bookTitle != null || department != null) && requestUserId != null)
+			{
+				if (bookTitle.isEmpty())
+				{
+					addBookError = "Please enter a book title.";
+					url = "/addBook.jsp";
+				}
+				else if (department.isEmpty())
+				{
+					addBookError = "Please select a department.";
+					url = "/addBook.jsp";
+				}
+				else if (className.isEmpty())
+				{
+					addBookError = "Please enter a class name for this book.";
+					url = "/addBook.jsp";
+				}
+				else if (price.isEmpty())
+				{
+					addBookError = "Please enter selling price for this book.";
+					url = "/addBook.jsp";
+				}
+				else
+				{
+					double newPrice = 0.0;
+					if (!price.isEmpty())	
+						newPrice = Double.parseDouble(price);
+					Book newBook = new Book(userId, 0, bookTitle, isbn, description, author, 
+							edition, Book.STATUS_SELL, condition, newPrice, className, department);
+					bookHelper.addBook(newBook);
+					
+					// Retrieve list of books this user has for sale and save it in session
+					ArrayList<Book> bookList = bookHelper.getBooksBySeller(userId);
+					session.setAttribute("bookList", bookList);
 
+					// Set redirect URL
+					url = "/listings.jsp";
+				}
+			}
 			bookHelper.closeConnection();
 
+			session.setAttribute("addBookError", addBookError);
 			// Redirect user and forward request/response
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 			dispatcher.forward(request, response);

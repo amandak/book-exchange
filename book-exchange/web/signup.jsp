@@ -19,8 +19,8 @@
         	First Name: <br><input class="newAccountBox" type="text" name="fname" /><br>
         	<br>Last Name: <br><input class="newAccountBox" type="text" name="lname" /><br>
             <br>Username:<br><input class="newAccountBox" type="text" name="newusername" /><br>
-            <br>UGA email:<br><input class="newAccountBox" type="text" name="email" /><br>
-            <br>Re-enter e-mail:<br><input class="newAccountBox" type="text" name="email2" /><br>
+            <br>UGA email:<br><input class="newAccountBox" type="email" name="email" /><br>
+            <br>Re-enter e-mail:<br><input class="newAccountBox" type="email" name="email2" /><br>
             <br>Password:<br><input class="newAccountBox" type="password" name="newpassword" /><br>
             <br>Re-enter password:<br><input class="newAccountBox" type="password" name="newpassword2" /><br>
             <br><input class="submitButton" type="submit" value="submit" />

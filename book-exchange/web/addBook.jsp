@@ -311,7 +311,7 @@
 			<td><input type="text" name="edition" /></td></tr>
 			<tr><td>Condition:</td>
 			<td><select class="dropdownMenu" name="condition">
-				<option selected="selected" value="-1">Select a Book Condition</option>
+				<option selected="selected" value="">Select a Book Condition</option>
 				<option value="New">New</option>
 				<option value="Like New">Like New</option>
 				<option value="Very Good">Very Good</option>
@@ -319,7 +319,7 @@
 				<option value="Acceptable">Acceptable</option>
 				</select>
 			</td></tr>
-			<tr><td>Price:</td>
+			<tr><td>Price*:</td>
 			<td><input type="text" name="price" /></td></tr>
 			<tr><td>Description:</td>
 			<td><textarea name="description" rows="3" cols="50"></textarea></td></tr>
