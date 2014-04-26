@@ -39,11 +39,11 @@ public class coursePicker extends HttpServlet {
 		ArrayList<String> stringList = helper.getClassByDepartment(request.getParameter("department"));
 		helper.closeConnection();
 		PrintWriter out = response.getWriter();
-		out.write("<select name=\"className\">");
+		out.write("<select class=\"dropdownMenu\" name=\"className\">");
 		out.write("<option value=\"-1\">Select a Class</option>");
 		if (stringList.size() == 0)
 		{
-			out.write("<option value=\"-1\"No Class Available</option>");
+			out.write("<option value=\"-1\">No Class Available</option>");
 		}
 		else {
 			out.write("<option value=\"all\">All Classes</option>");

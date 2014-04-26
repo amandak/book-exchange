@@ -345,11 +345,15 @@
 				<option value="ZULU">ZULU - Zulu</option>
 
 			</select>
+			<br>
+			<br>
 			<div id="txtHint">
-				<select name="className"><option value="">Select a
+				<select class="dropdownMenu" name="className"><option value="">Select a
 						Class</option></select>
+				
 			</div>
 			<input class="searchButton" type="submit" value="Search" />
+			
 		</form>
 	</div>
 	<p style="color: red">
