@@ -12,12 +12,7 @@
 <body>
 	<div class="header">
 		<a class="homeButton" href="index.jsp">Home</a>
-	</div>
-	<div class="siteTitlePage">The UGA Book Exchange</div>
-	<div class="backPanel">
-		<div class="panelContent">
-			<h3>Add a Book For Sell</h3>
-			<c:if test="${userId != null}">
+		<c:if test="${userId != null}">
 				<form action="login" method="post">
 					<input type="submit" name="logout" value="Log Out">
 				</form>
@@ -27,6 +22,12 @@
 						type="submit" name="account" value="My Account">
 				</form>
 			</c:if>
+	</div>
+	<div class="siteTitlePage">The UGA Book Exchange</div>
+	<div class="backPanel">
+		<div class="panelContent">
+			<h3>Add a Book For Sell</h3>
+			
 			<form method="post" action="bookQuery">
 				<table>
 					<tr>

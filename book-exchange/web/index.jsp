@@ -36,7 +36,7 @@
 <body>
 
 	<c:if test="${userId == null}">
-		<div id="loginPanel">
+		<div id="loginPanel" align="right">
 			<a class="links" href="login.jsp">Login&nbsp</a> <a class="links"
 				href="signup.jsp">Signup</a>
 		</div>
@@ -55,7 +55,7 @@
 	</c:if>
 	<div id="titleDiv">
 		<p id="siteTitle">
-			The UGA</br>Book Exchange
+			The UGA<br>Book Exchange
 		</p>
 		<p id="slogan">trade a book, save a tree</p>
 	</div>
@@ -66,7 +66,7 @@
 				name="bookname" /> <input class="searchButton" type="submit"
 				value="Search" />
 		</form>
-		</br>
+		<br>
 		<form action="bookQuery" method="get">
 			<select class="dropdownMenu" name="department"
 				onchange="showCourse(this.value)">
