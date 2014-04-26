@@ -11,7 +11,7 @@
 	</head>
 	<body>
 
-			<div class="header"><a class="homeButton" href="index.html">Home</a>
+			<div class="header"><a class="homeButton" href="index.jsp">Home</a>
 				<c:if test="${userId == null}">
 					<div class="textAlignRight">
 						<a class="links" href="login.jsp">Login&nbsp</a> 
