@@ -36,17 +36,17 @@
 <body>
 
 	<c:if test="${userId == null}">
-		<div id="loginPanel">
-			<a class="links" href="login.jsp">Login&nbsp</a> <a class="links"
-				href="signup.jsp">Signup</a>
+		<div id="loginPanel" align="right">
+			<a class="links" href="login.jsp" style="font-size:150%;"><b>Login&nbsp</b></a> <a class="links"
+				href="signup.jsp" style="font-size:150%;"><b>Signup</b></a>
 		</div>
 	</c:if>
 	<c:if test="${userId != null}">
 		<div id="loginPanel">
-			<form action="login" method="post">
+			<form action="login" method="post" class="logoutPos">
 				<input type="submit" name="logout" value="Log Out">
 			</form>
-			<form action="login" method="post">
+			<form action="login" method="post" class="myAccountPos">
 				<input type="hidden" name="userid" value="${userId}"> <input
 					type="hidden" name="userView" value="userView"> <input
 					type="submit" name="account" value="My Account">
@@ -55,7 +55,7 @@
 	</c:if>
 	<div id="titleDiv">
 		<p id="siteTitle">
-			The UGA</br>Book Exchange
+			The UGA<br>Book Exchange
 		</p>
 		<p id="slogan">trade a book, save a tree</p>
 	</div>
@@ -66,7 +66,7 @@
 				name="bookname" /> <input class="searchButton" type="submit"
 				value="Search" />
 		</form>
-		</br>
+		<br>
 		<form action="bookQuery" method="get">
 			<select class="dropdownMenu" name="department"
 				onchange="showCourse(this.value)">
@@ -345,11 +345,15 @@
 				<option value="ZULU">ZULU - Zulu</option>
 
 			</select>
+			<br>
+			<br>
 			<div id="txtHint">
-				<select name="className"><option value="">Select a
+				<select class="dropdownMenu" name="className"><option value="">Select a
 						Class</option></select>
+				
 			</div>
 			<input class="searchButton" type="submit" value="Search" />
+			
 		</form>
 	</div>
 	<p style="color: red">

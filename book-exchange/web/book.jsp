@@ -13,19 +13,19 @@
 
 			<div class="header"><a class="homeButton" href="index.jsp">Home</a>
 				<c:if test="${userId == null}">
-					<div class="textAlignRight">
+					<div class="homeButton">
 						<a class="links" href="login.jsp">Login&nbsp</a> 
 						<a class="links" href="signup.jsp">Signup</a>
 					</div>
 				</c:if>
 					
 				<c:if test="${userId != null}">
-					<div class="textAlignRight">
-						<form action="login" method="post">
+					<div class="homeButton" align="right">
+						<form action="login" method="post" class="logoutPos">
 						<input type="submit" name="logout" value="Log Out">
 						</form>
 		
-						<form action="login" method="post">
+						<form action="login" method="post" class="myAccountPos">
 						<input type="hidden" name="userid" value="${userId}">
 						<input type="hidden" name="userView" value="userView">
 						<input type="submit" name="account" value="My Account">
@@ -86,7 +86,7 @@
 	<c:if test="${userId == book.uid}">
 		<form action="bookQuery" method="post">
 			<input type="hidden" name="bid" value="${book.bookId}"> 
-			<input class="submitButton" type="submit" name="removeBook" value="Remove Listing">
+			<input class="submitButton" type="submit" name="removeBook" value="Remove Listing" style="width:210px;">
 		</form>
 	</c:if>
 	 

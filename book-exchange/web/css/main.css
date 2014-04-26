@@ -501,5 +501,21 @@ td{
 	padding-right: 30px;
 }
 
+.logoutPos
+{
+
+position:absolute;
+right:10px;
+top:8px;
+}
+
+.myAccountPos
+{
+
+position:absolute;
+right:100px;
+top:8px;
+
+}
 
 
