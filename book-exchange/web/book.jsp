@@ -11,24 +11,27 @@
 	</head>
 	<body>
 
-			<div class="header"><a class="homeButton" href="index.jsp">Home</a>
+			<div class="header">
+				<a class="homeButton" href="index.html">Home</a>
 				<c:if test="${userId == null}">
-					<div class="homeButton">
-						<a class="links" href="login.jsp">Login&nbsp</a> 
-						<a class="links" href="signup.jsp">Signup</a>
+					<div align="right">
+						<div class="textAlignRight">
+						<a class="smallButton2" href="login.jsp">Login</a>&nbsp&nbsp&nbsp&nbsp 
+						<a class="smallButton2" href="signup.jsp">Signup</a>
+						</div>
 					</div>
 				</c:if>
 					
 				<c:if test="${userId != null}">
 					<div align="right">
 						<form action="login" method="post" class="textAlignRight">
-						<input type="submit" name="logout" value="Log Out">
+						<input class="smallButton2" type="submit" name="logout" value="Log Out">
 						</form>
 		
 						<form action="login" method="post" class="textAlignRight">
 						<input type="hidden" name="userid" value="${userId}">
 						<input type="hidden" name="userView" value="userView">
-						<input type="submit" name="account" value="My Account">
+						<input class="smallButton2" type="submit" name="account" value="My Account">
 						</form>
 					</div>
 				</c:if>		
