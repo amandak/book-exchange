@@ -235,7 +235,7 @@ public class bookQueryController extends HttpServlet {
 					addBookError = "Please enter a book title.";
 					url = "/addBook.jsp";
 				}
-				else if (department.isEmpty())
+				else if (department.isEmpty() || department.equals("-1"))
 				{
 					addBookError = "Please select a department.";
 					url = "/addBook.jsp";
