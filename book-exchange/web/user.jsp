@@ -29,9 +29,9 @@
 			<div>
 				<div class="dashedBorder">
 					<p class="dashedBorderContent">
-							Name: ${user.fname} ${user.lname}
-						<br>Username: ${user.username}
-						<br>Email: ${user.email}
+							Name: ${firstName} ${lastName}
+						<br>Username: ${userName}
+						<br>Email: ${userEmail}
 						<br>
 					</p>	
 					<br>
