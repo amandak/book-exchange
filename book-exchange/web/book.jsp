@@ -89,7 +89,7 @@
 	<c:if test="${userId == book.uid}">
 		<form action="bookQuery" method="post">
 			<input type="hidden" name="bid" value="${book.bookId}"> 
-			<input class="submitButton" type="submit" name="removeBook" value="Remove Listing" style="width:210px;">
+			<input class="smallButton" type="submit" name="removeBook" value="Remove Listing">
 		</form>
 	</c:if>
 	 
