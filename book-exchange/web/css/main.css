@@ -220,6 +220,24 @@ h3{
 	margin-right: 30px;
 }
 
+/* Border for divs on user page*/
+.dashedBorder{
+	width: 700px;
+	margin: 0 auto;
+	min-height: 200px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	
+	border-style: dashed;
+	border-color: #5A872D;
+}
+
+.dashedBorderContent{
+	padding-right: 25px;
+	padding-left: 25px;
+	font-size: 20px;
+}
+
 
 /* Button styling adapted from tutorial: http://cssdemos.tupence.co.uk/button-styling.htm*/
 /*** Class used for logout button in nav bar***/
@@ -251,6 +269,39 @@ h3{
 	margin-bottom: 5px;
 }
 .smallButton:hover, .smallButton:focus{
+	background-color :#F8F8F8 ; /*make the background a little darker*/
+	/*reduce the drop shadow size to give a pushed button effect*/
+	-webkit-box-shadow: 0 0 1px rgba(0,0,0, .75);
+	-moz-box-shadow: 0 0 1px rgba(0,0,0, .75);
+	box-shadow: 0 0 1px rgba(0,0,0, .75);
+}
+
+/** Used for adjacent "My Account" and "Logout" buttons in nav bar **/
+.smallButton2{
+	/* position button */
+	margin-top: -1px;
+
+	cursor:pointer; /*forces the cursor to change to a hand when the button is hovered*/
+	padding:2px 15px; /*add some padding to the inside of the button*/
+	background: #C0C0C0; /*the colour of the button*/
+	border:1px solid #989898 ; /*required or the default border for the browser will appear*/
+	/*give the button curved corners, alter the size as required*/
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	/*give the button a drop shadow*/
+	-webkit-box-shadow: 0 0 4px rgba(0,0,0, .75);
+	-moz-box-shadow: 0 0 4px rgba(0,0,0, .75);
+	box-shadow: 0 0 4px rgba(0,0,0, .75);
+	/*style the text*/
+	font-weight: bold;
+	color: #696969;
+	font-family: Georgia, sans-serif;
+	font-size: 1em;
+
+	margin-bottom: 5px;
+}
+.smallButton2:hover, .smallButton2:focus{
 	background-color :#F8F8F8 ; /*make the background a little darker*/
 	/*reduce the drop shadow size to give a pushed button effect*/
 	-webkit-box-shadow: 0 0 1px rgba(0,0,0, .75);
@@ -387,6 +438,17 @@ h3{
 	color: #48372F;     
 }
 
+.smallerDropdownMenu{
+	border: 0 !important;.  /*Removes border*/
+    -webkit-appearance: none;  /*Removes default chrome and safari style*/
+    -moz-appearance: none;
+    width: 280px;
+	height: 35px;
+	font-family: Georgia, sans-serif;
+	font-size: 16px;
+	color: #48372F; 
+}
+
 #treeImg{
 	position: absolute;
 	bottom: 0;
@@ -467,6 +529,7 @@ h3{
 	margin-left: 37px;
 }
 
+/* input field also used for addBook page*/
 .newAccountBox{
 	width: 275px;
 	height: 25px;

@@ -2,32 +2,34 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" href="css/main.css" type="text/css" />
+	<link rel="stylesheet" href="css/main.css" type="text/css" />
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Add a Book</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Sell a Book</title>
 </head>
+
 <body>
 	<div class="header">
 		<a class="homeButton" href="index.jsp">Home</a>
 		<c:if test="${userId != null}">
 				<form action="login" method="post" class="textAlignRight">
-					<input type="submit" name="logout" value="Log Out">
+					<input class="smallButton2" type="submit" name="logout" value="Log Out">
 				</form>
 				<form action="login" method="post" class="textAlignRight"> 
-					<input type="hidden" name="userid" value="${userId}"> <input
-						type="hidden" name="userView" value="userView"> <input
-						type="submit" name="account" value="My Account">
+					<input type="hidden" name="userid" value="${userId}"> 
+					<input type="hidden" name="userView" value="userView">
+					<input class="smallButton2" type="submit" name="account" value="My Account">
 				</form>
 			</c:if>
 	</div>
 	<div class="siteTitlePage">The UGA Book Exchange</div>
 	<div class="backPanel">
 		<div class="panelContent">
-			<h3>Add a Book For Sell</h3>
-			
+			<h2>Sell a Book</h2>
+			<p class="errorMsg">${addBookError}</p>
 			<form method="post" action="bookQuery">
 				<table>
 					<tr>
@@ -44,7 +46,7 @@
 					</tr>
 					<tr>
 						<td>Department*:</td>
-						<td><select class="dropdownMenu" name="department">
+						<td><select class="smallerDropdownMenu" name="department">
 								<option selected="selected" value="-1">Browse by
 									department</option>
 
@@ -348,8 +350,8 @@
 						<td><input class="newAccountBox" type="text" name="edition" /></td>
 					</tr>
 					<tr>
-						<td>Condition:</td>
-						<td><select class="dropdownMenu" name="condition">
+						<td>Condition*:</td>
+						<td><select class="smallerDropdownMenu" name="condition">
 								<option selected="selected" value="">Select a Book
 									Condition</option>
 								<option value="New">New</option>
@@ -373,9 +375,9 @@
 							<input class="submitButton" type="submit" value="submit" /></td>
 					</tr>
 				</table>
+				<p class="errorMsg">${addBookError}</p>
 			</form>
-			<br><b> * denotes a required field</b> <br> 
-			<p class="errorMsg">${addBookError}</p>
+			<br><b> * required field</b> <br> 
 		</div>
 	</div>
 </body>
