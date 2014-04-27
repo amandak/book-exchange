@@ -375,7 +375,7 @@
 							<input class="submitButton" type="submit" value="submit" /></td>
 					</tr>
 				</table>
-				<p class="errorMsg">${addBookError}</p>
+				
 			</form>
 			<br><b> * required field</b> <br> 
 		</div>
