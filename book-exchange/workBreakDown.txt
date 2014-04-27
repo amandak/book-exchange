@@ -1,0 +1,34 @@
+
+Work BreakDown
+
+Pinal Patel
+- Book.java: All Method implementations
+- User.java: All Method header and its implementations
+- BookTest.java
+- UserTest.java
+- BookHelper.java: partial implementations of all methods
+- UserHelper.java: all implementation of all methods
+- courserPicker.java
+- bookQueryController.java: implementation of adding a book to the database
+- loginController.java: implementation of user login only
+- web.xml
+- build.xml
+
+Amanda Palusky
+- BookHelper.java: partial implemenation of all methods
+- BookHelperTest.java
+- all jsp page design and formatting(addBook.jsp, book.jsp, index.jsp, listings.jsp, login.jsp, signup.jsp, user.jsp)
+
+
+Vince Capparell
+- Book.java: All method header
+- UserHelper.java: All method headers
+- UserHelperTest.java
+- bookQueryController.java: implemented everything except adding a book to the database
+- loginController.java: implemented everything except user login
+- signupController.java: all methods implementations
+
+
+Stephen Patton
+- Setup database and created tables
+- Created all jsp pages
