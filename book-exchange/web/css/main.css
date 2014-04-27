@@ -508,7 +508,7 @@ h3{
 
 #newAccountCenterDiv{
 	width: 355px;
-	height: 610px;
+	min-height: 610px;
 	background: #F0F0F0;
 	/*Round edges of box*/
 	border-radius:25px;	
@@ -521,6 +521,7 @@ h3{
 	/*Center Div*/
 	margin: 0 auto;
 	margin-top: 3%;
+	padding-bottom: 5px;
 }
 
 #newAccountPanel{
