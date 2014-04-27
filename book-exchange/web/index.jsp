@@ -8,6 +8,7 @@
 <head>
 
 <script>
+	<!--source: http://www.w3schools.com/ajax/ajax_database.asp -->
 	function showCourse(str) {
 		var xmlhttp;
 		if (str == "") {
