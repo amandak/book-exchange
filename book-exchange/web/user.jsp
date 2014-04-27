@@ -36,7 +36,7 @@
 					</p>	
 					<br>
 					<div class="dashedBorderContent">
-						<form action="addBook.html" method="post">
+						<form action="addBook.jsp" method="post">
 							<input class="smallButton" type="submit" value="Sell a Book">
 						</form>
 						<br>
