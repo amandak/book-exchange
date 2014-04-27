@@ -245,6 +245,11 @@ public class bookQueryController extends HttpServlet {
 					addBookError = "Please enter a class name for this book.";
 					url = "/addBook.jsp";
 				}
+				else if (condition.isEmpty())
+				{
+				    addBookError = "Please select a condition for this book.";
+				    url = "/addBook.jsp";
+				}
 				else if (price.isEmpty())
 				{
 					addBookError = "Please enter selling price for this book.";
