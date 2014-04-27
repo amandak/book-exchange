@@ -25,21 +25,45 @@
 		<div class="panelContent">
 
 			
-
-			<div id="menu" style="float: top;">
-				<form action="bookQuery" method="get">
-					<input type="hidden" name="listBooks" value="listBooks"> <input
-						type="hidden" name="userId" value="${userId}"> <input
-						type="submit" value="My Books">
-				</form>
-				<form action="addBook.jsp" method="post">
-					<input type="submit" value="Sell A Book">
-				</form>
-				<form action="bookQuery" method="post">
-					<input type="hidden" name="listBooks" value="listBooks"> <input
-						type="hidden" name="userId" value="${userId}"> <input
-						type="submit" value="Remove A Book">
-				</form>
+			<br><br>
+			<div>
+				<div class="dashedBorder">
+					<h2 class="centerText">My Account Information</h2>	
+					<p class="dashedBorderContent">
+							Name: ${user.fname} ${user.lname}
+						<br>Username: ${user.username}
+						<br>Email: ${user.email}
+						<br>
+					</p>				
+				</div>
+				<br><br>
+			
+				<div id="menu" class="dashedBorder">
+					<h2 class="centerText">Books I'm Selling</h2>
+					<div class="dashedBorderContent">
+						<form action="addBook.html" method="post">
+							<input class="smallButton" type="submit" value="Sell A Book">
+						</form>
+						<form action="bookQuery" method="get">
+							<input type="hidden" name="listBooks" value="listBooks"> 
+							<input type="hidden" name="userId" value="${userId}"> 
+							<input class="smallButton" type="submit" value="My Books">
+						</form>
+					</div>
+				</div>
+				
+				<br><br>
+				<div id="menu" class="dashedBorder">
+					<h2 class="centerText">Remove a Listing</h2>
+					<div class="dashedBorderContent">
+						<form action="bookQuery" method="post">
+							<input type="hidden" name="listBooks" value="listBooks"> 
+							<input type="hidden" name="userId" value="${userId}"> 
+							<input class="smallButton" type="submit" value="Remove Book">
+						</form>
+					</div>
+				</div>
+				<br><br>
 
 			</div>
 		</div>

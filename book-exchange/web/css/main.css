@@ -279,7 +279,7 @@ h3{
 /** Used for adjacent "My Account" and "Logout" buttons in nav bar **/
 .smallButton2{
 	/* position button */
-	margin-top: -1px;
+	margin-top: -2px;
 
 	cursor:pointer; /*forces the cursor to change to a hand when the button is hovered*/
 	padding:2px 15px; /*add some padding to the inside of the button*/
