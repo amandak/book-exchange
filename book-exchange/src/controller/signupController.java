@@ -99,7 +99,10 @@ public class signupController extends HttpServlet {
 					// Save user in session
 					session.setAttribute("userId", newUserInfo.getUserId());
 					session.setAttribute("role", newUserInfo.getRole());
-					
+					session.setAttribute("firstName", newUserInfo.getFirstName());
+					session.setAttribute("lastName", newUserInfo.getLastName());
+					session.setAttribute("userEmail", newUserInfo.getEmailAddress());
+					session.setAttribute("userName", newUserInfo.getUserName());
 					
 					// Redirect to main user page
 					url = "/user.jsp";
