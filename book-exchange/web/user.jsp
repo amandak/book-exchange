@@ -15,7 +15,7 @@
 		<a class="homeButton" href="index.jsp">Home</a>
 		<div align="right">
 
-				<form action="login" method="post" class="logoutPos">
+				<form action="login" method="post" class="textAlignRight">
 					<input type="submit" name="logout" value="Log Out">
 				</form>
 

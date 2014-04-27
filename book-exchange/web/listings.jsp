@@ -15,18 +15,18 @@
 		<a class="homeButton" href="index.jsp">Home</a>
 
 		<c:if test="${userId == null}">
-			<a class="homeButton" href="login.jsp">Login&nbsp</a>
-			<a class="homeButton" href="signup.jsp">Signup</a>
+			<a class="textAlignRight" href="login.jsp">Login&nbsp</a>
+			<a class="textAlignRight" href="signup.jsp">Signup</a>
 		</c:if>
 
 
 		<c:if test="${userId != null}">
 			<div class="styleButton" align="right">
-				<form action="login" method="post" class="logoutPos">
+				<form action="login" method="post" class="textAlignRight">
 					<input type="submit" name="logout" value="Log Out">
 				</form>
 
-				<form action="login" method="post" class="myAccountPos">
+				<form action="login" method="post" class="textAlignRight">
 					<input type="hidden" name="userid" value="${userId}"> <input
 						type="hidden" name="userView" value="userView"> <input
 						type="submit" name="account" value="My Account">
