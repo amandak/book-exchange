@@ -12,7 +12,7 @@
 	<body>
 	
 			<div class="header">
-				<a class="homeButton" href="index.html">Home</a>
+				<a class="homeButton" href="index.jsp">Home</a>
 				<c:if test="${userId == null}">
 					<div align="right">
 						<div class="textAlignRight">
