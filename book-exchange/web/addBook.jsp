@@ -14,6 +14,14 @@
 <body>
 	<div class="header">
 		<a class="homeButton" href="index.jsp">Home</a>
+		   <c:if test="${userId == null}">
+                       <div align="right">
+ 		       	    <div class="textAlignRight">
+ 			    	 <a class="smallButton2" href="login.jsp">Login</a>&nbsp&nbsp&nbsp&nbsp
+				 <a class="smallButton2" href="signup.jsp">Signup</a>	
+				 </div>
+				 </div>
+		</c:if>
 		<c:if test="${userId != null}">
 				<form action="login" method="post" class="textAlignRight">
 					<input class="smallButton2" type="submit" name="logout" value="Log Out">
@@ -23,7 +31,7 @@
 					<input type="hidden" name="userView" value="userView">
 					<input class="smallButton2" type="submit" name="account" value="My Account">
 				</form>
-			</c:if>
+          	</c:if>
 	</div>
 	<div class="siteTitlePage">The UGA Book Exchange</div>
 	<div class="backPanel">
