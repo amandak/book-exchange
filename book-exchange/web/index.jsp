@@ -366,7 +366,7 @@
 			</div>-->				
 			<br><br>
 			
-			&nbsp<a class="smallButton2" href="sell.jsp">sell a book</a>
+			&nbsp<a class="smallButton2" href="addBook.jsp">sell a book</a>
 			<br>
 			<p style="color: #B22222"> <br><b>${searchError}</b> </p>
 
