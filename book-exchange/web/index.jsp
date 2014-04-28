@@ -8,7 +8,7 @@
 <head>
 
 <script>
-	<!--source: http://www.w3schools.com/ajax/ajax_database.asp -->
+	/* source: http://www.w3schools.com/ajax/ajax_database.asp */
 	function showCourse(str) {
 		var xmlhttp;
 		if (str == "") {
@@ -37,20 +37,20 @@
 <body>
 
 	<c:if test="${userId == null}">
-		<div id="loginPanel" align="right">
-			<a class="links" href="login.jsp" style="font-size:150%;"><b>Login&nbsp</b></a> <a class="links"
-				href="signup.jsp" style="font-size:150%;"><b>Signup</b></a>
+		<div id="loginHeader" align="right">
+			<a class="links" href="login.jsp">Login</a> &nbsp&nbsp&nbsp&nbsp&nbsp
+			<a class="links" href="signup.jsp">Signup</a>
 		</div>
 	</c:if>
 	<c:if test="${userId != null}">
-		<div id="loginPanel">
-			<form action="login" method="post" class="textAlignRight">
-				<input type="submit" name="logout" value="Log Out">
+		<div>
+			<form action="login" method="post">
+				<input class= "AcctLogoutButton" id="logoutPosition" type="submit" name="logout" value="Log Out">
 			</form>
-			<form action="login" method="post" class="textAlignRight">
-				<input type="hidden" name="userid" value="${userId}"> <input
-					type="hidden" name="userView" value="userView"> <input
-					type="submit" name="account" value="My Account">
+			<form action="login" method="post">
+				<input type="hidden" name="userid" value="${userId}"> 
+				<input type="hidden" name="userView" value="userView"> 
+				<input class="AcctLogoutButton" id="myAcctPosition" type="submit" name="account" value="My Account">
 			</form>
 		</div>
 	</c:if>
@@ -61,13 +61,17 @@
 		<p id="slogan">trade a book, save a tree</p>
 	</div>
 
-	<div id="searchDiv">
+	<div id="outerSearchDiv">
+		
+		<!--<div id="searchDiv1">-->
 		<form style="text-align: center" action="bookQuery" method="get">
-			<input id="searchBox" type="text" placeholder="Search for a book"
-				name="bookname" /> <input class="searchButton" type="submit"
-				value="Search" />
+			<input id="searchBox" type="text" placeholder="Search for a book" name="bookname" /> 
+			<input class="searchButton" type="submit" value="Search" />
 		</form>
-		<br>
+		
+		<br><br><br>
+		
+		<!--<div id="searchDiv2">-->
 		<form action="bookQuery" method="get">
 			<select class="dropdownMenu" name="department"
 				onchange="showCourse(this.value)">
@@ -346,25 +350,31 @@
 				<option value="ZULU">ZULU - Zulu</option>
 
 			</select>
-			<br>
-			<br>
-			<div id="txtHint">
-				<select class="dropdownMenu" name="className"><option value="">Select a
-						Class</option></select>
-				
-			</div>
+		
 			<input class="searchButton" type="submit" value="Search" />
+			<br><br>
+			<div id="txtHint">
+				<select class="dropdownMenu" name="className"><option value="">Select a Class</option></select>
+			</div>
+				
+			<!--</div>-->
 			
 		</form>
-	</div>
-	<p style="color: red">
-		<b>${searchError}</b>
-	</p>
+			
+			<!--<div id="moveSellTrade">
+				<a class="sellTradeButtons" id="rightSellTrade" href="trade.jsp">trade a book</a>
+			</div>-->				
+			<br><br>
+			
+			&nbsp<a class="smallButton2" href="sell.jsp">sell a book</a>
+			<br>
+			<p style="color: #B22222"> <br><b>${searchError}</b> </p>
 
-	<!--<div id="moveSellTrade">
-<a class="sellTradeButtons" id="leftSellTrade" href="sell.jsp">sell a book</a>
-<a class="sellTradeButtons" id="rightSellTrade" href="trade.jsp">trade a book</a>
-</div>-->
+
+	</div>
+	
+	
+
 
 
 	<div id="treeImg">
