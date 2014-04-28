@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"
+	isELIgnored="false"
+%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 	<link rel="stylesheet" href="css/main.css" type="text/css" />
@@ -51,6 +54,14 @@
 							<input type="hidden" name="userId" value="${userId}"> 
 							<input class="smallButton" type="submit" value="Remove a Book">
 						</form>
+						<c:if test="${role == 'admin'}">
+							<br>
+							<form action="manager" method="post">
+								<input type="hidden" name="userId" value="${userId}"> 
+								<input type="hidden" name="role" value="${role}"> 
+								<input class="smallButton" type="submit" value="Manage Users">
+							</form>
+						</c:if>
 					</div>
 						
 					
