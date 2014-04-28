@@ -44,4 +44,14 @@
     <servlet-name>bookQueryController</servlet-name>
     <url-pattern>/bookQuery</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>managerController</display-name>
+    <servlet-name>managerController</servlet-name>
+    <servlet-class>controller.managerController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>managerController</servlet-name>
+    <url-pattern>/manager</url-pattern>
+  </servlet-mapping>
 </web-app>
