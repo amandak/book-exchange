@@ -7,7 +7,7 @@ import model.*;
 /**
  * Test class verifies that UserHelper methods accurately modify U
 sers table in database
- * @author Amanda Palusky
+ * @author Vince Caparell
  */
 public class UserHelperTest extends TestCase {
 

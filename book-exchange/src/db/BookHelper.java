@@ -13,7 +13,6 @@ import java.util.ArrayList;
  * This class is a Data Access Object.  It's purpose is to handle                                               
  * querying/updating the application database for anything User                                                 
  * related.                                                                                                     
- * @author Team 2 Software, LLC
  * @author Pinal Patel(70% Work Done), Amanda Palusky(30% Work Done)
  */
 public class BookHelper {

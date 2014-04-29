@@ -10,7 +10,7 @@ import junit.framework.TestCase;
 
 /**
  * Test class verifies that BookHelper methods accurately modify Book table in database
- @author Vince Caparell
+ @author Amanda Palusky
  */
 
 public class BookHelperTest extends TestCase {
