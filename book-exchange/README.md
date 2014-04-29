@@ -10,5 +10,6 @@ To view the application on Tomcat6 Server, type in this browser: vmIpAddress:808
 
 To login as the admin, use this login information:
 Admin user: admin
+
 Admin pass: group2
 
