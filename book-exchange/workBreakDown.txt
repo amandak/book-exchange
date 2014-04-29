@@ -17,8 +17,9 @@ Pinal Patel
 Amanda Palusky
 - BookHelper.java: partial implemenation of all methods
 - BookHelperTest.java
-- all jsp page design and formatting(addBook.jsp, book.jsp, index.jsp, listings.jsp, login.jsp, signup.jsp, user.jsp)
-
+- all jsp page design and formatting 
+	~ addBook.jsp, book.jsp, index.jsp, listings.jsp, login.jsp, signup.jsp, user.jsp)
+	~ stylesheet: main.css
 
 Vince Capparell
 - Book.java: All method header
