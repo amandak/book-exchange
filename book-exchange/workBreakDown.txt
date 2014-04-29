@@ -37,3 +37,4 @@ Stephen Patton
 - updated user.jsp
 - added userManager.jsp
 - managerController.java
+
